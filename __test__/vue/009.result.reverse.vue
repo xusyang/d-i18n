@@ -1,0 +1,9 @@
+<template>
+  <layout-panel
+    :[name]="'123'"
+    :age="age"
+    :title="查看详情"
+    v-loading.fullscreen="loading"
+    :element-loading-text="加载中......"
+  ></layout-panel>
+</template>

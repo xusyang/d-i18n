@@ -1,0 +1,19 @@
+const IMPORT_I18N_PATH = '@/i18n'
+const IMPORT_I18N_OBJ = 'I18N'
+const JS_I18N_FUNC = '$fanyi'
+const JS_I18N = `${IMPORT_I18N_OBJ}.${JS_I18N_FUNC}`
+const JS_I18N_TEMPLATE_JS = JS_I18N
+const JS_I18N_TEMPLATE_HTML = JS_I18N
+const DISABLE_FILE = '@d-i18n-disable-file'
+const DISABLE_SCOPE = '@d-i18n-disable'
+
+export default {
+  IMPORT_I18N_PATH,
+  IMPORT_I18N_OBJ,
+  JS_I18N_FUNC,
+  JS_I18N,
+  JS_I18N_TEMPLATE_JS,
+  JS_I18N_TEMPLATE_HTML,
+  DISABLE_FILE,
+  DISABLE_SCOPE
+}

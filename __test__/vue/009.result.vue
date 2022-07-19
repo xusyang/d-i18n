@@ -1,0 +1,9 @@
+<template>
+  <layout-panel
+    :[name]="'123'"
+    :age="I18N.$fanyi('age')"
+    :title="$t('查看详情')"
+    v-loading.fullscreen="loading"
+    :element-loading-text="$t('加载中......')"
+  ></layout-panel>
+</template>
