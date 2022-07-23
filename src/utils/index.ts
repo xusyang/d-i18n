@@ -42,7 +42,15 @@ export function isNeedTraslate(str: string): boolean {
  */
 export function isRawHtmlAttribute(attr: string): boolean {
   const attrs =
-    'accept,accept-charset,accesskey,action,align,allow,alt,async,autocapitalize,autocomplete,autofocus,autoplay,background,bgcolor,border,buffered,capture,challenge,charset,checked,cite,class,code,codebase,color,cols,colspan,content,contenteditable,contextmenu,controls,coords,crossorigin,data,data-*,datetime,decoding,default,defer,dir,dirname,disabled,download,draggable,enctype,for,form,formaction,formenctype,formmethod,formnovalidate,formtarget,headers,height,hidden,high,href,hreflang,http-equiv,icon,id,integrity,inputmode,ismap,itemprop,keytype,kind,label,lang,list,loop,low,max,maxlength,minlength,media,method,min,multiple,muted,name,novalidate,open,optimum,pattern,ping,placeholder,poster,preload,radiogroup,readonly,referrerpolicy,rel,required,reversed,role,rows,rowspan,sandbox,scope,selected,shape,size,sizes,slot,span,spellcheck,src,srcdoc,srclang,srcset,start,step,style,tabindex,target,translate,type,usemap,width,wrap'
+    'accept,accept-charset,accesskey,action,align,allow,alt,async,autocapitalize,autocomplete,autofocus,autoplay,background,bgcolor,border,buffered,capture,challenge,charset,checked,cite,class,code,codebase,color,cols,colspan,content,contenteditable,contextmenu,controls,coords,crossorigin,data,data-*,datetime,decoding,default,defer,dir,dirname,disabled,download,draggable,enctype,for,form,formaction,formenctype,formmethod,formnovalidate,formtarget,headers,height,hidden,high,href,hreflang,http-equiv,icon,id,integrity,inputmode,ismap,itemprop,keytype,kind,lang,list,loop,low,max,maxlength,minlength,media,method,min,multiple,muted,name,novalidate,open,optimum,pattern,ping,placeholder,poster,preload,radiogroup,readonly,referrerpolicy,rel,required,reversed,role,rows,rowspan,sandbox,scope,selected,shape,size,sizes,slot,span,spellcheck,src,srcdoc,srclang,srcset,start,step,style,tabindex,target,translate,type,usemap,width,wrap'
+
+  /**
+   * 移除的attr
+   *
+   * title
+   * label
+   *
+   */
   return attrs.split(',').includes(attr)
 }
 
