@@ -23,3 +23,60 @@ d-i18n 是基于 Typescript 实现的全场景的自动国际化平台，有别�
 1. 注释节点与原始片段不一致的问题。
 2. 支持console操作集不做翻译，直接输出原始的字符串。
 3. Html Attribute属性不做翻译，直接输出原始的字符串。
+
+
+## bug
+1. 反向解析模板字符串出现单引号。
+
+``` vue
+<template>
+  {{ I18N.$fanyi('中国') }}
+  <span>
+    {{ I18N.$fanyi('中国') }}
+  </span>
+  {{ I18N.$fanyi('你好') }}
+  <p :title="I18N.$fanyi('中国')"></p>
+</template>
+
+<!-- 解析结果 -->
+<template>
+  '中国'
+  <span> '中国' </span>
+  '你好'
+  <p :title="中国"></p>
+</template>
+```
+
+2. 反向解析指令内容，如果内容为字符串，指令修改为属性。
+
+``` vue
+<template>
+  {{ I18N.$fanyi('中国') }}
+  <span>
+    {{ I18N.$fanyi('中国人') }}
+  </span>
+  {{ I18N.$fanyi('你好') }}
+  <p :title="I18N.$fanyi('中国')"></p>
+</template>
+
+<!-- 解析结果 -->
+<template>
+  中国
+  <span> 中国人 </span>
+  你好
+  <p :title="中国"></p>
+</template>
+
+```
+
+3. 解析表达式过程中，语法拼接出现错误
+
+``` vue
+
+<template>
+  <p :label="`111${country + province + city}2222`"></p>
+</template>
+
+
+<p  :label=\"I18N.$fanyi(\"111\") + country + province + city + I18N.$fanyi(\"2222\")\"></p>
+```

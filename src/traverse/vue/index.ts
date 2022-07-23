@@ -1,4 +1,3 @@
-import { parse } from '@babel/parser'
 import {
   AttributeNode,
   DirectiveNode,
@@ -9,6 +8,7 @@ import { parseJavascript } from '../../parse'
 import { traverseJavascript } from '../../traverse'
 import { NodeTypes, TraverseOptions } from '../../types'
 import { isRawHtmlAttribute, isStringLiteral } from '../../utils'
+import prettier from 'prettier'
 
 function createI18nTextNode(content: string, options: TraverseOptions) {
   options = Object.assign({}, options, {
@@ -20,12 +20,27 @@ function createI18nTextNode(content: string, options: TraverseOptions) {
    * suggestion:
    * https://github.com/babel/babel/discussions/14789
    */
-  const ast = parseJavascript('(' + content.trim() + ')')
+
+  let ast
+  if (content.trim().indexOf('{') === 0) {
+    ast = parseJavascript(content.trim())
+  } else {
+    ast = parseJavascript('(' + content.trim() + ')')
+  }
 
   traverseJavascript(ast, options)
 
-  // TODO babel 生成代码，如何取消后面的分号
-  return generateJavascript(ast, options).replace(';', '')
+  return prettier.format(generateJavascript(ast, options), {
+    printWidth: 80,
+    tabWidth: 2,
+    useTabs: false,
+    semi: false,
+    singleQuote: true,
+    trailingComma: 'none',
+    bracketSpacing: true,
+    jsxBracketSameLine: false,
+    parser: 'babel'
+  })
 }
 
 function createI18nDirectiveNode(
@@ -35,7 +50,6 @@ function createI18nDirectiveNode(
   bindIsStatic: boolean = true
 ) {
   const node = createI18nTextNode(content, options)
-
   bind = bindIsStatic ? bind : `[${bind}]`
   if (isStringLiteral(node) && bindIsStatic) {
     return `${bind}=${node}`

@@ -16,7 +16,7 @@ describe('ext vue, file', async () => {
   const files = await fse
     .readdirSync(path.join(__dirname, dir))
     .filter(x => !x.includes('result'))
-  // .filter(x => x.includes('002.template-html.vue'))
+  // .filter(x => x.includes('00.vue'))
 
   for (let i = 0; i < files.length; i++) {
     const file = files[i]
