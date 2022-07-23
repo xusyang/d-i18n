@@ -1,10 +1,10 @@
 <template>
   <layout-panel
-    :[name]="'123'"
     age="age"
+    :[name]="'123'"
     :title="$t('查看详情')"
-    v-loading.fullscreen="loading"
     :element-loading-text="$t('加载中......')"
+    v-loading.fullscreen="loading"
   >
   </layout-panel>
 </template>

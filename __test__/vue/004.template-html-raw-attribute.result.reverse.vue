@@ -1,3 +1,3 @@
 <template>
-  <p :title="中国"></p>
+  <p title="中国"></p>
 </template>

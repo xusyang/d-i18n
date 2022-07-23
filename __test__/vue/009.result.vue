@@ -1,9 +1,9 @@
 <template>
   <layout-panel
-    :[name]="'123'"
     :age="I18N.$fanyi('age')"
+    :[name]="'123'"
     :title="$t('查看详情')"
-    v-loading.fullscreen="loading"
     :element-loading-text="$t('加载中......')"
+    v-loading.fullscreen="loading"
   ></layout-panel>
 </template>

@@ -1,3 +1,4 @@
+import { parse } from '@babel/parser'
 import {
   AttributeNode,
   DirectiveNode,
@@ -7,7 +8,7 @@ import { generateJavascript } from '../../generator'
 import { parseJavascript } from '../../parse'
 import { traverseJavascript } from '../../traverse'
 import { NodeTypes, TraverseOptions } from '../../types'
-import { isRawHtmlAttribute } from '../../utils'
+import { isRawHtmlAttribute, isStringLiteral } from '../../utils'
 
 function createI18nTextNode(content: string, options: TraverseOptions) {
   options = Object.assign({}, options, {
@@ -35,10 +36,9 @@ function createI18nDirectiveNode(
 ) {
   const node = createI18nTextNode(content, options)
 
-  // TODO node 如何优雅的来判断是一个 expression or static text node
   bind = bindIsStatic ? bind : `[${bind}]`
-  if (node.startsWith("'")) {
-    return `:${bind}=${node}`
+  if (isStringLiteral(node) && bindIsStatic) {
+    return `${bind}=${node}`
   } else {
     return `:${bind}="${node}"`
   }
@@ -52,7 +52,7 @@ export function generateTraverseNodeInterpolation(
   options: TraverseOptions
 ) {
   const node = createI18nTextNode(content, options)
-  if (node.startsWith("'")) {
+  if (isStringLiteral(node)) {
     return {
       type: NodeTypes.TEXT as any as number,
       loc: {
@@ -113,6 +113,7 @@ export function generateTraverseNodeProps(
       options,
       sArg.isStatic
     )
+
     directive.loc.source = node
   })
 

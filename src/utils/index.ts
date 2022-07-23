@@ -1,3 +1,4 @@
+import { parse } from '@babel/parser'
 import fs from 'fs'
 import path from 'path'
 
@@ -43,4 +44,13 @@ export function isRawHtmlAttribute(attr: string): boolean {
   const attrs =
     'accept,accept-charset,accesskey,action,align,allow,alt,async,autocapitalize,autocomplete,autofocus,autoplay,background,bgcolor,border,buffered,capture,challenge,charset,checked,cite,class,code,codebase,color,cols,colspan,content,contenteditable,contextmenu,controls,coords,crossorigin,data,data-*,datetime,decoding,default,defer,dir,dirname,disabled,download,draggable,enctype,for,form,formaction,formenctype,formmethod,formnovalidate,formtarget,headers,height,hidden,high,href,hreflang,http-equiv,icon,id,integrity,inputmode,ismap,itemprop,keytype,kind,label,lang,list,loop,low,max,maxlength,minlength,media,method,min,multiple,muted,name,novalidate,open,optimum,pattern,ping,placeholder,poster,preload,radiogroup,readonly,referrerpolicy,rel,required,reversed,role,rows,rowspan,sandbox,scope,selected,shape,size,sizes,slot,span,spellcheck,src,srcdoc,srclang,srcset,start,step,style,tabindex,target,translate,type,usemap,width,wrap'
   return attrs.split(',').includes(attr)
+}
+
+/**
+ * 判断是否是一个字符串节点
+ *
+ * TODO 如何优雅的来判断代码片段是一个 expression or static text node
+ */
+export function isStringLiteral(code: string) {
+  return parse(code).program.body.length === 0
 }
