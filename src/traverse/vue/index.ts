@@ -56,7 +56,7 @@ export function generateTraverseNodeInterpolation(
     return {
       type: NodeTypes.TEXT as any as number,
       loc: {
-        source: `${node}`
+        source: `${node.replaceAll("'", '')}`
       }
     }
   } else {
