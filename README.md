@@ -80,3 +80,5 @@ d-i18n 是基于 Typescript 实现的全场景的自动国际化平台，有别�
 
 <p  :label=\"I18N.$fanyi(\"111\") + country + province + city + I18N.$fanyi(\"2222\")\"></p>
 ```
+
+

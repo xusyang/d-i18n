@@ -7,14 +7,13 @@ import { TemplateChildNode } from '@vue/compiler-core'
 import { SFCDescriptor } from '@vue/compiler-sfc'
 import { generateJavascript } from './generator'
 import { parseJavascript } from './parse'
-import { judgeNeedTraslateNode } from './traverse/utils'
 import {
   generateTraverseNodeInterpolation,
   generateTraverseNodeProps
 } from './traverse/vue/index'
 import { isElement, isText, TraverseOptions } from './types'
 import { isInterpolation } from './types/index'
-import { isNeedTraslate } from './utils'
+import { isNeedTraslateNode, isNeedTraslateText } from './utils'
 
 const IMPORT_I18N_PATH = '@/i18n'
 const IMPORT_I18N_OBJ = 'I18N'
@@ -26,7 +25,11 @@ const DISABLE_FILE = '@d-i18n-disable-file'
 const DISABLE_SCOPE = '@d-i18n-disable'
 
 const createTemplateI18N = (text: string) => {
-  return text ? `${JS_I18N}("${text}")` : ''
+  if (isNeedTraslateText(text)) {
+    return text ? `${JS_I18N}('${text}')` : ''
+  } else {
+    return text ? `'${text}'` : ''
+  }
 }
 
 function generateVisitor() {
@@ -109,7 +112,10 @@ function generateVisitor() {
 
         if (comments.length > 0) {
           path.skip()
-        } else if (judgeNeedTraslateNode(path)) {
+        } else if (
+          isNeedTraslateNode(path) &&
+          isNeedTraslateText(path.node.value)
+        ) {
           path.replaceWith(
             t.expressionStatement(
               t.callExpression(
@@ -135,7 +141,7 @@ function generateVisitor() {
        * let str3 = fanyi.translate("姓名：%s, 地址：%s", [username, address])
        * let str4 = "姓名：" + username + " 地址：" + address
        */
-      if (judgeNeedTraslateNode(path)) {
+      if (isNeedTraslateNode(path)) {
         const hasParams = path.node.expressions.length > 0
         if (hasParams) {
           const strs: string[] = path.node.quasis.map(item => item.value.raw)
@@ -165,15 +171,17 @@ function generateVisitor() {
             )
           }
         } else {
-          path.replaceWith(
-            t.callExpression(
-              t.memberExpression(
-                t.identifier(IMPORT_I18N_OBJ),
-                t.identifier(JS_I18N_FUNC)
-              ),
-              [t.stringLiteral(path.node.quasis[0].value.raw)]
+          if (isNeedTraslateText(path.node.quasis[0].value.raw)) {
+            path.replaceWith(
+              t.callExpression(
+                t.memberExpression(
+                  t.identifier(IMPORT_I18N_OBJ),
+                  t.identifier(JS_I18N_FUNC)
+                ),
+                [t.stringLiteral(path.node.quasis[0].value.raw)]
+              )
             )
-          )
+          }
         }
         path.skip()
       }
@@ -268,7 +276,7 @@ export function generateTraverseNodeElements(
       child.props = generateTraverseNodeProps(child.props, options)
       generateTraverseNodeElements(child.children, options)
     } else if (isText(child)) {
-      if (isNeedTraslate(child.content)) {
+      if (isNeedTraslateText(child.content)) {
         // TODO 原则上应该是不需要对字符串做trim的操作
         children[index] = generateTraverseNodeInterpolation(
           '`' + child.content.trim() + '`',

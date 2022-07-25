@@ -1,4 +1,5 @@
 import { parse } from '@babel/parser'
+import type { NodePath } from '@babel/traverse'
 import fs from 'fs'
 import path from 'path'
 
@@ -30,8 +31,15 @@ export function unFilePathWithResult(filePath: string) {
   return filePath.replace(/(\.result)\.(vue|js|tsx|jsx)$/, '.$2')
 }
 
-export function isNeedTraslate(str: string): boolean {
+export function isNeedTraslateText(str: string): boolean {
   return !!(str && /[\u{4E00}-\u{9FFF}]/gmu.test(str))
+}
+
+export function isNeedTraslateNode(path: NodePath) {
+  const result = !path.findParent(x => {
+    return x.isMemberExpression() || x.isObjectProperty()
+  })
+  return result
 }
 
 /**

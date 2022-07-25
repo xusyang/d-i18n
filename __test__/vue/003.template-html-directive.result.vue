@@ -5,11 +5,7 @@
   <p :label="2 + 3"></p>
   <p :label="2"></p>
   <p :label="country + province + city"></p>
-  <p
-    :label="
-      I18N.$fanyi('111') + country + province + city + I18N.$fanyi('2222')
-    "
-  ></p>
+  <p :label="'111' + country + province + city + '2222'"></p>
   <p
     :label="{
       name: I18N.$fanyi('重庆')

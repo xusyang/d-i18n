@@ -3,11 +3,11 @@ const a =
   '111'
 /* this is block comment */
 
-const b = I18N.$fanyi('222')
+const b = '222'
 
 // this is line comment
 
-const c = I18N.$fanyi('333')
+const c = '333'
 
 // this is function comment  @d-i18n-disable
 
@@ -19,7 +19,7 @@ function add() {
 // this is arrow function comment
 
 const minus = () => {
-  const str = I18N.$fanyi('555')
+  const str = '555'
   console.log(str)
   /**
    * 1
@@ -30,6 +30,6 @@ const minus = () => {
   // this is block statement comment
 
   {
-    console.log(I18N.$fanyi('666'))
+    console.log('666')
   }
 }
