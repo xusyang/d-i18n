@@ -1,7 +1,6 @@
 <template>
   <layout-panel
-    :age=";`age`
-"
+    age="age"
     :[name]="'123'"
     :title="$t('查看详情')"
     :element-loading-text="$t('加载中......')"

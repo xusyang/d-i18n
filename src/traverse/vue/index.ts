@@ -7,7 +7,11 @@ import { generateJavascript } from '../../generator'
 import { parseJavascript } from '../../parse'
 import { traverseJavascript } from '../../traverse'
 import { NodeTypes, TraverseOptions } from '../../types'
-import { isRawHtmlAttribute, isStringLiteral } from '../../utils'
+import {
+  isRawHtmlAttribute,
+  isStringLiteral,
+  isNeedTraslateText
+} from '../../utils'
 import prettier from 'prettier'
 
 function createI18nTextNode(content: string, options: TraverseOptions) {
@@ -22,7 +26,8 @@ function createI18nTextNode(content: string, options: TraverseOptions) {
    */
 
   let ast
-  if (content.trim().indexOf('{') === 0) {
+
+  if (content.trim().indexOf('{') === 0 || content.trim().indexOf('`') === 0) {
     ast = parseJavascript(content.trim())
   } else {
     ast = parseJavascript('(' + content.trim() + ')')
@@ -30,7 +35,8 @@ function createI18nTextNode(content: string, options: TraverseOptions) {
 
   traverseJavascript(ast, options)
 
-  return prettier.format(generateJavascript(ast, options), {
+  let code = generateJavascript(ast, options)
+  code = prettier.format(code, {
     printWidth: 80,
     tabWidth: 2,
     useTabs: false,
@@ -41,6 +47,7 @@ function createI18nTextNode(content: string, options: TraverseOptions) {
     jsxBracketSameLine: false,
     parser: 'babel'
   })
+  return code
 }
 
 function createI18nDirectiveNode(
@@ -50,6 +57,7 @@ function createI18nDirectiveNode(
   bindIsStatic: boolean = true
 ) {
   const node = createI18nTextNode(content, options)
+
   bind = bindIsStatic ? bind : `[${bind}]`
   if (isStringLiteral(node) && bindIsStatic) {
     return `${bind}=${node}`
@@ -106,18 +114,16 @@ export function generateTraverseNodeProps(
       !isRawHtmlAttribute((attr as any as DirectiveNode)?.arg?.content)
   ) as DirectiveNode[]
 
-  attrs.map(attr => {
-    const node = createI18nDirectiveNode(
-      // TODO 不够优雅
-      '`' + (attr.value?.content || '') + '`',
-      attr.name,
-      options
-    )
-    attr.loc.source = node
+  attrs.forEach(attr => {
+    const attrText = `'${attr.value?.content || ''}'`
+    if (isNeedTraslateText(attrText)) {
+      const node = createI18nDirectiveNode(attrText, attr.name, options)
+      attr.loc.source = node
+    }
   })
 
   // TODO directive.arg as CompoundExpressionNode 的分支为进行处理
-  directives.map(directive => {
+  directives.forEach(directive => {
     const sArg = directive.arg as SimpleExpressionNode
     const sExp = directive.exp as SimpleExpressionNode
 
