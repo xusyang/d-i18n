@@ -1,6 +1,6 @@
 import fse from 'fs-extra'
 import path from 'path'
-import { describe, expect, it } from 'vitest'
+import { describe, it } from 'vitest'
 import { di18n } from '../src'
 import { TraverseOptions } from '../src/types'
 import {
@@ -16,11 +16,11 @@ const traverseOptions: TraverseOptions = {
 }
 
 describe('ext js reverse, file', async () => {
-  const dir = './js/'
+  const dir = './examples/'
 
   const files = await fse
     .readdirSync(path.join(__dirname, dir))
-    .filter(x => x.includes('result.js'))
+    .filter(x => x.includes('index.js'))
 
   for (let i = 0; i < files.length; i++) {
     const file = files[i]

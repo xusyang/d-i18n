@@ -7,7 +7,7 @@ import { TraverseOptions } from './types'
 function mergeOptions(options: TraverseOptions) {
   return Object.assign(
     {
-      di18nMethodsNames: ['I18N.$fanyi', '$t'],
+      di18nMethodsNames: ['I18N.$fanyi', '$fanyi', '$t'],
       isTranslationScope: {
         functionParams: true
       }
@@ -18,6 +18,8 @@ function mergeOptions(options: TraverseOptions) {
 
 export function di18n(code: string, options: TraverseOptions) {
   options = mergeOptions(options)
+  options.di18nMethodsNames = options.di18nMethodsNames!.map(x => 'this.' + x)
+
   const ast = parse(code, options)
   traverse(ast, options)
   let result = generate(ast, options)
