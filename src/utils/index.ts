@@ -3,8 +3,7 @@ import type { NodePath } from '@babel/traverse'
 import fs from 'fs'
 import path from 'path'
 
-export function readFile(filePath: string, basePath?: string): Promise<string> {
-  filePath = path.join(basePath || __dirname, filePath)
+export function readFile(filePath: string): Promise<string> {
   return new Promise((resolve, reject) => {
     fs.readFile(filePath, 'utf8', (err, data) => {
       if (err) {
@@ -16,8 +15,8 @@ export function readFile(filePath: string, basePath?: string): Promise<string> {
   })
 }
 
-export function writeFile(filePath: string, result: string, basePath?: string) {
-  fs.writeFileSync(path.join(basePath || __dirname, filePath), result)
+export function writeFile(filePath: string, result: string) {
+  fs.writeFileSync(filePath, result)
 }
 
 export function filePathWithResult(

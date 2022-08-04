@@ -1,4 +1,4 @@
-import fse from 'fs-extra'
+import glob from 'glob'
 import path from 'path'
 import { describe, it } from 'vitest'
 import { di18n } from '../src'
@@ -16,22 +16,19 @@ const traverseOptions: TraverseOptions = {
 }
 
 describe('ext js reverse, file', async () => {
-  const dir = './examples/'
-
-  const files = await fse
-    .readdirSync(path.join(__dirname, dir))
-    .filter(x => x.includes('index.js'))
+  const dir = './js/**/*.js'
+  const files: string[] = await new Promise(resolve => {
+    glob(path.join(__dirname, dir), (err, files) => {
+      resolve(files.filter(x => x.includes('result.js')))
+    })
+  })
 
   for (let i = 0; i < files.length; i++) {
     const file = files[i]
     it(file, async () => {
-      const code = await readFile(dir + file, __dirname)
+      const code = await readFile(file)
       const result = di18n(code, traverseOptions)
-      await writeFile(
-        filePathWithResult(dir + file, 'reverse'),
-        result,
-        __dirname
-      )
+      await writeFile(filePathWithResult(file, 'reverse'), result)
     })
   }
 

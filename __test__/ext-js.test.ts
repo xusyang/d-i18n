@@ -1,4 +1,4 @@
-import fse from 'fs-extra'
+import glob from 'glob'
 import path from 'path'
 import { describe, expect, it } from 'vitest'
 import { di18n } from '../src'
@@ -11,18 +11,19 @@ const traverseOptions: TraverseOptions = {
 }
 
 describe('ext js, file', async () => {
-  const dir = './js/'
-
-  const files = await fse
-    .readdirSync(path.join(__dirname, dir))
-    .filter(x => !x.includes('result'))
+  const dir = './js/**/*.js'
+  const files: string[] = await new Promise(resolve => {
+    glob(path.join(__dirname, dir), (err, files) => {
+      resolve(files.filter(x => !x.includes('result')))
+    })
+  })
 
   for (let i = 0; i < files.length; i++) {
     const file = files[i]
     it(file, async () => {
-      const code = await readFile(dir + file, __dirname)
+      const code = await readFile(file)
       let result = di18n(code, traverseOptions)
-      writeFile(filePathWithResult(dir + file), result, __dirname)
+      writeFile(filePathWithResult(file), result)
       expect(result).toMatchSnapshot()
     })
   }
