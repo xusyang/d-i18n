@@ -22,6 +22,7 @@ specifiers:
   acorn: ^8.7.1
   fs-extra: ^10.1.0
   glob: ^8.0.3
+  lodash: ^4.17.21
   prettier: ^2.7.1
   typescript: ^4.7.4
   vitest: ^0.17.0
@@ -39,6 +40,7 @@ dependencies:
   '@vue/compiler-sfc': 3.2.37
   acorn: 8.7.1
   glob: 8.0.3
+  lodash: 4.17.21
   prettier: 2.7.1
   typescript: 4.7.4
 
@@ -863,6 +865,10 @@ packages:
     resolution: {integrity: sha512-lL87ytIGP2FU5PWwNDo0w3WhIo2gopIAxPg9RxDYF7m4rr5ahuZxP22xnJHIvaLTe4Z9P6uKKY2UHiwyB4pcrw==}
     engines: {node: '>=14'}
     dev: true
+
+  /lodash/4.17.21:
+    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+    dev: false
 
   /loupe/2.3.4:
     resolution: {integrity: sha512-OvKfgCC2Ndby6aSTREl5aCCPTNIzlDfQZvZxNUrBrihDhL3xcrYegTblhmEiCrg2kKQz4XsFIaemE5BF4ybSaQ==}

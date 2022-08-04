@@ -36,6 +36,7 @@
     "@vue/compiler-sfc": "^3.2.37",
     "acorn": "^8.7.1",
     "glob": "^8.0.3",
+    "lodash": "^4.17.21",
     "prettier": "^2.7.1",
     "typescript": "^4.7.4"
   }

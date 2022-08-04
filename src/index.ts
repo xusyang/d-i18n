@@ -1,4 +1,5 @@
 import prettier from 'prettier'
+import { flatten } from 'lodash'
 import { parse } from './parse'
 import { generate } from './generator'
 import { traverse } from './traverse'
@@ -18,7 +19,9 @@ function mergeOptions(options: TraverseOptions) {
 
 export function di18n(code: string, options: TraverseOptions) {
   options = mergeOptions(options)
-  options.di18nMethodsNames = options.di18nMethodsNames!.map(x => 'this.' + x)
+  options.di18nMethodsNames = flatten(
+    options.di18nMethodsNames!.map(x => ['this.' + x, x])
+  )
 
   const ast = parse(code, options)
   traverse(ast, options)
