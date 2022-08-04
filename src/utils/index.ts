@@ -1,7 +1,6 @@
 import { parse } from '@babel/parser'
 import type { NodePath } from '@babel/traverse'
 import fs from 'fs'
-import path from 'path'
 
 export function readFile(filePath: string): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -75,5 +74,9 @@ export function isRawHtmlAttribute(attr: string): boolean {
  * TODO 如何优雅的来判断代码片段是一个 expression or static text node
  */
 export function isStringLiteral(code: string) {
-  return parse(code).program.body.length === 0
+  try {
+    return parse(code).program.body.length === 0
+  } catch (error) {
+    return false
+  }
 }

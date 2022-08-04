@@ -3,16 +3,17 @@ import {
   DirectiveNode,
   SimpleExpressionNode
 } from '@vue/compiler-core'
+import prettier from 'prettier'
+import { consts } from '../../constants'
 import { generateJavascript } from '../../generator'
 import { parseJavascript } from '../../parse'
 import { traverseJavascript } from '../../traverse'
 import { NodeTypes, TraverseOptions } from '../../types'
 import {
+  isNeedTraslateText,
   isRawHtmlAttribute,
-  isStringLiteral,
-  isNeedTraslateText
+  isStringLiteral
 } from '../../utils'
-import prettier from 'prettier'
 
 function createI18nTextNode(content: string, options: TraverseOptions) {
   options = Object.assign({}, options, {
@@ -36,6 +37,7 @@ function createI18nTextNode(content: string, options: TraverseOptions) {
   traverseJavascript(ast, options)
 
   let code = generateJavascript(ast, options)
+
   code = prettier.format(code, {
     printWidth: 80,
     tabWidth: 2,
@@ -47,6 +49,9 @@ function createI18nTextNode(content: string, options: TraverseOptions) {
     jsxBracketSameLine: false,
     parser: 'babel'
   })
+
+  // FIX 特殊情况
+  code = code.replace(consts.FIX_VUE_TEMPLATE_DIRECTIVE_OBJECT, '')
   return code
 }
 
@@ -56,13 +61,16 @@ function createI18nDirectiveNode(
   options: TraverseOptions,
   bindIsStatic: boolean = true
 ) {
-  const node = createI18nTextNode(content, options)
-
-  bind = bindIsStatic ? bind : `[${bind}]`
-  if (isStringLiteral(node) && bindIsStatic) {
-    return `${bind}=${node}`
-  } else {
-    return `:${bind}="${node}"`
+  try {
+    const node = createI18nTextNode(content, options)
+    bind = bindIsStatic ? bind : `[${bind}]`
+    if (isStringLiteral(node) && bindIsStatic) {
+      return `${bind}=${node}`
+    } else {
+      return `:${bind}="${node}"`
+    }
+  } catch (error) {
+    return 'createI18nDirectiveNode is error'
   }
 }
 
@@ -115,7 +123,8 @@ export function generateTraverseNodeProps(
   ) as DirectiveNode[]
 
   attrs.forEach(attr => {
-    const attrText = `'${attr.value?.content || ''}'`
+    // const attrText = `'${attr.value?.content || ''}'`
+    const attrText = attr.value?.loc.source || ''
     if (isNeedTraslateText(attrText)) {
       const node = createI18nDirectiveNode(attrText, attr.name, options)
       attr.loc.source = node
