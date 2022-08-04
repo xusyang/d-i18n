@@ -3,16 +3,17 @@ import { default as template } from '@babel/template'
 import type { Visitor } from '@babel/traverse'
 import babelTraverse from '@babel/traverse'
 import * as t from '@babel/types'
+
 import { TemplateChildNode } from '@vue/compiler-core'
 import { SFCDescriptor } from '@vue/compiler-sfc'
+
 import { generateJavascript } from './generator'
 import { parseJavascript } from './parse'
 import {
   generateTraverseNodeInterpolation,
   generateTraverseNodeProps
 } from './traverse/vue/index'
-import { isElement, isText, TraverseOptions } from './types'
-import { isInterpolation } from './types/index'
+import { isElement, isText, isInterpolation, TraverseOptions } from './types'
 import { isNeedTraslateNode, isNeedTraslateText } from './utils'
 
 const IMPORT_I18N_PATH = '@/i18n'
@@ -60,14 +61,7 @@ function generateVisitor() {
             )
           } else if (path.node.arguments.length === 2) {
             let str = (path.node.arguments[0] as t.StringLiteral).value
-            // const params = (
-            //   path.node.arguments[1] as t.ArrayExpression
-            // ).elements.map(x => (x as t.StringLiteral).value)
-
-            // Object.keys(params).forEach((key: number | string) => {
-            //   str = str.replace(`{${key}}`, params[key as number])
-            // })
-            // path.replaceWith(t.stringLiteral(str))
+            console.log('----------------', str)
           }
         }
       }
@@ -79,11 +73,13 @@ function generateVisitor() {
       }
 
       if (state.forwordOrReverse) {
-        if (path.node.value === '') {
-          // TODO path.stop difference with path.skip
-          path.remove()
-          path.stop()
-        }
+        // 空字符串的处理
+        // t.isPatternLike(path.parent) ,  t.isExpression(path.parent) 才能 remove
+        // if (path.node.value === '') {
+        //   path.remove && path.remove()
+        //   path.stop && path.stop()
+        //   return
+        // }
 
         const isNestedFunction = path.findParent(p => {
           if (p.isCallExpression()) {
