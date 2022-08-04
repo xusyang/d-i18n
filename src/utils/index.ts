@@ -34,9 +34,17 @@ export function isNeedTraslateText(str: string): boolean {
   return !!(str && /[\u{4E00}-\u{9FFF}]/gmu.test(str))
 }
 
+/**
+ * 是否需要翻译当前节点
+ */
 export function isNeedTraslateNode(path: NodePath) {
+  /**
+   * return ture
+   *
+   * obj[`我的祖国`] key不做防疫
+   */
   const result = !path.findParent(x => {
-    return x.isMemberExpression() || x.isObjectProperty()
+    return x.isMemberExpression()
   })
   return result
 }
