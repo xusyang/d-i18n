@@ -18,7 +18,6 @@ describe('ext js, file', async () => {
     })
   })
 
-  console.log(files)
   for (let i = 0; i < files.length; i++) {
     const file = files[i]
     it(file, async () => {

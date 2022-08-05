@@ -6,9 +6,14 @@ export function parseJavascript(code: string) {
     code = `${consts.FIX_VUE_TEMPLATE_DIRECTIVE_OBJECT}${code}`
   }
 
-  return parse(code, {
-    sourceType: 'module',
-    strictMode: false,
-    plugins: ['jsx', 'typescript']
-  })
+  try {
+    return parse(code, {
+      sourceType: 'module',
+      strictMode: false,
+      plugins: ['jsx', 'typescript']
+    })
+  } catch (error) {
+    console.log('error-222', code)
+    throw error
+  }
 }

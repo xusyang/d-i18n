@@ -51,7 +51,7 @@ function generateVueSfcTemplateChildren(children: TemplateChildNode[]) {
 
 function generateVueSfcTemplateProps(props: AttributeNode[]) {
   const result = props.reduce((prev, curr) => {
-    return prev + curr.loc.source
+    return prev + ' ' + curr.loc.source
   }, ' ')
   return result
 }

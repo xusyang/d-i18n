@@ -20,17 +20,17 @@ function createI18nTextNode(content: string, options: TraverseOptions) {
     isNeedImportI18NModule: false
   })
 
-  /*
-   * if only one line string, that will parsed strict mode
-   * suggestion:
-   * https://github.com/babel/babel/discussions/14789
-   */
-
   let ast
 
+  content = content.trim().replace(/^;*/gm, '')
   if (content.trim().indexOf('{') === 0 || content.trim().indexOf('`') === 0) {
     ast = parseJavascript(content.trim())
   } else {
+    /*
+     * if only one line string, that will parsed strict mode
+     * suggestion:
+     * https://github.com/babel/babel/discussions/14789
+     */
     ast = parseJavascript('(' + content.trim() + ')')
   }
 
@@ -70,6 +70,7 @@ function createI18nDirectiveNode(
       return `:${bind}="${node}"`
     }
   } catch (error) {
+    console.log('error', content)
     return 'createI18nDirectiveNode is error'
   }
 }
