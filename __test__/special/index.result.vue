@@ -10,7 +10,7 @@
       scope.row.ZSFCRZ === '否'
     "
   >
-    重入职
+    {{ I18N.$fanyi('重入职') }}
   </el-button>
 
   <el-button
@@ -20,20 +20,26 @@
     v-if="scope.row.ZSTAT == '未签字'"
     @click="openQRCode()"
   >
-    签字
+    {{ I18N.$fanyi('签字') }}
   </el-button>
 
-  <el-select v-model="form.mould" placeholder="选择签署合同">
-    <el-option label="德勤DHR测试1" value="德勤DHR测试1"></el-option>
+  <el-select v-model="form.mould" :placeholder="I18N.$fanyi('选择签署合同')">
+    <el-option
+      :label="I18N.$fanyi('德勤DHR测试1')"
+      value="德勤DHR测试1"
+    ></el-option>
   </el-select>
 
-  <!-- 问题用例1 -->
   <el-form-item>
-    <paSelectBank :inattrs="{ BANKL: 'KEY', BANKA: 'VALUE' }"></paSelectBank>
+    <paSelectBank
+      :inattrs="{
+        BANKL: 'KEY',
+        BANKA: 'VALUE'
+      }"
+    ></paSelectBank>
   </el-form-item>
 
-  <!-- 问题用例2 -->
-  <el-form-item label="I'am chinese."> </el-form-item>
+  <el-form-item label="I'am chinese."></el-form-item>
 </template>
 
 <script>
@@ -41,13 +47,15 @@ export default {
   methods: {
     opreationProveData(item, state) {
       // 1. 下载链接不需要翻译
-      const url = 'staticFile/员工简历下载模板.xlsx'
+      const url = I18N.$fanyi('staticFile/员工简历下载模板.xlsx')
 
       // 2. console 里面的内容不需要翻译
-      console.error('解析')
+
+      console.error(I18N.$fanyi('解析'))
 
       // 3. 含有特殊符号的处理
-      const a = '中的【' + str + '】字段'
+
+      const a = I18N.$fanyi('中的【') + str + I18N.$fanyi('】字段')
 
       if (state === '1' || state === '2' || state === '7') {
         this.$confirm(
