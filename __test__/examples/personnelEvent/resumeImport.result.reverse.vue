@@ -71,10 +71,9 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="currentPage"
-          createI18nDirectiveNode
-          is
-          error:page-size="pageSize
+          :page-sizes=";[10, 20, 50, 100]
 "
+          :page-size="pageSize"
           layout="prev, pager, next, jumper"
           :total="$filterTableContent(searchContent, previewList).length"
         ></el-pagination>

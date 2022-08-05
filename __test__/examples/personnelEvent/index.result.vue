@@ -91,7 +91,7 @@
                   :readonly="true"
                   :pagecode="MENUII"
                   :text="queryForm.orgName"
-                  :value="queryForm.orgID"
+                  :value.sync="queryForm.orgID"
                   :treestyle="{
                     top: '28px'
                   }"
@@ -123,7 +123,7 @@
                     czbs: 'YS',
                     id: queryForm.orgID
                   }"
-                  :value="queryForm.plansID"
+                  :value.sync="queryForm.plansID"
                   :treestyle="{
                     top: '28px'
                   }"

@@ -446,12 +446,12 @@
                             'dhrDownloadService/utility/file/dfs/upload'
                           "
                           class="avatar-uploader"
-                          createI18nDirectiveNode
-                          is
-                          errorcreateI18nDirectiveNode
-                          is
-                          error:on-error="handleError
+                          :on-success=";(response, file, fileList) =>
+  handleSuccess(response, file, fileObject, fileList)
 "
+                          :before-upload=";(file) => handleBefore(file, fileObject)
+"
+                          :on-error="handleError"
                           :on-exceed="handleFileExceed"
                           :file-list="fileObject.ZACFILE"
                           :show-file-list="false"
@@ -520,9 +520,8 @@
       :close-on-press-escape="false"
       :show-close="false"
       :append-to-body="true"
-      createI18nDirectiveNode
-      is
-      error
+      :before-close=";() => signClose()
+"
     >
       <div v-if="signVisible" id="qrcode"></div>
       <span slot="footer" class="dialog-footer">

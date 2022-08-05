@@ -85,7 +85,7 @@
                   :readonly="true"
                   :pagecode="MENUII"
                   :text="queryForm.orgName"
-                  :value="queryForm.orgID"
+                  :value.sync="queryForm.orgID"
                   :treestyle="{
                     top: '28px'
                   }"
@@ -117,7 +117,7 @@
                     czbs: 'YS',
                     id: queryForm.orgID
                   }"
-                  :value="queryForm.plansID"
+                  :value.sync="queryForm.plansID"
                   :treestyle="{
                     top: '28px'
                   }"
@@ -276,10 +276,9 @@
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
                 :current-page="currentPage"
-                createI18nDirectiveNode
-                is
-                error:page-size="pageSize
+                :page-sizes=";[10, 20, 50, 100]
 "
+                :page-size="pageSize"
                 layout="total, sizes"
                 :total="$filterTableContent(searchContent, tableData).length"
               ></el-pagination>
@@ -328,12 +327,11 @@
                   :label="field.label"
                   :min-width="field.width"
                   :type="field.type === 'index' ? 'index' : ''"
-                  createI18nDirectiveNode
-                  is
-                  erroralign="center"
-                  createI18nDirectiveNode
-                  is
-                  error
+                  :index=";(index) => $settingTableSerialNum(index, currentPage, pageSize)
+"
+                  align="center"
+                  :formatter=";(row, column, cellValue) => formatter(row, column, cellValue, field)
+"
                 >
                   <template slot-scope="scope">
                     <template
@@ -635,10 +633,9 @@
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
                 :current-page="currentPage"
-                createI18nDirectiveNode
-                is
-                error:page-size="pageSize
+                :page-sizes=";[10, 20, 50, 100]
 "
+                :page-size="pageSize"
                 layout="prev, pager, next, jumper"
                 :total="$filterTableContent(searchContent, tableData).length"
               ></el-pagination>
@@ -690,9 +687,8 @@
       :close-on-press-escape="false"
       :show-close="false"
       :append-to-body="true"
-      createI18nDirectiveNode
-      is
-      error
+      :before-close=";() => signClose()
+"
     >
       <div class="select-title">选择待签合同</div>
       <el-select v-model="signUrl">

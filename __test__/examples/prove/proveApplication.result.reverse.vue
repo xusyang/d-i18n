@@ -59,14 +59,13 @@
                   $VUE_BASE + 'dhrDownloadService/utility/file/dfs/upload'
                 "
                 class="avatar-uploader"
-                createI18nDirectiveNode
-                is
-                errorcreateI18nDirectiveNode
-                is
-                errorcreateI18nDirectiveNode
-                is
-                error:show-file-list="false
+                :on-success=";(response, file) => handleSuccess(response, file)
 "
+                :before-upload=";(file) => handleBefore(file)
+"
+                :on-error=";(err, file) => handleError(err, file)
+"
+                :show-file-list="false"
                 multiple:with-credentials="true
 "
                 name="file"

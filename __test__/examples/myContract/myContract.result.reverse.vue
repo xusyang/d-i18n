@@ -84,9 +84,9 @@
             >
               <el-table-column
                 type="index"
-                createI18nDirectiveNode
-                is
-                errorlabel="序号"
+                :index=";(index) => $settingTableSerialNum(index, currentPage, pageSize)
+"
+                label="序号"
                 width="80"
                 sortable
               ></el-table-column>
@@ -213,9 +213,9 @@
               <el-table-column
                 type="index"
                 label="序号"
-                createI18nDirectiveNode
-                is
-                errorwidth="80"
+                :index=";(index) => $settingTableSerialNum(index, currentPage, pageSize)
+"
+                width="80"
                 align="center"
                 sortable
               ></el-table-column>

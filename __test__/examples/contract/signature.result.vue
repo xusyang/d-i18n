@@ -10,19 +10,19 @@
           >
             <el-option
               :label="I18N.$fanyi('德勤DHR测试1')"
-              :value="I18N.$fanyi('德勤DHR测试1')"
+              value="德勤DHR测试1"
             ></el-option>
             <el-option
               :label="I18N.$fanyi('德勤DHR测试2')"
-              :value="I18N.$fanyi('德勤DHR测试2')"
+              value="德勤DHR测试2"
             ></el-option>
             <el-option
               :label="I18N.$fanyi('德勤DHR测试3')"
-              :value="I18N.$fanyi('德勤DHR测试3')"
+              value="德勤DHR测试3"
             ></el-option>
             <el-option
               :label="I18N.$fanyi('劳动合同模板')"
-              :value="I18N.$fanyi('劳动合同模板')"
+              value="劳动合同模板"
             ></el-option>
           </el-select>
         </el-form-item>

@@ -5,22 +5,10 @@
       <el-form ref="form" size="mini" :model="form" label-width="120px" inline>
         <el-form-item label="选择签署合同">
           <el-select v-model="form.mould" placeholder="选择签署合同">
-            <el-option
-              label="德勤DHR测试1"
-              :value="I18N.$fanyi('德勤DHR测试1')"
-            ></el-option>
-            <el-option
-              label="德勤DHR测试2"
-              :value="I18N.$fanyi('德勤DHR测试2')"
-            ></el-option>
-            <el-option
-              label="德勤DHR测试3"
-              :value="I18N.$fanyi('德勤DHR测试3')"
-            ></el-option>
-            <el-option
-              label="劳动合同模板"
-              :value="I18N.$fanyi('劳动合同模板')"
-            ></el-option>
+            <el-option label="德勤DHR测试1" value="德勤DHR测试1"></el-option>
+            <el-option label="德勤DHR测试2" value="德勤DHR测试2"></el-option>
+            <el-option label="德勤DHR测试3" value="德勤DHR测试3"></el-option>
+            <el-option label="劳动合同模板" value="劳动合同模板"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>

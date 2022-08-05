@@ -81,10 +81,9 @@
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :current-page="currentPage"
-            createI18nDirectiveNode
-            is
-            error:page-size="pageSize
+            :page-sizes=";[10, 20, 50, 100]
 "
+            :page-size="pageSize"
             layout="total, sizes"
             :total="$filterTableContent(searchContent, tableData).length"
           ></el-pagination>
@@ -127,10 +126,9 @@
               :key="index"
               :fixed="field.fixed"
               :type="field.type === 'index' ? 'index' : ''"
-              createI18nDirectiveNode
-              is
-              error:prop="field.prop
+              :index=";(index) => $settingTableSerialNum(index, currentPage, pageSize)
 "
+              :prop="field.prop"
               :label="field.label"
               :min-width="field.width"
               header-align="center"
@@ -175,10 +173,9 @@
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :current-page="currentPage"
-            createI18nDirectiveNode
-            is
-            error:page-size="pageSize
+            :page-sizes=";[10, 20, 50, 100]
 "
+            :page-size="pageSize"
             layout="prev, pager, next, jumper"
             :total="$filterTableContent(searchContent, tableData).length"
           ></el-pagination>
