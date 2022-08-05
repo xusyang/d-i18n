@@ -11,7 +11,7 @@
           <div v-if="parentData.proveId === '40'">
             <el-col class="el-col-sm-24">
               <el-form-item
-                :label="I18N.$fanyi('户口迁入地公安局')"
+                label="户口迁入地公安局"
                 prop="psb"
                 :class="{
                   'has-input-error': isValidationActive && !pageData.psb
@@ -26,7 +26,7 @@
             </el-col>
             <el-col class="el-col-sm-24">
               <el-form-item
-                :label="I18N.$fanyi('详细地址')"
+                label="详细地址"
                 prop="detailAddress"
                 :class="{
                   'has-input-error':
@@ -44,10 +44,7 @@
 
           <div v-if="parentData.proveId === '99'">
             <el-col class="el-col-md-17 mr10">
-              <el-form-item
-                :label="I18N.$fanyi('文件路径')"
-                label-width="100px"
-              >
+              <el-form-item label="文件路径" label-width="100px">
                 <el-input
                   type="text"
                   size="mini"
@@ -62,19 +59,20 @@
                   $VUE_BASE + 'dhrDownloadService/utility/file/dfs/upload'
                 "
                 class="avatar-uploader"
-                :on-success=";(response, file) => handleSuccess(response, file)
+                createI18nDirectiveNode
+                is
+                errorcreateI18nDirectiveNode
+                is
+                errorcreateI18nDirectiveNode
+                is
+                error:show-file-list="false
 "
-                :before-upload=";(file) => handleBefore(file)
-"
-                :on-error=";(err, file) => handleError(err, file)
-"
-                :show-file-list="false"
                 multiple:with-credentials="true
 "
                 name="file"
               >
                 <el-button size="mini" type="success" :loading="loading">
-                  {{ I18N.$fanyi('上传自定义证明') }}
+                  上传自定义证明
                 </el-button>
               </el-upload>
             </el-col>
@@ -85,10 +83,7 @@
             class="text-center"
           >
             <el-col class="el-col-sm-17">
-              <el-form-item
-                :label="I18N.$fanyi('旅游国家')"
-                label-width="100px"
-              >
+              <el-form-item label="旅游国家" label-width="100px">
                 <el-input
                   type="text"
                   size="mini"
@@ -98,28 +93,22 @@
               </el-form-item>
             </el-col>
             <el-col class="el-col-md-17">
-              <el-form-item
-                :label="I18N.$fanyi('旅游开始日期')"
-                label-width="100px"
-              >
+              <el-form-item label="旅游开始日期" label-width="100px">
                 <el-date-picker
                   v-model="pageData.begda"
                   type="date"
-                  :placeholder="I18N.$fanyi('选择日期')"
+                  placeholder="选择日期"
                   style="width: 100%"
                   size="mini"
                 ></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col class="el-col-md-17">
-              <el-form-item
-                :label="I18N.$fanyi('旅游返程日期')"
-                label-width="100px"
-              >
+              <el-form-item label="旅游返程日期" label-width="100px">
                 <el-date-picker
                   v-model="pageData.endda"
                   type="date"
-                  :placeholder="I18N.$fanyi('选择日期')"
+                  placeholder="选择日期"
                   style="width: 100%"
                   size="mini"
                 ></el-date-picker>
@@ -137,7 +126,7 @@
               :loading="loading"
               @click="customProveOperation('Y')"
             >
-              {{ I18N.$fanyi('预览') }}
+              预览
             </el-button>
             <el-button
               type="primary"
@@ -146,7 +135,7 @@
               @click="customProveOperation('T')"
               v-if="parentData.MENUII === pageCode.ZMKJ"
             >
-              {{ I18N.$fanyi('提交') }}
+              提交
             </el-button>
             <el-button
               type="warning"
@@ -155,7 +144,7 @@
               v-if="parentData.MENUII === pageCode.ZMGL"
               @click="customProveOperation('D')"
             >
-              {{ I18N.$fanyi('下载打印') }}
+              下载打印
             </el-button>
             <el-button
               type="danger"
@@ -163,7 +152,7 @@
               :loading="loading"
               @click="closeDialog"
             >
-              {{ I18N.$fanyi('关闭') }}
+              关闭
             </el-button>
           </el-col>
           <el-col class="el-col-sm-24 text-center" v-else>
@@ -173,7 +162,7 @@
               :loading="loading"
               @click="submit('Y')"
             >
-              {{ I18N.$fanyi('预览') }}
+              预览
             </el-button>
             <el-button
               type="primary"
@@ -182,7 +171,7 @@
               @click="submit('T')"
               v-if="parentData.MENUII === pageCode.ZMKJ"
             >
-              {{ I18N.$fanyi('提交') }}
+              提交
             </el-button>
             <el-button
               type="warning"
@@ -191,7 +180,7 @@
               v-if="parentData.MENUII === pageCode.ZMGL"
               @click="submit('D')"
             >
-              {{ I18N.$fanyi('下载打印') }}
+              下载打印
             </el-button>
             <el-button
               type="danger"
@@ -199,7 +188,7 @@
               :loading="loading"
               @click="closeDialog"
             >
-              {{ I18N.$fanyi('关闭') }}
+              关闭
             </el-button>
           </el-col>
         </div>
@@ -377,11 +366,7 @@ export default {
 
             params.templateName = 'zzzm_sp.ftl'
             params.wordName =
-              I18N.$fanyi('在职证明') +
-              '_' +
-              wordData.NAME +
-              '_' +
-              wordData.FILEDATE
+              '在职证明' + '_' + wordData.NAME + '_' + wordData.FILEDATE
             params.wordParams = wordData
           } else if (this.parentData.proveId === '12') {
             // 在职证明-出国旅游
@@ -433,7 +418,7 @@ export default {
 
             params.templateName = 'zzzm_cgly_sp.ftl'
             params.wordName =
-              I18N.$fanyi('在职证明-出国旅游') +
+              '在职证明-出国旅游' +
               '_' +
               wordData.NAME +
               '_' +
@@ -481,11 +466,7 @@ export default {
 
             params.templateName = 'srzm_sp.ftl'
             params.wordName =
-              I18N.$fanyi('收入证明') +
-              '_' +
-              wordData.NAME +
-              '_' +
-              wordData.FILEDATE
+              '收入证明' + '_' + wordData.NAME + '_' + wordData.FILEDATE
             params.wordParams = wordData
           } else if (this.parentData.proveId === '14') {
             // 出入国境证明
@@ -548,10 +529,7 @@ export default {
                 }
               ).then(() => this.generateProve(params, state))
             } else if (state === 'D') {
-              let tips =
-                I18N.$fanyi('是否确定下载打印') +
-                params.wordName +
-                I18N.$fanyi('开具申请？')
+              let tips = '是否确定下载打印' + params.wordName + '开具申请？'
               this.$confirm(tips, '提示', {
                 type: 'warning',
                 confirmButtonText: '确认',
@@ -565,8 +543,8 @@ export default {
               this.generateProve(params, state)
             }
           } else {
-            this.$message.warning(I18N.$fanyi('没有获取到对应的证明模版'))
-            console.info(I18N.$fanyi('没有获取到对应的证明模版......'))
+            this.$message.warning('没有获取到对应的证明模版')
+            console.info('没有获取到对应的证明模版......')
           }
         }
       })
@@ -664,6 +642,7 @@ export default {
 
           this.closeDialog('Q')
           // 发起流程
+
           // 增加板块的流程
 
           // 后判断，只有板块的不需要发起流程
@@ -688,16 +667,16 @@ export default {
     strDateToChineseDate(strDate) {
       let chinese = [
         '〇',
-        I18N.$fanyi('一'),
-        I18N.$fanyi('二'),
-        I18N.$fanyi('三'),
-        I18N.$fanyi('四'),
-        I18N.$fanyi('五'),
-        I18N.$fanyi('六'),
-        I18N.$fanyi('七'),
-        I18N.$fanyi('八'),
-        I18N.$fanyi('九'),
-        I18N.$fanyi('十')
+        '一',
+        '二',
+        '三',
+        '四',
+        '五',
+        '六',
+        '七',
+        '八',
+        '九',
+        '十'
       ]
       let numStr = strDate.replace(/\D+/g, '')
       let year =
@@ -726,14 +705,7 @@ export default {
         }
       }
 
-      return (
-        year +
-        I18N.$fanyi(' 年 ') +
-        month +
-        I18N.$fanyi(' 月 ') +
-        nDay +
-        I18N.$fanyi(' 日 ')
-      )
+      return year + ' 年 ' + month + ' 月 ' + nDay + ' 日 '
     },
 
     /**
@@ -751,11 +723,9 @@ export default {
       if (response.status === 'success') {
         this.filename = file.name
         this.customProveFile = response
-        this.$message.success(
-          I18N.$fanyi('上传') + '【' + file.name + '】' + I18N.$fanyi('成功')
-        )
+        this.$message.success('上传' + '【' + file.name + '】' + '成功')
       } else {
-        this.$message.error(I18N.$fanyi('上传文件错误，请重新上传'))
+        this.$message.error('上传文件错误，请重新上传')
       }
     },
 
@@ -771,16 +741,14 @@ export default {
       let postf = file.name.substring(file.name.lastIndexOf('.') + 1)
 
       if (fileType.indexOf(postf.toLowerCase()) === -1) {
-        this.$message.warning(
-          I18N.$fanyi('请选择正确的文件类型，如') + '：.doc, .docx'
-        )
+        this.$message.warning('请选择正确的文件类型，如' + '：.doc, .docx')
         return false
       }
 
       // 不能大于10M
 
       if (file.size > 10485760) {
-        this.$message.warning(I18N.$fanyi('证明不能大于10M'))
+        this.$message.warning('证明不能大于10M')
         return false
       }
 
@@ -796,9 +764,7 @@ export default {
      */
     handleError(error, file) {
       this.loading = false
-      this.$message.error(
-        I18N.$fanyi('上传') + file.name + I18N.$fanyi('出现错误，请重新上传')
-      )
+      this.$message.error('上传' + file.name + '出现错误，请重新上传')
     },
 
     /**
@@ -859,10 +825,10 @@ export default {
             })
           }
         } else {
-          this.$message.warning(I18N.$fanyi('请先上传自定义证明！'))
+          this.$message.warning('请先上传自定义证明！')
         }
       } else {
-        this.$message.warning(I18N.$fanyi('请上传证明文件！'))
+        this.$message.warning('请上传证明文件！')
       }
     }
   }

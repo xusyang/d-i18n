@@ -1,32 +1,24 @@
 <template>
-  <div
-    v-loading.fullscreen="loading"
-    :element-loading-text="I18N.$fanyi('加载中.....')"
-  >
+  <div v-loading.fullscreen="loading" element-loading-text="加载中.....">
     <div>
       <el-form size="mini" :model="pageForm">
         <div class="h4-ibox-content">
-          <h4>
-            <span class="li-bg-blue"></span> {{ I18N.$fanyi('邮件内容') }}
-          </h4>
+          <h4><span class="li-bg-blue"></span> 邮件内容</h4>
           <hr />
         </div>
         <el-row>
           <el-col :md="24">
             <label>
-              <span class="red"> * </span> {{ I18N.$fanyi('标题') }}
-              <span style="color: #999">
-                {{ I18N.$fanyi('（仅限40字）') }}
-              </span>
+              <span class="red"> * </span> 标题
+
+              <span style="color: #999"> （仅限40字） </span>
             </label>
             <el-form-item prop="title" :show-message="false">
               <el-input v-model="pageForm.title" maxlength="40"></el-input>
             </el-form-item>
           </el-col>
           <el-col :md="24">
-            <label>
-              <span class="red"> * </span> {{ I18N.$fanyi('正文') }}
-            </label>
+            <label> <span class="red"> * </span> 正文 </label>
             <el-form-item class="table-mail-editor">
               <div
                 :style="{
@@ -56,11 +48,9 @@
             :loading="loading"
             @click="submitConfirm('F')"
           >
-            {{ I18N.$fanyi('发送') }}
+            发送
           </el-button>
-          <el-button size="mini" @click="closeDialog">
-            {{ I18N.$fanyi('关闭') }}
-          </el-button>
+          <el-button size="mini" @click="closeDialog"> 关闭 </el-button>
         </el-col>
       </div>
     </el-row>
@@ -125,7 +115,7 @@ export default {
         this.$isEmpty(this.pageForm.content) ||
         this.$isEmpty(this.pageForm.title)
       ) {
-        return this.$message.warning(I18N.$fanyi('请完成必填项'))
+        return this.$message.warning('请完成必填项')
       }
 
       this.$confirm('是否确认发送', '提示', {
@@ -145,19 +135,15 @@ export default {
      * @date 2020年07月20日
      */
     settingContent() {
-      this.pageForm.title = I18N.$fanyi(
-        '简历审核失败，您仍需要完善部分关键信息【德勤】'
-      )
+      this.pageForm.title = '简历审核失败，您仍需要完善部分关键信息【德勤】'
       this.pageForm.content =
         '<div>' +
         '<p>' +
-        I18N.$fanyi('尊敬的') +
+        '尊敬的' +
         "<strong><span style='text-decoration-line: underline;'>&nbsp;" +
         this.parentData.personnnName +
         '&nbsp;</span></strong>' +
-        I18N.$fanyi(
-          '先生/小姐，抱歉的通知您，您提交的个人简历部分信息不完整/或存在错误，请根据以下内容，重新填报，谢谢。'
-        ) +
+        '先生/小姐，抱歉的通知您，您提交的个人简历部分信息不完整/或存在错误，请根据以下内容，重新填报，谢谢。' +
         '</p>' +
         '<p>1:</p>' +
         '<p>2:</p>' +
@@ -165,7 +151,7 @@ export default {
         "<p><a href='" +
         this.parentData.link +
         "' target='_blank' >" +
-        I18N.$fanyi('请点击此链接补充完善个人信息') +
+        '请点击此链接补充完善个人信息' +
         '</a></p>' +
         '</div>'
     },
@@ -180,6 +166,7 @@ export default {
         addressee: this.parentData.emailAddress,
 
         // "13149920325@163.com",
+
         // 暂时写死
         copyTo: '',
         bcc: '',
@@ -193,7 +180,7 @@ export default {
       // 发送邮件
 
       this.$httpServer.base.sendEmail(params).then(() => {
-        this.$message.success(I18N.$fanyi('发送成功'))
+        this.$message.success('发送成功')
         this.closeDialog()
         this.updateDataStatusByGuid('SEN')
       })

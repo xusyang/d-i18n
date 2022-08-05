@@ -63,7 +63,7 @@ export default {
      */
     buttonEvent(param) {
       if (param.FUNC === 'FC10') {
-        return this.$message.error(I18N.$fanyi('等待对接招聘系统!'))
+        return this.$message.error('等待对接招聘系统!')
       } else {
         // isRhire 是否重入职，X表示为重入职
         if (this.parentData.isRhire === 'X') {

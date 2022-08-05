@@ -6,12 +6,12 @@
       ref="headerSearchSelect"
       v-model="myValue"
       :remote-method="searchUsering"
-      filterableremote:placeholder="I18N.$fanyi('请输入员工姓名或工号进行查找')
-"
-      popper-class="pa-header-search-user-select"
+      createI18nDirectiveNode
+      is
+      errorpopper-class="pa-header-search-user-select"
       :disabled="disabled"
       :loading="loading"
-      :loading-text="I18N.$fanyi('加载中......')"
+      loading-text="加载中......"
       :no-data-text="noDataText"
       @keyup.enter.native="searchUser"
       value-key="employeeNum"
@@ -111,7 +111,7 @@ export default {
      * @returns {*}
      */
     searchUsering() {
-      this.noDataText = I18N.$fanyi('输入后按回车查找员工')
+      this.noDataText = '输入后按回车查找员工'
     },
 
     /**
@@ -127,11 +127,11 @@ export default {
 
       if (!reg.test(searchKey)) {
         if (searchKey.length < 5) {
-          this.noDataText = I18N.$fanyi('请输入精准查询条件')
+          this.noDataText = '请输入精准查询条件'
           return []
         }
       } else if (searchKey.length < 2) {
-        this.noDataText = I18N.$fanyi('请输入精准查询条件')
+        this.noDataText = '请输入精准查询条件'
         return []
       }
 
@@ -166,7 +166,7 @@ export default {
             cb([])
           }
         })
-        .catch(() => (this.noDataText = I18N.$fanyi('暂无数据')))
+        .catch(() => (this.noDataText = '暂无数据'))
     },
 
     /**
@@ -182,11 +182,11 @@ export default {
 
       if (!reg.test(this.searchKey)) {
         if (this.searchKey.length < 5) {
-          this.noDataText = I18N.$fanyi('请输入精准查询条件')
+          this.noDataText = '请输入精准查询条件'
           return []
         }
       } else if (this.searchKey.length < 2) {
-        this.noDataText = I18N.$fanyi('请输入精准查询条件')
+        this.noDataText = '请输入精准查询条件'
         return []
       }
 
@@ -214,7 +214,7 @@ export default {
             })
           })
         } else {
-          this.noDataText = I18N.$fanyi('暂无数据')
+          this.noDataText = '暂无数据'
           this.personnelDataList = []
         }
       })

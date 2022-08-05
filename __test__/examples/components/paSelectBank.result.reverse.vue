@@ -20,17 +20,15 @@
     </el-input>
 
     <el-dialog
-      :title="I18N.$fanyi('银行搜索')"
+      title="银行搜索"
       :visible="dialogVisible"
       width="740px"
       :append-to-body="true"
     >
       <div class="schbank-header">
-        <span class="search-label">
-          {{ I18N.$fanyi('银行名称') }}
-        </span>
+        <span class="search-label"> 银行名称 </span>
         <el-input
-          :placeholder="I18N.$fanyi('银行名称 例如：建设银行*大沙头')"
+          placeholder="银行名称 例如：建设银行*大沙头"
           v-model="search"
           @keyup.enter.native="onSearch"
         />
@@ -52,18 +50,15 @@
         >
           <el-table-column
             prop="BANKS"
-            :label="I18N.$fanyi('国家代码')"
+            label="国家代码"
             width="100"
           ></el-table-column>
           <el-table-column
             prop="BANKL"
-            :label="I18N.$fanyi('银行编号')"
+            label="银行编号"
             width="140"
           ></el-table-column>
-          <el-table-column
-            prop="BANKA"
-            :label="I18N.$fanyi('银行名称')"
-          ></el-table-column>
+          <el-table-column prop="BANKA" label="银行名称"></el-table-column>
         </el-table>
       </div>
     </el-dialog>
@@ -121,8 +116,8 @@ export default {
      */
     async onSearch() {
       if (!this.search) {
-        this.$alert(I18N.$fanyi('请输入银行名称'), I18N.$fanyi('提示'), {
-          confirmButtonText: I18N.$fanyi('确定')
+        this.$alert('请输入银行名称', '提示', {
+          confirmButtonText: '确定'
         })
         return
       }
@@ -150,8 +145,8 @@ export default {
         }
       } catch (error) {
         this.$notify.error({
-          title: I18N.$fanyi('错误'),
-          message: error.message || I18N.$fanyi('银行信息获取失败！')
+          title: '错误',
+          message: error.message || '银行信息获取失败！'
         })
       } finally {
         this.loading = false

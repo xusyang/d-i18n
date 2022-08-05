@@ -8,12 +8,10 @@
         ref="queryForm"
         label-width="120px"
       >
-        <div class="ibox-content-title fs14">
-          {{ I18N.$fanyi('查询条件') }}
-        </div>
+        <div class="ibox-content-title fs14">查询条件</div>
         <el-row justify="space-between">
           <el-col :md="8">
-            <el-form-item :label="I18N.$fanyi('合同类型')" prop="CTTYP">
+            <el-form-item label="合同类型" prop="CTTYP">
               <search-help
                 funccode="00338"
                 :code.sync="queryData.CTTYP"
@@ -21,26 +19,20 @@
             </el-form-item>
           </el-col>
           <el-col :md="8">
-            <el-form-item
-              :label="I18N.$fanyi('开始日期')"
-              prop="receiveStartDate"
-            >
+            <el-form-item label="开始日期" prop="receiveStartDate">
               <el-date-picker
                 type="date"
-                :placeholder="I18N.$fanyi('选择开始日期')"
+                placeholder="选择开始日期"
                 v-model="queryData.BEGDA"
                 style="width: 100%"
               ></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :md="8">
-            <el-form-item
-              :label="I18N.$fanyi('结束日期')"
-              prop="receiveEndDate"
-            >
+            <el-form-item label="结束日期" prop="receiveEndDate">
               <el-date-picker
                 type="date"
-                :placeholder="I18N.$fanyi('选择结束日期')"
+                placeholder="选择结束日期"
                 v-model="queryData.ENDDA"
                 style="width: 100%"
               ></el-date-picker>
@@ -51,7 +43,7 @@
           <el-col :offset="16" :md="8">
             <el-form-item class="clearfix">
               <el-button class="fr" size="mini" @click="restForm('queryForm')">
-                {{ I18N.$fanyi('重置') }}
+                重置
               </el-button>
               <el-button
                 class="fr mr10"
@@ -60,7 +52,7 @@
                 icon="el-icon-search"
                 @click="queryDataList('Q')"
               >
-                {{ I18N.$fanyi('查询') }}
+                查询
               </el-button>
             </el-form-item>
           </el-col>
@@ -70,7 +62,7 @@
     <el-row class="m-t-sm">
       <el-col class="ibox-content">
         <el-tabs v-model="activeName" @tab-click="queryDataList(activeName)">
-          <el-tab-pane :label="I18N.$fanyi('劳动合同')" name="X">
+          <el-tab-pane label="劳动合同" name="X">
             <table-util
               :search-content="searchContent"
               :id="'todo'"
@@ -92,74 +84,70 @@
             >
               <el-table-column
                 type="index"
-                :index=";(index) => $settingTableSerialNum(index, currentPage, pageSize)
-"
-                :label="I18N.$fanyi('序号')"
+                createI18nDirectiveNode
+                is
+                errorlabel="序号"
                 width="80"
                 sortable
               ></el-table-column>
               <el-table-column
                 prop="CTTYP"
-                :label="I18N.$fanyi('合同类型')"
+                label="合同类型"
                 align="center"
                 sortable
               ></el-table-column>
               <el-table-column
                 prop="ZZHTQXLX"
-                :label="I18N.$fanyi('期限类型')"
+                label="期限类型"
                 align="center"
                 sortable
               ></el-table-column>
               <el-table-column
                 prop="ZHTQX"
-                :label="I18N.$fanyi('合同期限')"
+                label="合同期限"
                 align="center"
                 sortable
               ></el-table-column>
               <el-table-column
                 prop="ZZHTQDZTI"
-                :label="I18N.$fanyi('合同主体')"
+                label="合同主体"
                 align="center"
                 sortable
               ></el-table-column>
               <el-table-column
                 prop="BEGDA"
-                :label="I18N.$fanyi('合同开始日期')"
+                label="合同开始日期"
                 width="140px"
                 align="center"
                 sortable
               ></el-table-column>
               <el-table-column
                 prop="CTEDT"
-                :label="I18N.$fanyi('合同结束日期')"
+                label="合同结束日期"
                 width="140px"
                 align="center"
                 sortable
               ></el-table-column>
               <el-table-column
                 prop="PRBZT"
-                :label="I18N.$fanyi('试用期')"
+                label="试用期"
                 align="center"
                 sortable
               ></el-table-column>
               <el-table-column
                 prop="ZZHTZZRQ"
-                :label="I18N.$fanyi('试用结束日期')"
+                label="试用结束日期"
                 width="140px"
                 align="center"
                 sortable
               ></el-table-column>
               <el-table-column
                 prop="ZSTAT"
-                :label="I18N.$fanyi('状态')"
+                label="状态"
                 align="center"
                 sortable
               ></el-table-column>
-              <el-table-column
-                :label="I18N.$fanyi('操作')"
-                align="center"
-                fixed="right"
-              >
+              <el-table-column label="操作" align="center" fixed="right">
                 <template slot-scope="scope">
                   <el-button
                     class="text-info"
@@ -168,7 +156,7 @@
                     v-if="scope.row.ZSTAT == '未签字'"
                     @click="openQRCode()"
                   >
-                    {{ I18N.$fanyi('签字') }}
+                    签字
                   </el-button>
                   <el-button
                     class="text-success"
@@ -177,7 +165,7 @@
                     v-if="scope.row.ZSTAT == '已生效'"
                     @click="downDetail(scope.row)"
                   >
-                    {{ I18N.$fanyi('下载') }}
+                    下载
                   </el-button>
                   <el-button
                     class="text-primary"
@@ -185,7 +173,7 @@
                     type="text"
                     @click="toDetail(scope.row)"
                   >
-                    {{ I18N.$fanyi('查看') }}
+                    查看
                   </el-button>
                 </template>
               </el-table-column>
@@ -200,7 +188,7 @@
               ></el-pagination>
             </div>
           </el-tab-pane>
-          <el-tab-pane :label="I18N.$fanyi('已办列表')" name="" v-if="false">
+          <el-tab-pane label="已办列表" name="" v-if="false">
             <table-util
               :search-content="searchContent2"
               :id="'done'"
@@ -224,16 +212,16 @@
             >
               <el-table-column
                 type="index"
-                :label="I18N.$fanyi('序号')"
-                :index=";(index) => $settingTableSerialNum(index, currentPage, pageSize)
-"
-                width="80"
+                label="序号"
+                createI18nDirectiveNode
+                is
+                errorwidth="80"
                 align="center"
                 sortable
               ></el-table-column>
               <el-table-column
                 show-overflow-tooltipprop="TITLE"
-                :label="I18N.$fanyi('任务标题')"
+                label="任务标题"
                 width="450"
                 align="center"
                 sortable
@@ -250,34 +238,34 @@
               </el-table-column>
               <el-table-column
                 show-overflow-tooltipprop="ZTEXT"
-                :label="I18N.$fanyi('任务名称')"
+                label="任务名称"
                 width="350"
                 align="center"
                 sortable
               ></el-table-column>
               <el-table-column
                 prop="RECDT"
-                :label="I18N.$fanyi('接收日期')"
+                label="接收日期"
                 align="center"
                 sortable:formatter="formatterDate
 "
               ></el-table-column>
               <el-table-column
                 prop="PRODT"
-                :label="I18N.$fanyi('处理日期')"
+                label="处理日期"
                 align="center"
                 sortable:formatter="formatterDate
 "
               ></el-table-column>
               <el-table-column
                 prop="PROTT"
-                :label="I18N.$fanyi('处理状态')"
+                label="处理状态"
                 align="center"
                 sortable
               ></el-table-column>
               <el-table-column
                 show-overflow-tooltipprop="ENAME"
-                :label="I18N.$fanyi('提交人')"
+                label="提交人"
                 align="center"
                 sortable
               ></el-table-column>
@@ -307,7 +295,7 @@
       <div class="ibox-content1">
         <div id="qrcode" ref="qrCodeUrl"></div>
         <div style="color: #eb3222; font-size: 24px; padding: 15px 0 0 30px">
-          {{ I18N.$fanyi('扫一扫，签订合同') }}
+          扫一扫，签订合同
         </div>
       </div>
     </el-dialog>

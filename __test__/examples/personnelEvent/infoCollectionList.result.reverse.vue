@@ -16,7 +16,7 @@
             <el-col class="el-col-sm-8">
               <el-form-item
                 prop="credentialsType"
-                :label="I18N.$fanyi('证件类型')"
+                label="证件类型"
                 :show-message="false"
                 :class="{
                   'has-input-error':
@@ -25,7 +25,7 @@
               >
                 <el-select
                   v-model="queryForm.credentialsType"
-                  :placeholder="I18N.$fanyi('请选择')"
+                  placeholder="请选择"
                   style="width: 100%"
                   filterable
                 >
@@ -41,7 +41,7 @@
             <el-col class="el-col-sm-8">
               <el-form-item
                 prop="credentialsNum"
-                :label="I18N.$fanyi('证件号码')"
+                label="证件号码"
                 :show-message="false"
                 :class="{
                   'has-input-error': isActive && queryForm.credentialsNum === ''
@@ -61,14 +61,14 @@
                 :loading="loading"
                 @click="queryDataList"
               >
-                {{ I18N.$fanyi('查询') }}
+                查询
               </el-button>
               <el-button
                 size="mini"
                 icon="el-icon-refresh-right"
                 @click="restForm"
               >
-                {{ I18N.$fanyi('重置') }}
+                重置
               </el-button>
             </div>
           </el-row>
@@ -81,9 +81,10 @@
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :current-page="currentPage"
-            :page-sizes=";[10, 20, 50, 100]
+            createI18nDirectiveNode
+            is
+            error:page-size="pageSize
 "
-            :page-size="pageSize"
             layout="total, sizes"
             :total="$filterTableContent(searchContent, tableData).length"
           ></el-pagination>
@@ -91,7 +92,7 @@
         <div style="margin-top: -30px; text-align: right">
           <el-input
             size="mini"
-            :placeholder="I18N.$fanyi('请输入关键字')"
+            placeholder="请输入关键字"
             prefix-icon="el-icon-search"
             v-model="searchContent"
             class="table-input-serarch"
@@ -103,7 +104,7 @@
             :loading="exportLoading"
             round
           >
-            {{ I18N.$fanyi('下载表格内容') }}
+            下载表格内容
           </el-button>
         </div>
         <div class="mt10">
@@ -126,9 +127,10 @@
               :key="index"
               :fixed="field.fixed"
               :type="field.type === 'index' ? 'index' : ''"
-              :index=";(index) => $settingTableSerialNum(index, currentPage, pageSize)
+              createI18nDirectiveNode
+              is
+              error:prop="field.prop
 "
-              :prop="field.prop"
               :label="field.label"
               :min-width="field.width"
               header-align="center"
@@ -137,7 +139,7 @@
             <el-table-column
               fixed="right"
               prop="operation"
-              :label="I18N.$fanyi('操作')"
+              label="操作"
               width="100"
               header-align="center"
               align="center"
@@ -154,14 +156,14 @@
                       scope.row.ZSFCRZ === '否'
                     "
                   >
-                    {{ I18N.$fanyi('重入职') }}
+                    重入职
                   </el-button>
                   <el-button
                     @click.native="checkEmployeeInfo(scope.row)"
                     type="text"
                     size="mini"
                   >
-                    {{ I18N.$fanyi('查看') }}
+                    查看
                   </el-button>
                 </div>
               </template>
@@ -173,9 +175,10 @@
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :current-page="currentPage"
-            :page-sizes=";[10, 20, 50, 100]
+            createI18nDirectiveNode
+            is
+            error:page-size="pageSize
 "
-            :page-size="pageSize"
             layout="prev, pager, next, jumper"
             :total="$filterTableContent(searchContent, tableData).length"
           ></el-pagination>
@@ -243,14 +246,14 @@ export default {
           {
             required: true,
             trigger: 'blur',
-            message: I18N.$fanyi('请选择证件类型')
+            message: '请选择证件类型'
           }
         ],
         credentialsNum: [
           {
             required: true,
             trigger: 'blur',
-            message: I18N.$fanyi('请输入证件号码')
+            message: '请输入证件号码'
           }
         ]
       },
@@ -425,7 +428,7 @@ export default {
      */
     batchImportData(displayFlag) {
       this.showDialog = 'import'
-      this.dialogTitle = I18N.$fanyi('事件导入')
+      this.dialogTitle = '事件导入'
       this.dialogVisible = true
       this.dialogWidth = '1000px'
       this.parentData.pageCode = this.MENUII
@@ -461,7 +464,7 @@ export default {
      */
     openDialog(rowObject, flag) {
       this.showDialog = 'selTemp'
-      this.dialogTitle = I18N.$fanyi('选择入职模版')
+      this.dialogTitle = '选择入职模版'
       this.dialogVisible = true
       this.dialogWidth = '650px'
       this.parentData.pageCode = this.MENUII

@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-loading.fullscreen="loading"
-    :element-loading-text="I18N.$fanyi('加载中.....')"
-  >
+  <div v-loading.fullscreen="loading" element-loading-text="加载中.....">
     <breadcrumb :key="$route.fullPath"></breadcrumb>
     <div class="ibox-content mt10" v-if="isEntry">
       <el-row type="flex" align="middle">
@@ -21,21 +18,21 @@
           <el-form label-width="115px" size="mini">
             <el-row>
               <el-col class="el-col-sm-12" style="height: 35px">
-                <el-form-item :label="I18N.$fanyi('员工姓名：')">
+                <el-form-item label="员工姓名：">
                   <strong>
                     {{ headerDataListStruce.params.ENAME }}
                   </strong>
                 </el-form-item>
               </el-col>
               <el-col class="el-col-sm-12" style="height: 35px">
-                <el-form-item :label="I18N.$fanyi('岗位：')">
+                <el-form-item label="岗位：">
                   <strong>
                     {{ headerDataListStruce.params.POS_STEXT }}
                   </strong>
                 </el-form-item>
               </el-col>
               <el-col class="el-col-sm-12" style="height: 35px">
-                <el-form-item :label="I18N.$fanyi('组织单位：')">
+                <el-form-item label="组织单位：">
                   <strong>
                     {{ headerDataListStruce.params.ORG_STEXT }}
                   </strong>
@@ -43,7 +40,7 @@
               </el-col>
 
               <el-col class="el-col-sm-12" style="height: 35px">
-                <el-form-item :label="I18N.$fanyi('拟报到日期：')">
+                <el-form-item label="拟报到日期：">
                   <strong>
                     {{ headerDataListStruce.params.BEGDA }}
                   </strong>
@@ -68,7 +65,7 @@
               @click="saveEntry('B')"
               :loading="buttonLoading"
             >
-              {{ I18N.$fanyi('保存') }}
+              保存
             </el-button>
             <el-button
               v-if="isEntry === '2'"
@@ -77,22 +74,20 @@
               @click="saveEntry('T')"
               :loading="buttonLoading"
             >
-              {{ I18N.$fanyi('提交') }}
+              提交
             </el-button>
-            <el-button size="mini" @click="backing()">
-              {{ I18N.$fanyi('返回') }}
-            </el-button>
+            <el-button size="mini" @click="backing()"> 返回 </el-button>
           </el-row>
           <el-tabs v-model="headerDataListStruce.headerDataListStrucefirst">
             <el-tab-pane
-              :label="I18N.$fanyi('基本信息')"
+              label="基本信息"
               :name="headerDataListStruce.headerDataListStrucefirst"
             >
               <div>
                 <div class="main-content-box">
                   <h4 class="clearfix m-t-md">
                     <span class="li-bg-blue"></span>
-                    {{ I18N.$fanyi('人事事件') }}
+                    人事事件
                   </h4>
                   <hr />
                   <div class="infoType-content-box">
@@ -102,9 +97,7 @@
                           <div style="padding-bottom: 2px">
                             <label style="font-size: 13px">
                               <span style="color: red"> * </span>
-                              <span>
-                                {{ I18N.$fanyi('入职日期：') }}
-                              </span>
+                              <span> 入职日期： </span>
                             </label>
                           </div>
                           <el-form-item>
@@ -114,7 +107,7 @@
                               type="date"
                               :disabled="true"
                               value-format="yyyyMMdd"
-                              :placeholder="I18N.$fanyi('请选择日期')"
+                              placeholder="请选择日期"
                             ></el-date-picker>
                           </el-form-item>
                         </el-col>
@@ -127,7 +120,7 @@
                   >
                     <h4 class="clearfix m-t-md">
                       <span class="li-bg-blue"></span>
-                      {{ I18N.$fanyi('办理事项') }}
+                      办理事项
                     </h4>
                     <hr />
                     <div class="infoType-content-box">
@@ -142,31 +135,31 @@
                                   :disabled="isEntry === '1'"
                                   label="ZMECH"
                                 >
-                                  {{ I18N.$fanyi('办公工位') }}
+                                  办公工位
                                 </el-checkbox>
                                 <el-checkbox
                                   :disabled="isEntry === '1'"
                                   label="ZWORKCARD"
                                 >
-                                  {{ I18N.$fanyi('工卡') }}
+                                  工卡
                                 </el-checkbox>
                                 <el-checkbox
                                   :disabled="isEntry === '1'"
                                   label="ZMECARD"
                                 >
-                                  {{ I18N.$fanyi('餐卡') }}
+                                  餐卡
                                 </el-checkbox>
                                 <el-checkbox
                                   :disabled="isEntry === '1'"
                                   label="ZLIFEART"
                                 >
-                                  {{ I18N.$fanyi('办公用品') }}
+                                  办公用品
                                 </el-checkbox>
                                 <el-checkbox
                                   :disabled="isEntry === '1'"
                                   label="ZDODEBS"
                                 >
-                                  {{ I18N.$fanyi('宿舍') }}
+                                  宿舍
                                 </el-checkbox>
                               </el-checkbox-group>
                             </el-form-item>
@@ -176,9 +169,7 @@
                             <div style="padding-bottom: 2px">
                               <label style="font-size: 13px">
                                 <span style="color: red"> * </span>
-                                <span>
-                                  {{ I18N.$fanyi('是否准备完毕：') }}
-                                </span>
+                                <span> 是否准备完毕： </span>
                               </label>
                             </div>
                             <el-form-item>
@@ -186,10 +177,10 @@
                                 v-model="headerDataListStruce.params.ZSTAT"
                               >
                                 <el-radio :disabled="isEntry === '1'" label="1">
-                                  {{ I18N.$fanyi('是') }}
+                                  是
                                 </el-radio>
                                 <el-radio :disabled="isEntry === '1'" label="2">
-                                  {{ I18N.$fanyi('否') }}
+                                  否
                                 </el-radio>
                               </el-radio-group>
                             </el-form-item>
@@ -197,9 +188,7 @@
                           <el-col>
                             <div style="padding-bottom: 2px">
                               <label style="font-size: 13px">
-                                <span>
-                                  {{ I18N.$fanyi('备注说明：') }}
-                                </span>
+                                <span> 备注说明： </span>
                               </label>
                             </div>
                             <el-form-item>
@@ -222,7 +211,7 @@
                   >
                     <h4 class="clearfix m-t-md">
                       <span class="li-bg-blue"></span>
-                      {{ I18N.$fanyi('办理事项') }}
+                      办理事项
                     </h4>
                     <hr />
                     <div class="infoType-content-box">
@@ -237,13 +226,13 @@
                                   :disabled="isEntry === '1'"
                                   label="ZCOMPUTER"
                                 >
-                                  {{ I18N.$fanyi('电脑') }}
+                                  电脑
                                 </el-checkbox>
                                 <el-checkbox
                                   :disabled="isEntry === '1'"
                                   label="ZSOFT_INSTALL"
                                 >
-                                  {{ I18N.$fanyi('软件安装') }}
+                                  软件安装
                                 </el-checkbox>
                               </el-checkbox-group>
                             </el-form-item>
@@ -252,9 +241,7 @@
                             <div style="padding-bottom: 2px">
                               <label style="font-size: 13px">
                                 <span style="color: red"> * </span>
-                                <span>
-                                  {{ I18N.$fanyi('是否准备完毕：') }}
-                                </span>
+                                <span> 是否准备完毕： </span>
                               </label>
                             </div>
                             <el-form-item>
@@ -262,10 +249,10 @@
                                 v-model="headerDataListStruce.params.ZSTAT"
                               >
                                 <el-radio :disabled="isEntry === '1'" label="1">
-                                  {{ I18N.$fanyi('是') }}
+                                  是
                                 </el-radio>
                                 <el-radio :disabled="isEntry === '1'" label="2">
-                                  {{ I18N.$fanyi('否') }}
+                                  否
                                 </el-radio>
                               </el-radio-group>
                             </el-form-item>
@@ -273,9 +260,7 @@
                           <el-col>
                             <div style="padding-bottom: 2px">
                               <label style="font-size: 13px">
-                                <span>
-                                  {{ I18N.$fanyi('备注说明：') }}
-                                </span>
+                                <span> 备注说明： </span>
                               </label>
                             </div>
                             <el-form-item>
@@ -294,7 +279,7 @@
 
                     <h4 class="clearfix m-t-md">
                       <span class="li-bg-blue"></span>
-                      {{ I18N.$fanyi('候选人信息') }}
+                      候选人信息
                     </h4>
                     <hr />
                     <div class="infoType-content-box">
@@ -303,9 +288,7 @@
                           <el-col :md="6">
                             <div style="padding-bottom: 2px">
                               <label style="font-size: 13px">
-                                <span>
-                                  {{ I18N.$fanyi('姓名') }}
-                                </span>
+                                <span> 姓名 </span>
                               </label>
                             </div>
                             <el-form-item>
@@ -318,9 +301,7 @@
                           <el-col :md="6">
                             <div style="padding-bottom: 2px">
                               <label style="font-size: 13px">
-                                <span>
-                                  {{ I18N.$fanyi('联系方式') }}
-                                </span>
+                                <span> 联系方式 </span>
                               </label>
                             </div>
                             <el-form-item>
@@ -333,9 +314,7 @@
                           <el-col :md="6">
                             <div style="padding-bottom: 2px">
                               <label style="font-size: 13px">
-                                <span>
-                                  {{ I18N.$fanyi('个人邮箱') }}
-                                </span>
+                                <span> 个人邮箱 </span>
                               </label>
                             </div>
                             <el-form-item>

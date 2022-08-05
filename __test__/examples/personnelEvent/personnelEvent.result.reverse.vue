@@ -87,9 +87,7 @@
             >
               {{ butItem.FNAME }}
             </el-button>
-            <el-button size="mini" @click="backing()">
-              {{ I18N.$fanyi('返回') }}
-            </el-button>
+            <el-button size="mini" @click="backing()"> 返回 </el-button>
           </el-row>
           <el-tabs v-model="activeCode" :onload="displayFile()">
             <el-tab-pane
@@ -104,30 +102,14 @@
                 class="tipsExplain"
                 v-if="ZPTYPE_SP === '02' && baseParams.MENUII === pageCode.WYLZ"
               >
+                <p>离职申请说明：</p>
                 <p>
-                  {{ I18N.$fanyi('离职申请说明：') }}
+                  1）正式员工需提前30天提交离职申请，试用期员工提前3天，并上传本人签字版的《员工离职申请表》；
                 </p>
                 <p>
-                  {{
-                    I18N.$fanyi(
-                      '1）正式员工需提前30天提交离职申请，试用期员工提前3天，并上传本人签字版的《员工离职申请表》；'
-                    )
-                  }}
+                  2）员工操作不便的，可由人行经理代为发起，发起后由HR线下提醒拟离职员工检查报销、财务欠款等款项的结算情况，上传员工本人签字的员工离职申请表；
                 </p>
-                <p>
-                  {{
-                    I18N.$fanyi(
-                      '2）员工操作不便的，可由人行经理代为发起，发起后由HR线下提醒拟离职员工检查报销、财务欠款等款项的结算情况，上传员工本人签字的员工离职申请表；'
-                    )
-                  }}
-                </p>
-                <p>
-                  {{
-                    I18N.$fanyi(
-                      '3）请注意检查并处理未报销账款、财务欠款等事宜。'
-                    )
-                  }}
-                </p>
+                <p>3）请注意检查并处理未报销账款、财务欠款等事宜。</p>
               </div>
               <div
                 v-for="(sonGroup, sonGroupIndex) in group.ACBLK"
@@ -305,11 +287,7 @@
                 </div>
               </div>
             </el-tab-pane>
-            <el-tab-pane
-              :label="I18N.$fanyi('附件')"
-              name="fileTabSheet"
-              v-if="isShowFile"
-            >
+            <el-tab-pane label="附件" name="fileTabSheet" v-if="isShowFile">
               <div
                 v-for="(allFileObject, allFileObjectIndex) in allFileList"
                 :key="allFileObjectIndex"
@@ -318,11 +296,7 @@
                   <h4 class="clearfix m-t-md">
                     <span class="li-bg-blue"></span>
                     <span>
-                      {{
-                        allFileObjectIndex === 0
-                          ? I18N.$fanyi('必传资料')
-                          : I18N.$fanyi('自定义资料')
-                      }}
+                      {{ allFileObjectIndex === 0 ? '必传资料' : '自定义资料' }}
                     </span>
                   </h4>
                   <hr />
@@ -333,22 +307,13 @@
                       baseParams.MENUII === pageCode.PAZZGLJT
                     "
                   >
+                    <p>转正申请所需附件说明：</p>
                     <p>
-                      {{ I18N.$fanyi('转正申请所需附件说明：') }}
+                      1）请下载员工提交转正自评表及转正报告模板，按填写说明完成后进行上传。
                     </p>
                     <p>
-                      {{
-                        I18N.$fanyi(
-                          '1）请下载员工提交转正自评表及转正报告模板，按填写说明完成后进行上传。'
-                        )
-                      }}
-                    </p>
-                    <p>
-                      {{
-                        I18N.$fanyi(
-                          '2） 入职时确认有经商或兼职情况9级以上干部，在入职时未处理完成的，同时附上经商办企业自查表和干部兼职及薪资情况自查表。'
-                        )
-                      }}
+                      2）
+                      入职时确认有经商或兼职情况9级以上干部，在入职时未处理完成的，同时附上经商办企业自查表和干部兼职及薪资情况自查表。
                     </p>
                     <div
                       class="husBox"
@@ -392,7 +357,7 @@
                             fileObject.ZATTN === ''
                           "
                         >
-                          {{ I18N.$fanyi('点击添加标题') }}
+                          点击添加标题
                         </span>
                         <el-tooltip
                           effect="dark"
@@ -451,14 +416,14 @@
                           <div class="file-down-operation-box">
                             <span
                               class="el-icon-download"
-                              :title="I18N.$fanyi('下载')"
+                              title="下载"
                               @click="
                                 $downloadFile(fileItem.ATTDL, fileItem.ATTNN)
                               "
                             ></span>
                             <span
                               class="el-icon-delete"
-                              :title="I18N.$fanyi('删除')"
+                              title="删除"
                               v-if="
                                 fileItem.ATTNN && baseParams.EV_DISP !== 'X'
                               "
@@ -481,12 +446,12 @@
                             'dhrDownloadService/utility/file/dfs/upload'
                           "
                           class="avatar-uploader"
-                          :on-success=";(response, file, fileList) =>
-  handleSuccess(response, file, fileObject, fileList)
+                          createI18nDirectiveNode
+                          is
+                          errorcreateI18nDirectiveNode
+                          is
+                          error:on-error="handleError
 "
-                          :before-upload=";(file) => handleBefore(file, fileObject)
-"
-                          :on-error="handleError"
                           :on-exceed="handleFileExceed"
                           :file-list="fileObject.ZACFILE"
                           :show-file-list="false"
@@ -547,7 +512,7 @@
       </el-dialog>
     </div>
     <el-dialog
-      :title="I18N.$fanyi('支付宝扫描二维码，签署合同')"
+      title="支付宝扫描二维码，签署合同"
       :visible="signVisible"
       class="sign-dialog"
       width="30%"
@@ -555,17 +520,14 @@
       :close-on-press-escape="false"
       :show-close="false"
       :append-to-body="true"
-      :before-close=";() => signClose()
-"
+      createI18nDirectiveNode
+      is
+      error
     >
       <div v-if="signVisible" id="qrcode"></div>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="signClose">
-          {{ I18N.$fanyi('取 消') }}
-        </el-button>
-        <el-button type="primary" @click="signFile">
-          {{ I18N.$fanyi('签署完成') }}
-        </el-button>
+        <el-button @click="signClose"> 取 消 </el-button>
+        <el-button type="primary" @click="signFile"> 签署完成 </el-button>
       </span>
     </el-dialog>
   </div>
@@ -915,7 +877,7 @@ export default {
                   } catch (e) {
                     console.error(
                       new Date().Format('yyyy-MM-dd hh:mm:ss'),
-                      I18N.$fanyi('解析'),
+                      '解析',
                       sonGroup[k].INFTY,
                       sonGroup[k].SUBTY,
                       fieldData[s].VALUE,
@@ -1042,7 +1004,7 @@ export default {
               let models = sonGroup[k].models
 
               if (models.length < valueList.length) {
-                console.error(I18N.$fanyi('数量不匹配,手动进行数据调整！'))
+                console.error('数量不匹配,手动进行数据调整！')
                 let smodels = JSON.parse(JSON.stringify(models[0]))
                 models = []
                 valueList.forEach(() =>
@@ -1095,7 +1057,7 @@ export default {
                     } catch (e) {
                       console.error(
                         new Date().Format('yyyy-MM-dd hh:mm:ss'),
-                        I18N.$fanyi('解析'),
+                        '解析',
                         sonGroup[k].INFTY,
                         models[o][l].FIELD,
                         e
@@ -1126,7 +1088,7 @@ export default {
                     } catch (e) {
                       console.error(
                         new Date().Format('yyyy-MM-dd hh:mm:ss'),
-                        I18N.$fanyi('解析'),
+                        '解析',
                         sonGroup[k].INFTY,
                         models[o][l].FIELD,
                         e
@@ -1193,7 +1155,7 @@ export default {
                   } catch (e) {
                     console.error(
                       new Date().Format('yyyy-MM-dd hh:mm:ss'),
-                      I18N.$fanyi('解析'),
+                      '解析',
                       sonGroup[k].INFTY,
                       fields[o].FIELD,
                       e
@@ -1215,7 +1177,7 @@ export default {
                   } catch (e) {
                     console.error(
                       new Date().Format('yyyy-MM-dd hh:mm:ss'),
-                      I18N.$fanyi('解析'),
+                      '解析',
                       sonGroup[k].INFTY,
                       fields[o].FIELD,
                       e
@@ -1236,7 +1198,7 @@ export default {
                   } catch (e) {
                     console.error(
                       new Date().Format('yyyy-MM-dd hh:mm:ss'),
-                      I18N.$fanyi('解析'),
+                      '解析',
                       sonGroup[k].INFTY,
                       fields[o].FIELD,
                       e
@@ -1365,7 +1327,7 @@ export default {
           } catch (e) {
             console.error(
               new Date().Format('yyyy-MM-dd hh:mm:ss'),
-              I18N.$fanyi('解析'),
+              '解析',
               fd.INFTY,
               fd.FIELD,
               e
@@ -1383,7 +1345,7 @@ export default {
           } catch (e) {
             console.error(
               new Date().Format('yyyy-MM-dd hh:mm:ss'),
-              I18N.$fanyi('解析'),
+              '解析',
               fd.INFTY,
               fd.FIELD,
               e
@@ -1428,7 +1390,7 @@ export default {
             } catch (e) {
               console.error(
                 new Date().Format('yyyy-MM-dd hh:mm:ss'),
-                I18N.$fanyi('解析'),
+                '解析',
                 k.INFTY,
                 k.SUBTY,
                 k.VALUE,
@@ -1721,8 +1683,7 @@ export default {
      */
     deleteModel(item, index) {
       let models = item.models
-      if (models.length <= 1)
-        return this.$message.warning(I18N.$fanyi('已经是最后一个'))
+      if (models.length <= 1) return this.$message.warning('已经是最后一个')
       models.splice(index, 1)
     },
 
@@ -1948,9 +1909,7 @@ export default {
             for (let iii in v1_v[ii]) {
               if (objs[iii]) {
                 // 有重复数据
-                console.error(
-                  I18N.$fanyi('重复的字段') + iii + JSON.stringify(v1)
-                )
+                console.error('重复的字段' + iii + JSON.stringify(v1))
               } else {
                 objs[iii] = v1_v[ii][iii]
               }
@@ -1984,6 +1943,7 @@ export default {
           let result = response.response
           let fileobject = {
             // FILEID: result.id,
+
             // 文件ID,20210518:id超出sap表字段长，改为空，由sap自增长
             ATTNN: result.name,
 
@@ -2022,7 +1982,7 @@ export default {
             fileItem.ZACFILE.push(fileobject)
           }
         } else {
-          this.$message.error(I18N.$fanyi('上传文件错误，请重新上传'))
+          this.$message.error('上传文件错误，请重新上传')
         }
       })
     },
@@ -2059,14 +2019,14 @@ export default {
 
       if (fileType.indexOf(postf) === -1) {
         this.$message.warning(
-          I18N.$fanyi('请选择正确的文件类型，如：') +
+          '请选择正确的文件类型，如：' +
             'xlsx, docx, txt, pdf, zip, rar, jpg, jpeg, gif, bmp, png, xls, doc, pptx, ppt'
         )
         return false
       }
 
       if (fileObject.ZACFILE.length >= 5) {
-        this.$message.warning(I18N.$fanyi('最多只能上传五个附件'))
+        this.$message.warning('最多只能上传五个附件')
         return false
       }
 
@@ -2076,21 +2036,19 @@ export default {
         postf !== 'jpg' &&
         postf !== 'jpeg'
       ) {
-        this.$message.warning(
-          I18N.$fanyi('寸彩色免冠照片格式应为') + ' .png,.jpg,.jpeg'
-        )
+        this.$message.warning('寸彩色免冠照片格式应为' + ' .png,.jpg,.jpeg')
         return false
       }
 
       if (fileObject.ZATTT === '140' && file.size > 5242880) {
-        this.$message.warning(I18N.$fanyi('寸彩色免冠照片不能大于5M'))
+        this.$message.warning('寸彩色免冠照片不能大于5M')
         return false
       }
 
       // 不能大于5M
 
       if (file.size > 5242880) {
-        this.$message.warning(I18N.$fanyi('单个附件不能大于5M'))
+        this.$message.warning('单个附件不能大于5M')
         return false
       }
     },
@@ -2103,9 +2061,7 @@ export default {
      * @param file
      */
     handleError(error, file) {
-      this.$message.error(
-        I18N.$fanyi('上传') + file.name + I18N.$fanyi('出现错误，请重新上传')
-      )
+      this.$message.error('上传' + file.name + '出现错误，请重新上传')
     },
 
     /**
@@ -2114,7 +2070,7 @@ export default {
      * @update  07/04/2022
      */
     handleFileExceed(file, fileList) {
-      this.$message.warning(I18N.$fanyi('最多支持5个文件'))
+      this.$message.warning('最多支持5个文件')
     },
 
     /**
@@ -2198,7 +2154,7 @@ export default {
                 ACTIO: '',
                 COLOR: 'success',
                 FCODE: 'SAV',
-                FNAME: I18N.$fanyi('提交'),
+                FNAME: '提交',
                 FTATS: '7',
                 FUNC: 'LG1',
                 SORTID: '10',
@@ -2227,14 +2183,14 @@ export default {
       if (this.verificationList.length > 0) {
         let errorData = this.verificationList[0]
         let message =
-          I18N.$fanyi('请正确填写') +
+          '请正确填写' +
           errorData['groupText'] +
           '-' +
           errorData['infoTypeText'] +
-          I18N.$fanyi('中的') +
+          '中的' +
           '【' +
           errorData['fieldText'] +
-          I18N.$fanyi('】字段')
+          '】字段'
         this.$message.error(message)
         return
       }
@@ -2345,10 +2301,10 @@ export default {
             subModuleName: params.FNAME,
             describe:
               params.FNAME +
-              I18N.$fanyi('了') +
+              '了' +
               localStorage.getItem('currentPageText') +
               this.baseParams.employeeNum +
-              I18N.$fanyi('的数据'),
+              '的数据',
             viewPernr: this.baseParams.employeeNum
           })
 
@@ -2378,9 +2334,7 @@ export default {
             ) {
               this.startSign('10')
             } else {
-              this.$message.success(
-                es_message.MSGTX || I18N.$fanyi('操作成功！')
-              )
+              this.$message.success(es_message.MSGTX || '操作成功！')
               let workflowId = response.E_ZWFNO
 
               // 获取流程编码
@@ -2527,21 +2481,21 @@ export default {
                   /^(\d{4})(\d{2})(\d{2})$/,
                   '$1-$2-$3'
                 )
-              ).Format(I18N.$fanyi('yyyy年MM月dd日'))
+              ).Format('yyyy年MM月dd日')
             : ''
         params.ENAME = offerData.ENAME
 
         // 姓名
 
-        params.pdfDate = new Date().Format(I18N.$fanyi('yyyy年MM月dd日'))
-        params.pdfdate = new Date().Format(I18N.$fanyi('yyyy年MM月dd日'))
+        params.pdfDate = new Date().Format('yyyy年MM月dd日')
+        params.pdfdate = new Date().Format('yyyy年MM月dd日')
 
         // 保留 BK === 'SP'
 
         params.docxname = offerData.ZOFTYPE + '.docx'
         params.xmlname = offerData.ZOFTYPE + '.xml'
         params.outputDocxFileName =
-          I18N.$fanyi('录用通知函') + '(' + offerData.ENAME + ').doc'
+          '录用通知函' + '(' + offerData.ENAME + ').doc'
         params.BRANCH = offerData.ZYPDW
 
         // 子公司名称
@@ -2638,7 +2592,7 @@ export default {
      */
     openOfferPage(offerFile, param) {
       this.dialogVisible = true
-      this.dialogTitle = I18N.$fanyi('发送Offer')
+      this.dialogTitle = '发送Offer'
       this.showDialog = 'offer'
       this.parentData.offerData = param
       this.parentData.offerData.SUBKEY = this.baseParams.SUBKEY
@@ -2903,7 +2857,7 @@ export default {
      */
     assemblyWordTemplateParams(data) {
       let params = {}
-      data.YRDWLXR = I18N.$fanyi('孙丽娜')
+      data.YRDWLXR = '孙丽娜'
 
       // 联系人
 
@@ -2917,7 +2871,7 @@ export default {
 
       params.templateName = 'ldhtmb_group.ftl'
       params.fileName =
-        I18N.$fanyi('劳动合同模版') + new Date().Format('yyyy-MM-dd') + '.doc'
+        '劳动合同模版' + new Date().Format('yyyy-MM-dd') + '.doc'
       params.wordParams = data
       return params
     },
@@ -2932,7 +2886,7 @@ export default {
       if (params) {
         this.showDialog = 'message'
         this.dialogVisible = true
-        this.dialogTitle = I18N.$fanyi('发送邮件')
+        this.dialogTitle = '发送邮件'
         this.parentData = {
           link: params.EV_APPLICATION_URL,
           emailAddress: params.EV_EMAIL,

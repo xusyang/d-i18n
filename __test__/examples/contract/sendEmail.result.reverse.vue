@@ -2,12 +2,9 @@
   <div class="height100">
     <div ref="seedEmailID">
       <div style="font-size: 18px; line-height: 2">
-        {{ I18N.$fanyi('尊敬的[') }} {{ paContractList.ENAME }}
-        {{
-          paContractList.GESCH === I18N.$fanyi('女')
-            ? I18N.$fanyi('女士')
-            : I18N.$fanyi('先生')
-        }}
+        尊敬的[
+        {{ paContractList.ENAME }}
+        {{ paContractList.GESCH === '女' ? '女士' : '先生' }}
         ]：
       </div>
       <div
@@ -19,31 +16,29 @@
         "
       >
         {{ ZSPRQ }}
-        {{
-          I18N.$fanyi(
-            '，德勤湾中公司人力资源部，向您发送了劳动合同签字请求，请通过移动设备扫描二维码登陆电子合同系统签字，以下是您的劳动合同概要信息，若以疑问请联系：'
-          )
-        }}
+        ，德勤湾中公司人力资源部，向您发送了劳动合同签字请求，请通过移动设备扫描二维码登陆电子合同系统签字，以下是您的劳动合同概要信息，若以疑问请联系：
       </div>
       <div style="font-size: 18px; float: left; width: 60%">
         <div style="text-indent: 2em; line-height: 2">
-          {{ I18N.$fanyi('联系人：') }} {{ pageForm.ZLXR_NAME }}
+          联系人：
+          {{ pageForm.ZLXR_NAME }}
         </div>
         <div style="text-indent: 2em; line-height: 2">
-          {{ I18N.$fanyi('工作岗位：') }} {{ pageForm.ZPLANS }}
+          工作岗位：
+          {{ pageForm.ZPLANS }}
         </div>
         <div style="text-indent: 2em; line-height: 2">
-          {{ I18N.$fanyi('联系电话：') }} {{ pageForm.ZPHONE_DW }}
+          联系电话：
+          {{ pageForm.ZPHONE_DW }}
         </div>
         <div style="text-indent: 2em; line-height: 2">
-          {{ I18N.$fanyi('电子邮箱：') }} {{ pageForm.ZEMAIL_LXR }}
+          电子邮箱：
+          {{ pageForm.ZEMAIL_LXR }}
         </div>
       </div>
       <div style="font-size: 18px; float: left">
         <div id="qrcode" ref="qrCodeUrl"></div>
-        <div style="color: #eb3222; font-size: 16px">
-          {{ I18N.$fanyi('扫一扫，签订合同') }}
-        </div>
+        <div style="color: #eb3222; font-size: 16px">扫一扫，签订合同</div>
       </div>
 
       <div style="clear: both"></div>
@@ -60,7 +55,7 @@
                 color: #fff;
               "
             >
-              {{ I18N.$fanyi('序号') }}
+              序号
             </div>
           </th>
           <th>
@@ -74,7 +69,7 @@
                 color: #fff;
               "
             >
-              {{ I18N.$fanyi('合同类型') }}
+              合同类型
             </div>
           </th>
           <th>
@@ -88,7 +83,7 @@
                 color: #fff;
               "
             >
-              {{ I18N.$fanyi('合同期限类型') }}
+              合同期限类型
             </div>
           </th>
           <th>
@@ -102,7 +97,7 @@
                 color: #fff;
               "
             >
-              {{ I18N.$fanyi('合同签订主体') }}
+              合同签订主体
             </div>
           </th>
           <th>
@@ -116,7 +111,7 @@
                 color: #fff;
               "
             >
-              {{ I18N.$fanyi('合同开始日期') }}
+              合同开始日期
             </div>
           </th>
           <th>
@@ -130,7 +125,7 @@
                 color: #fff;
               "
             >
-              {{ I18N.$fanyi('合同结束日期') }}
+              合同结束日期
             </div>
           </th>
           <th>
@@ -144,7 +139,7 @@
                 color: #fff;
               "
             >
-              {{ I18N.$fanyi('试用期') }}
+              试用期
             </div>
           </th>
           <th>
@@ -158,7 +153,7 @@
                 color: #fff;
               "
             >
-              {{ I18N.$fanyi('试用期结束日期') }}
+              试用期结束日期
             </div>
           </th>
           <th>
@@ -172,7 +167,7 @@
                 color: #fff;
               "
             >
-              {{ I18N.$fanyi('状态') }}
+              状态
             </div>
           </th>
           <tr>
@@ -180,9 +175,7 @@
               <div>1</div>
             </td>
             <td>
-              <div>
-                {{ I18N.$fanyi('劳动合同') }}
-              </div>
+              <div>劳动合同</div>
             </td>
             <td>
               <div>
@@ -205,7 +198,7 @@
               </div>
             </td>
             <td>
-              <div>{{ pageForm.SYQ }} {{ I18N.$fanyi('个月') }}</div>
+              <div>{{ pageForm.SYQ }} 个月</div>
             </td>
             <td>
               <div>
@@ -268,8 +261,7 @@ export default {
         this.emailSend(
           this.paContractList.ZRZDW,
           this.paContractList.EMAIL,
-          this.paContractList.ZRZDW +
-            I18N.$fanyi('向您发送了一封劳动合同签字的工作待办.'),
+          this.paContractList.ZRZDW + '向您发送了一封劳动合同签字的工作待办.',
           contentHTML
         )
       }, 500)
@@ -297,7 +289,7 @@ export default {
         content: content
       }
       this.$httpServer.base.dcemailSend(data).then(() => {
-        this.$message.success(I18N.$fanyi('邮件发送成功!'))
+        this.$message.success('邮件发送成功!')
       })
     },
 
@@ -311,7 +303,7 @@ export default {
       this.ZSPRQ = this.paContractList.ZCZRQ
         ? this.paContractList.ZCZRQ.replace(
             /(\d{4})(\d{2})(\d{2})/g,
-            I18N.$fanyi('$1年$2月$3日')
+            '$1年$2月$3日'
           )
         : ''
     }

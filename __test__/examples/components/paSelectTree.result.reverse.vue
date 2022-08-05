@@ -45,7 +45,7 @@
         :filter-node-method="filterNode"
         :default-checked-keys="keysList"
         :default-expand-all="defaultExpandAll"
-        :empty-text="I18N.$fanyi('加载中...')"
+        empty-text="加载中..."
         @node-click.self="handleNodeClick"
       >
         <div style="width: 100%; padding-right: 10px" slot-scope="{ data }">
@@ -133,7 +133,7 @@ export default {
     },
     filterText: {
       type: String,
-      default: I18N.$fanyi('输入关键字进行过滤')
+      default: '输入关键字进行过滤'
     },
     checkStrictly: {
       type: Boolean,

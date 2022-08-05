@@ -5,11 +5,11 @@
         <el-row>
           <el-col class="el-col-sm-12">
             <el-button size="mini" type="primary" @click="downloadTemp()">
-              {{ I18N.$fanyi('下载采集模版') }}
+              下载采集模版
             </el-button>
           </el-col>
           <el-col class="el-col-sm-9">
-            <el-form-item :label="I18N.$fanyi('文件路径')">
+            <el-form-item label="文件路径">
               <el-input type="text" disabledstyle="width: 100%"></el-input>
             </el-form-item>
           </el-col>
@@ -20,7 +20,7 @@
               :loading="loading"
               @click="selectFile"
             >
-              {{ I18N.$fanyi('浏览') }}
+              浏览
             </el-button>
             <input
               type="file"
@@ -56,7 +56,7 @@
         ></el-table-column>
         <el-table-column
           prop="operation"
-          :label="I18N.$fanyi('操作')"
+          label="操作"
           fixed="right"
           width="70"
           header-align="center"
@@ -70,7 +70,7 @@
               size="mini"
               class="mr5"
             >
-              {{ I18N.$fanyi('删除') }}
+              删除
             </el-link>
           </template>
         </el-table-column>
@@ -80,9 +80,10 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="currentPage"
-          :page-sizes=";[10, 20, 50, 100]
+          createI18nDirectiveNode
+          is
+          error:page-size="pageSize
 "
-          :page-size="pageSize"
           layout="total, sizes, prev, pager, next, jumper"
           :total="$filterTableContent(searchContent, previewList).length"
         ></el-pagination>
@@ -98,11 +99,9 @@
           :loading="loading"
           @click="entryImport()"
         >
-          {{ I18N.$fanyi('确认导入') }}
+          确认导入
         </el-button>
-        <el-button size="mini" @click="closeDialog">
-          {{ I18N.$fanyi('取消') }}
-        </el-button>
+        <el-button size="mini" @click="closeDialog"> 取消 </el-button>
       </el-col>
     </div>
   </div>
@@ -180,82 +179,82 @@ export default {
     settingTableField() {
       this.tableHeaderList = [
         {
-          label: I18N.$fanyi('姓名'),
+          label: '姓名',
           prop: 'ENAME',
           width: 100
         },
         {
-          label: I18N.$fanyi('性别'),
+          label: '性别',
           prop: 'GESCH',
           width: 100
         },
         {
-          label: I18N.$fanyi('出生日期'),
+          label: '出生日期',
           prop: 'GBDAT',
           width: 120
         },
         {
-          label: I18N.$fanyi('民族'),
+          label: '民族',
           prop: 'RACKY',
           width: 100
         },
         {
-          label: I18N.$fanyi('健康状况'),
+          label: '健康状况',
           prop: 'ZZJKZK',
           width: 120
         },
         {
-          label: I18N.$fanyi('婚姻状况'),
+          label: '婚姻状况',
           prop: 'FATXT',
           width: 120
         },
         {
-          label: I18N.$fanyi('手机号码'),
+          label: '手机号码',
           prop: 'ZSJ_NUM',
           width: 120
         },
         {
-          label: I18N.$fanyi('微信号'),
+          label: '微信号',
           prop: 'ZVX_NUM',
           width: 120
         },
         {
-          label: I18N.$fanyi('籍贯'),
+          label: '籍贯',
           prop: 'ZZJGSZSF',
           width: 100
         },
         {
-          label: I18N.$fanyi('户口所在地'),
+          label: '户口所在地',
           prop: 'ZZHKSZS',
           width: 150
         },
         {
-          label: I18N.$fanyi('政治面貌'),
+          label: '政治面貌',
           prop: 'PCODE',
           width: 120
         },
         {
-          label: I18N.$fanyi('入党日期'),
+          label: '入党日期',
           prop: 'BEGDA',
           width: 120
         },
         {
-          label: I18N.$fanyi('现住地址'),
+          label: '现住地址',
           prop: 'ZADDRS',
           width: 120
         },
         {
-          label: I18N.$fanyi('邮政编码'),
+          label: '邮政编码',
           prop: 'PSTLZ',
           width: 120
         },
         {
-          label: I18N.$fanyi('身份证号'),
+          label: '身份证号',
           prop: 'ICNUM',
           width: 120
         },
         {
-          label: I18N.$fanyi('邮箱地址'),
+          label: '邮箱地址',
           prop: 'ZEMAIL',
           width: 120
         }
@@ -268,7 +267,7 @@ export default {
      * @date 2020年07月20日
      */
     downloadTemp() {
-      let url = 'staticFile/' + I18N.$fanyi('员工简历下载模板') + '.xlsx'
+      let url = 'staticFile/' + '员工简历下载模板' + '.xlsx'
       this.$downloadStaticFile(url)
     },
 
@@ -291,7 +290,7 @@ export default {
       let files = document.querySelector('input[type=file]').files
 
       if (files.length > 20) {
-        this.$message.error(I18N.$fanyi('上传文件数量不能超过20个'))
+        this.$message.error('上传文件数量不能超过20个')
         return
       }
 
@@ -346,7 +345,7 @@ export default {
      */
     entryImport() {
       if (this.previewList.length > 20)
-        return this.$message.error(I18N.$fanyi('文件个数不允许超过20个'))
+        return this.$message.error('文件个数不允许超过20个')
       let parentData = this.parentData
       let reqParams = {
         sapInterface: 'PE800',

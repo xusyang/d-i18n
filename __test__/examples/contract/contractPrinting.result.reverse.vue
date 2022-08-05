@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-loading.fullscreen="loading"
-    :element-loading-text="I18N.$fanyi('加载中.....')"
-  >
+  <div v-loading.fullscreen="loading" element-loading-text="加载中.....">
     <breadcrumb :key="$route.fullPath"></breadcrumb>
     <div class="ibox-content mt10 contract-box">
       <el-form
@@ -21,7 +18,7 @@
               @click="submitContract('0')"
               v-if="baseParams.STAT === '0' || baseParams.STAT === 'Z'"
             >
-              {{ I18N.$fanyi('保存') }}
+              保存
             </el-button>
             <el-button
               size="mini"
@@ -29,7 +26,7 @@
               @click="getPdf('0')"
               v-if="baseParams.STAT === '0' || baseParams.STAT === 'Z'"
             >
-              {{ I18N.$fanyi('预览') }}
+              预览
             </el-button>
             <el-button
               size="mini"
@@ -37,7 +34,7 @@
               @click="getPdf('A')"
               v-if="baseParams.STAT === '0' || baseParams.STAT === 'Z'"
             >
-              {{ I18N.$fanyi('提交') }}
+              提交
             </el-button>
             <el-button
               size="mini"
@@ -45,7 +42,7 @@
               @click="viewContract(baseParams.ZVIEWURL)"
               v-if="baseParams.STAT === 'B'"
             >
-              {{ I18N.$fanyi('查看合同') }}
+              查看合同
             </el-button>
             <el-button
               size="mini"
@@ -53,23 +50,19 @@
               @click="getContract"
               v-if="baseParams.STAT === '5' || baseParams.STAT === 'C'"
             >
-              {{ I18N.$fanyi('下载合同') }}
+              下载合同
             </el-button>
-            <el-button size="mini" @click="backing()">
-              {{ I18N.$fanyi('返回') }}
-            </el-button>
+            <el-button size="mini" @click="backing()"> 返回 </el-button>
           </el-col>
         </el-row>
         <div class="contract-field-heigth">
           <div class="">
-            <h4>
-              <span class="li-bg-blue"></span> {{ I18N.$fanyi('劳动合同模版') }}
-            </h4>
+            <h4><span class="li-bg-blue"></span> 劳动合同模版</h4>
             <hr />
           </div>
           <el-row class="paddl10">
             <el-col class="el-col-sm-6">
-              <el-form-item prop="ZLDHTMB" :label="I18N.$fanyi('劳动合同模版')">
+              <el-form-item prop="ZLDHTMB" label="劳动合同模版">
                 <el-select
                   v-model="pageForm.ZLDHTMB"
                   :disabled="isEdit"
@@ -88,13 +81,13 @@
           <div class="">
             <h4>
               <span class="li-bg-blue"></span>
-              {{ I18N.$fanyi('甲方（公司注册信息)') }}
+              甲方（公司注册信息)
             </h4>
             <hr />
           </div>
           <el-row class="paddl10">
             <el-col class="el-col-sm-6">
-              <el-form-item prop="ZZXYDM" :label="I18N.$fanyi('用人单位名称')">
+              <el-form-item prop="ZZXYDM" label="用人单位名称">
                 <el-select
                   v-model="pageForm.ZZXYDM"
                   filterable:disabled="isEdit"
@@ -111,10 +104,7 @@
               </el-form-item>
             </el-col>
             <el-col class="el-col-sm-6">
-              <el-form-item
-                prop="ZFR_NAME"
-                :label="I18N.$fanyi('法定代表人（主要负责人）')"
-              >
+              <el-form-item prop="ZFR_NAME" label="法定代表人（主要负责人）">
                 <el-input
                   v-model="pageForm.ZFR_NAME"
                   :disabled="isEdit"
@@ -123,7 +113,7 @@
               </el-form-item>
             </el-col>
             <el-col class="el-col-sm-6">
-              <el-form-item prop="ZQYJJLX" :label="I18N.$fanyi('企业经济类型')">
+              <el-form-item prop="ZQYJJLX" label="企业经济类型">
                 <search-help
                   funccode="HT005"
                   :code.sync="pageForm.ZQYJJLX"
@@ -134,7 +124,7 @@
               </el-form-item>
             </el-col>
             <el-col class="el-col-sm-6">
-              <el-form-item prop="ZTXDZ_DW" :label="I18N.$fanyi('通讯地址')">
+              <el-form-item prop="ZTXDZ_DW" label="通讯地址">
                 <el-input
                   v-model="pageForm.ZTXDZ_DW"
                   :disabled="isEdit"
@@ -143,7 +133,7 @@
               </el-form-item>
             </el-col>
             <el-col class="el-col-sm-6">
-              <el-form-item prop="ZLXR" :label="I18N.$fanyi('联系人')">
+              <el-form-item prop="ZLXR" label="联系人">
                 <pa-search-user
                   ref="paSearchUser"
                   :ipage="baseParams.MENUII"
@@ -156,7 +146,7 @@
               </el-form-item>
             </el-col>
             <el-col class="el-col-sm-6">
-              <el-form-item prop="ZPHONE_DW" :label="I18N.$fanyi('电话号码')">
+              <el-form-item prop="ZPHONE_DW" label="电话号码">
                 <el-input
                   v-model="pageForm.ZPHONE_DW"
                   :disabled="isEdit"
@@ -165,7 +155,7 @@
               </el-form-item>
             </el-col>
             <el-col class="el-col-sm-6">
-              <el-form-item prop="ZGZR" :label="I18N.$fanyi('用章人')">
+              <el-form-item prop="ZGZR" label="用章人">
                 <pa-search-user
                   ref="paSearchUser"
                   :ipage="baseParams.MENUII"
@@ -181,13 +171,13 @@
           <div class="">
             <h4>
               <span class="li-bg-blue"></span>
-              {{ I18N.$fanyi('乙方（员工基本信息）') }}
+              乙方（员工基本信息）
             </h4>
             <hr />
           </div>
           <el-row class="paddl10">
             <el-col class="el-col-sm-6">
-              <el-form-item prop="ENAME" :label="I18N.$fanyi('姓名')">
+              <el-form-item prop="ENAME" label="姓名">
                 <el-input
                   v-model="pageForm.ENAME"
                   class="width90p"
@@ -197,7 +187,7 @@
             </el-col>
 
             <el-col class="el-col-sm-6">
-              <el-form-item prop="ICNUM" :label="I18N.$fanyi('身份证号')">
+              <el-form-item prop="ICNUM" label="身份证号">
                 <el-input
                   v-model="pageForm.ICNUM"
                   class="width90p"
@@ -207,7 +197,7 @@
             </el-col>
 
             <el-col class="el-col-sm-6">
-              <el-form-item prop="ZHJDZ" :label="I18N.$fanyi('户籍地址')">
+              <el-form-item prop="ZHJDZ" label="户籍地址">
                 <el-input
                   v-model="pageForm.ZHJDZ"
                   class="width90p"
@@ -216,7 +206,7 @@
               </el-form-item>
             </el-col>
             <el-col class="el-col-sm-6">
-              <el-form-item prop="ZTXDZ_GR" :label="I18N.$fanyi('通讯地址')">
+              <el-form-item prop="ZTXDZ_GR" label="通讯地址">
                 <el-input
                   v-model="pageForm.ZTXDZ_GR"
                   class="width90p"
@@ -225,7 +215,7 @@
               </el-form-item>
             </el-col>
             <el-col class="el-col-sm-6">
-              <el-form-item prop="ZPHONE_GR" :label="I18N.$fanyi('联系电话')">
+              <el-form-item prop="ZPHONE_GR" label="联系电话">
                 <el-input
                   v-model="pageForm.ZPHONE_GR"
                   class="width90p"
@@ -234,7 +224,7 @@
               </el-form-item>
             </el-col>
             <el-col class="el-col-sm-6">
-              <el-form-item prop="ZEMAIL_GR" :label="I18N.$fanyi('邮箱地址')">
+              <el-form-item prop="ZEMAIL_GR" label="邮箱地址">
                 <el-input
                   v-model="pageForm.ZEMAIL_GR"
                   class="width90p"
@@ -244,17 +234,12 @@
             </el-col>
           </el-row>
           <div class="">
-            <h4>
-              <span class="li-bg-blue"></span> {{ I18N.$fanyi('合同期限') }}
-            </h4>
+            <h4><span class="li-bg-blue"></span> 合同期限</h4>
             <hr />
           </div>
           <el-row class="paddl10">
             <el-col class="el-col-sm-6">
-              <el-form-item
-                prop="ZZHTQXLX_T"
-                :label="I18N.$fanyi('合同期限类型')"
-              >
+              <el-form-item prop="ZZHTQXLX_T" label="合同期限类型">
                 <el-input
                   v-model="pageForm.ZZHTQXLX_T"
                   class="width90p"
@@ -263,7 +248,7 @@
               </el-form-item>
             </el-col>
             <el-col class="el-col-sm-6">
-              <el-form-item prop="BEGDA" :label="I18N.$fanyi('合同开始日期')">
+              <el-form-item prop="BEGDA" label="合同开始日期">
                 <el-input
                   v-model="pageForm.BEGDA"
                   class="width90p"
@@ -272,7 +257,7 @@
               </el-form-item>
             </el-col>
             <el-col class="el-col-sm-6">
-              <el-form-item prop="CTEDT" :label="I18N.$fanyi('合同结束日期')">
+              <el-form-item prop="CTEDT" label="合同结束日期">
                 <el-input
                   v-model="pageForm.CTEDT"
                   class="width90p"
@@ -281,7 +266,7 @@
               </el-form-item>
             </el-col>
             <div class="col-md-4" v-if="pageForm.ZZHTQXLX === '03'">
-              <el-form-item prop="ZHTZZBZ" :label="I18N.$fanyi('合同终止标志')">
+              <el-form-item prop="ZHTZZBZ" label="合同终止标志">
                 <el-input
                   v-model="pageForm.ZHTZZBZ"
                   class="width90p"
@@ -290,7 +275,7 @@
               </el-form-item>
             </div>
             <el-col class="el-col-sm-6">
-              <el-form-item prop="ZSFSY" :label="I18N.$fanyi('是否有试用期限')">
+              <el-form-item prop="ZSFSY" label="是否有试用期限">
                 <el-input
                   v-model="pageForm.ZSFSY"
                   class="width90p"
@@ -299,10 +284,7 @@
               </el-form-item>
             </el-col>
             <el-col class="el-col-sm-6">
-              <el-form-item
-                prop="ZZSYKSRQ"
-                :label="I18N.$fanyi('试用期开始日期')"
-              >
+              <el-form-item prop="ZZSYKSRQ" label="试用期开始日期">
                 <el-input
                   v-model="pageForm.ZZSYKSRQ"
                   class="width90p"
@@ -311,10 +293,7 @@
               </el-form-item>
             </el-col>
             <el-col class="el-col-sm-6">
-              <el-form-item
-                prop="ZZHTZZRQ"
-                :label="I18N.$fanyi('试用期结束日期')"
-              >
+              <el-form-item prop="ZZHTZZRQ" label="试用期结束日期">
                 <el-input
                   v-model="pageForm.ZZHTZZRQ"
                   class="width90p"
@@ -326,13 +305,13 @@
           <div class="">
             <h4>
               <span class="li-bg-blue"></span>
-              {{ I18N.$fanyi('工作内容和工作地点') }}
+              工作内容和工作地点
             </h4>
             <hr />
           </div>
           <el-row class="paddl10">
             <el-col class="el-col-sm-24">
-              <el-form-item prop="ZGZDD" :label="I18N.$fanyi('乙方工作地点')">
+              <el-form-item prop="ZGZDD" label="乙方工作地点">
                 <el-input
                   v-model="pageForm.ZGZDD"
                   :disabled="isEdit"
@@ -341,7 +320,7 @@
               </el-form-item>
             </el-col>
             <el-col class="el-col-sm-6">
-              <el-form-item prop="ZGZNR" :label="I18N.$fanyi('工种')">
+              <el-form-item prop="ZGZNR" label="工种">
                 <search-help
                   funccode="HT004"
                   :code.sync="pageForm.ZGZNR"
@@ -352,7 +331,7 @@
               </el-form-item>
             </el-col>
             <el-col class="el-col-sm-6">
-              <el-form-item prop="ZGZNR_M" :label="I18N.$fanyi('乙方工作内容')">
+              <el-form-item prop="ZGZNR_M" label="乙方工作内容">
                 <el-input
                   v-model="pageForm.ZGZNR_M"
                   :disabled="isEdit"
@@ -364,12 +343,12 @@
             <div class="">
               <h4>
                 <span class="li-bg-blue"></span>
-                {{ I18N.$fanyi('工作时间和休息休假') }}
+                工作时间和休息休假
               </h4>
               <hr />
             </div>
             <el-col class="el-col-sm-6">
-              <el-form-item prop="ZGZZ" :label="I18N.$fanyi('工作制')">
+              <el-form-item prop="ZGZZ" label="工作制">
                 <search-help
                   funccode="HT001"
                   :code.sync="pageForm.ZGZZ"
@@ -382,7 +361,7 @@
             <el-col class="el-col-sm-6" v-if="pageForm.ZGZZ != 2">
               <el-form-item
                 prop="ZGZZJSZQ"
-                :label="I18N.$fanyi('工作制计算周期（综合计算工时工作制）')"
+                label="工作制计算周期（综合计算工时工作制）"
               >
                 <search-help
                   funccode="HT002"
@@ -395,14 +374,12 @@
             </el-col>
           </el-row>
           <div class="">
-            <h4>
-              <span class="li-bg-blue"></span> {{ I18N.$fanyi('劳动报酬') }}
-            </h4>
+            <h4><span class="li-bg-blue"></span> 劳动报酬</h4>
             <hr />
           </div>
           <el-row class="paddl10">
             <el-col class="el-col-sm-6">
-              <el-form-item prop="ZGZBZXS" :label="I18N.$fanyi('工资标准形式')">
+              <el-form-item prop="ZGZBZXS" label="工资标准形式">
                 <search-help
                   funccode="HT003"
                   :code.sync="pageForm.ZGZBZXS"
@@ -413,10 +390,7 @@
               </el-form-item>
             </el-col>
             <el-col class="el-col-sm-6">
-              <el-form-item
-                prop="ZJSGZ"
-                :label="I18N.$fanyi('计时工资（元/月）')"
-              >
+              <el-form-item prop="ZJSGZ" label="计时工资（元/月）">
                 <el-input
                   v-model="pageForm.ZJSGZ"
                   :disabled="isEdit"
@@ -425,10 +399,7 @@
               </el-form-item>
             </el-col>
             <el-col class="el-col-sm-6">
-              <el-form-item
-                prop="ZSYQGZ"
-                :label="I18N.$fanyi('试用期工资（元/月）')"
-              >
+              <el-form-item prop="ZSYQGZ" label="试用期工资（元/月）">
                 <el-input
                   v-model="pageForm.ZSYQGZ"
                   :disabled="isEdit"
@@ -437,10 +408,7 @@
               </el-form-item>
             </el-col>
             <el-col class="el-col-sm-6">
-              <el-form-item
-                prop="ZFXR"
-                :label="I18N.$fanyi('发薪日（每月_日）')"
-              >
+              <el-form-item prop="ZFXR" label="发薪日（每月_日）">
                 <el-input
                   v-model="pageForm.ZFXR"
                   :disabled="isEdit"
@@ -529,21 +497,19 @@ export default {
           this.pageForm = es_output
           this.pageForm.ZHTZZBZ =
             !es_output.ZHTZZBZ && this.pageForm.ZZHTQXLX === '03'
-              ? I18N.$fanyi('已完成一定的工作为期限')
+              ? '已完成一定的工作为期限'
               : ''
           this.pageForm.ZLDHTMB = this.$isEmpty(es_output.ZLDHTMB)
             ? ' '
             : es_output.ZLDHTMB
           this.pageForm.ZLDHTMB_T = this.$isEmpty(es_output.ZLDHTMB_T)
-            ? I18N.$fanyi('上海市')
+            ? '上海市'
             : es_output.ZLDHTMB_T
           this.pageForm.ZGZDD = this.$isEmpty(es_output.ZGZDD)
-            ? I18N.$fanyi(
-                '甲方经营业务所在地（包括甲方分公司、子公司、合作项目公司所在地）'
-              )
+            ? '甲方经营业务所在地（包括甲方分公司、子公司、合作项目公司所在地）'
             : es_output.ZGZDD
           this.pageForm.ZGZNR_M = this.$isEmpty(es_output.ZGZNR_M)
-            ? I18N.$fanyi('管理岗位')
+            ? '管理岗位'
             : es_output.ZGZNR_M
           this.pageForm.BEGDA = this.$formatDate(es_output.BEGDA, 'en')
 
@@ -689,6 +655,7 @@ export default {
         IS_INPUT: JSON.stringify(inputData),
 
         // IV_STATS:state === 'C' ? '0' : state
+
         //
         // 撤销传0
         IV_STATS: state
@@ -1021,11 +988,11 @@ export default {
 
       // 乙方的工作内容
 
-      wordData.YFGZNRLXA = this.pageForm.ZGZNR === '1' ? I18N.$fanyi('是') : '/'
+      wordData.YFGZNRLXA = this.pageForm.ZGZNR === '1' ? '是' : '/'
 
       // 乙方工作内容确定为（填“是”）
 
-      wordData.YFGZNRLXB = this.pageForm.ZGZNR === '2' ? I18N.$fanyi('是') : '/'
+      wordData.YFGZNRLXB = this.pageForm.ZGZNR === '2' ? '是' : '/'
 
       // 乙方工作内容确定为（填“是”）
 
@@ -1037,19 +1004,19 @@ export default {
 
       // （甲、乙双方同意按以下第
 
-      wordData.JYN = this.pageForm.ZGZZJSZQ === '1' ? I18N.$fanyi('年') : '/'
+      wordData.JYN = this.pageForm.ZGZZJSZQ === '1' ? '年' : '/'
 
       // 综合计算工时工作制，即经劳动行政部门审批，乙方所在岗位实行以（填“是”）：年
 
-      wordData.JYBN = this.pageForm.ZGZZJSZQ === '2' ? I18N.$fanyi('半年') : '/'
+      wordData.JYBN = this.pageForm.ZGZZJSZQ === '2' ? '半年' : '/'
 
       // 半年
 
-      wordData.JYJ = this.pageForm.ZGZZJSZQ === '3' ? I18N.$fanyi('季') : '/'
+      wordData.JYJ = this.pageForm.ZGZZJSZQ === '3' ? '季' : '/'
 
       // 季
 
-      wordData.JYY = this.pageForm.ZGZZJSZQ === '4' ? I18N.$fanyi('月') : '/'
+      wordData.JYY = this.pageForm.ZGZZJSZQ === '4' ? '月' : '/'
 
       // 月
 
@@ -1078,10 +1045,10 @@ export default {
       } else if (this.pageForm.ZLDHTMB === '3') {
         params.templateName = 'wzqyldht.ftl'
       } else {
-        return this.$message.warning(I18N.$fanyi('暂无匹配的劳动合同模版'))
+        return this.$message.warning('暂无匹配的劳动合同模版')
       }
 
-      params.fileName = I18N.$fanyi('劳动合同')
+      params.fileName = '劳动合同'
       params.wordParams = wordData
 
       // 下载word
@@ -1180,7 +1147,7 @@ export default {
           {
             required: true,
             trigger: 'blur',
-            message: I18N.$fanyi('该项为必填')
+            message: '该项为必填'
           }
         ]
       }
@@ -1577,13 +1544,11 @@ export default {
 
           // 乙方的工作内容
 
-          wordData.YFGZNRLXA =
-            this.pageForm.ZGZNR === '1' ? I18N.$fanyi('是') : '/'
+          wordData.YFGZNRLXA = this.pageForm.ZGZNR === '1' ? '是' : '/'
 
           // 乙方工作内容确定为（填“是”）
 
-          wordData.YFGZNRLXB =
-            this.pageForm.ZGZNR === '2' ? I18N.$fanyi('是') : '/'
+          wordData.YFGZNRLXB = this.pageForm.ZGZNR === '2' ? '是' : '/'
 
           // 乙方工作内容确定为（填“是”）
 
@@ -1595,23 +1560,19 @@ export default {
 
           // （甲、乙双方同意按以下第
 
-          wordData.JYN =
-            this.pageForm.ZGZZJSZQ === '1' ? I18N.$fanyi('年') : '/'
+          wordData.JYN = this.pageForm.ZGZZJSZQ === '1' ? '年' : '/'
 
           // 综合计算工时工作制，即经劳动行政部门审批，乙方所在岗位实行以（填“是”）：年
 
-          wordData.JYBN =
-            this.pageForm.ZGZZJSZQ === '2' ? I18N.$fanyi('半年') : '/'
+          wordData.JYBN = this.pageForm.ZGZZJSZQ === '2' ? '半年' : '/'
 
           // 半年
 
-          wordData.JYJ =
-            this.pageForm.ZGZZJSZQ === '3' ? I18N.$fanyi('季') : '/'
+          wordData.JYJ = this.pageForm.ZGZZJSZQ === '3' ? '季' : '/'
 
           // 季
 
-          wordData.JYY =
-            this.pageForm.ZGZZJSZQ === '4' ? I18N.$fanyi('月') : '/'
+          wordData.JYY = this.pageForm.ZGZZJSZQ === '4' ? '月' : '/'
 
           // 月
 

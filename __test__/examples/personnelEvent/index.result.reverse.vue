@@ -54,10 +54,7 @@
                 MENUII !== pageCode.RCKGL
               "
             >
-              <el-form-item
-                :label="I18N.$fanyi('员工姓名：')"
-                prop="employeeNum"
-              >
+              <el-form-item label="员工姓名：" prop="employeeNum">
                 <pa-search-user
                   ref="paSearchUser"
                   :ipage="MENUII"
@@ -71,10 +68,7 @@
               class="el-col-sm-8"
               v-else-if="MENUII !== pageCode.RZZB && MENUII !== pageCode.LZSXBL"
             >
-              <el-form-item
-                :label="I18N.$fanyi('员工姓名：')"
-                prop="employeeName"
-              >
+              <el-form-item label="员工姓名：" prop="employeeName">
                 <el-input
                   v-model="queryForm.employeeName"
                   style="width: 100%"
@@ -83,7 +77,7 @@
             </el-col>
             <el-col class="el-col-sm-8">
               <el-form-item
-                :label="I18N.$fanyi('单位')"
+                label="单位"
                 prop="orgID"
                 v-if="MENUII !== pageCode.RZZB && MENUII !== pageCode.LZSXBL"
               >
@@ -107,10 +101,10 @@
                 MENUII === pageCode.FBGG
               "
             >
-              <el-form-item :label="I18N.$fanyi('岗位')" prop="plansID">
+              <el-form-item label="岗位" prop="plansID">
                 <el-input
                   v-if="!isPLANS"
-                  :placeholder="I18N.$fanyi('请选择岗位')"
+                  placeholder="请选择岗位"
                   v-model="queryForm.plansID"
                   readonly
                 ></el-input>
@@ -132,10 +126,7 @@
             </el-col>
             <template v-if="MENUII === pageCode.RZZB">
               <el-col class="el-col-sm-12">
-                <el-form-item
-                  :label="I18N.$fanyi('拟入职员工')"
-                  prop="employeeName"
-                >
+                <el-form-item label="拟入职员工" prop="employeeName">
                   <el-input
                     v-model="queryForm.employeeName"
                     style="width: 100%"
@@ -143,10 +134,7 @@
                 </el-form-item>
               </el-col>
               <el-col class="el-col-sm-12">
-                <el-form-item
-                  :label="I18N.$fanyi('任务标题')"
-                  prop="employeeName"
-                >
+                <el-form-item label="任务标题" prop="employeeName">
                   <el-input
                     v-model="queryForm.titeName"
                     style="width: 100%"
@@ -154,13 +142,10 @@
                 </el-form-item>
               </el-col>
               <el-col class="el-col-sm-12">
-                <el-form-item
-                  :label="I18N.$fanyi('待办接收开始日期')"
-                  prop="beginDate"
-                >
+                <el-form-item label="待办接收开始日期" prop="beginDate">
                   <el-date-picker
                     type="date"
-                    :placeholder="I18N.$fanyi('选择日期')"
+                    placeholder="选择日期"
                     v-model="queryForm.beginDate"
                     style="width: 100%"
                     @change.native="(e) => $dateMask(e, queryForm, 'beginDate')"
@@ -168,13 +153,10 @@
                 </el-form-item>
               </el-col>
               <el-col class="el-col-sm-12">
-                <el-form-item
-                  :label="I18N.$fanyi('待办接收结束日期')"
-                  prop="endDate"
-                >
+                <el-form-item label="待办接收结束日期" prop="endDate">
                   <el-date-picker
                     type="date"
-                    :placeholder="I18N.$fanyi('选择日期')"
+                    placeholder="选择日期"
                     v-model="queryForm.endDate"
                     style="width: 100%"
                     @change.native="(e) => $dateMask(e, queryForm, 'endDate')"
@@ -185,10 +167,7 @@
 
             <template v-if="MENUII === pageCode.LZSXBL">
               <el-col class="el-col-sm-12">
-                <el-form-item
-                  :label="I18N.$fanyi('离职员工')"
-                  prop="employeeName"
-                >
+                <el-form-item label="离职员工" prop="employeeName">
                   <el-input
                     v-model="queryForm.employeeName"
                     style="width: 100%"
@@ -196,10 +175,7 @@
                 </el-form-item>
               </el-col>
               <el-col class="el-col-sm-12">
-                <el-form-item
-                  :label="I18N.$fanyi('任务标题')"
-                  prop="employeeName"
-                >
+                <el-form-item label="任务标题" prop="employeeName">
                   <el-input
                     v-model="queryForm.titeName"
                     style="width: 100%"
@@ -207,13 +183,10 @@
                 </el-form-item>
               </el-col>
               <el-col class="el-col-sm-12">
-                <el-form-item
-                  :label="I18N.$fanyi('待办接收开始日期')"
-                  prop="beginDate"
-                >
+                <el-form-item label="待办接收开始日期" prop="beginDate">
                   <el-date-picker
                     type="date"
-                    :placeholder="I18N.$fanyi('选择日期')"
+                    placeholder="选择日期"
                     v-model="queryForm.beginDate"
                     style="width: 100%"
                     @change.native="(e) => $dateMask(e, queryForm, 'beginDate')"
@@ -221,13 +194,10 @@
                 </el-form-item>
               </el-col>
               <el-col class="el-col-sm-12">
-                <el-form-item
-                  :label="I18N.$fanyi('待办接收结束日期')"
-                  prop="endDate"
-                >
+                <el-form-item label="待办接收结束日期" prop="endDate">
                   <el-date-picker
                     type="date"
-                    :placeholder="I18N.$fanyi('选择日期')"
+                    placeholder="选择日期"
                     v-model="queryForm.endDate"
                     style="width: 100%"
                     @change.native="(e) => $dateMask(e, queryForm, 'endDate')"
@@ -240,10 +210,10 @@
               class="el-col-sm-8"
               v-if="MENUII !== pageCode.RZZB && MENUII !== pageCode.LZSXBL"
             >
-              <el-form-item :label="I18N.$fanyi('开始日期')" prop="beginDate">
+              <el-form-item label="开始日期" prop="beginDate">
                 <el-date-picker
                   type="date"
-                  :placeholder="I18N.$fanyi('选择日期')"
+                  placeholder="选择日期"
                   v-model="queryForm.beginDate"
                   style="width: 100%"
                   @change.native="(e) => $dateMask(e, queryForm, 'beginDate')"
@@ -254,10 +224,10 @@
               class="el-col-sm-8"
               v-if="MENUII !== pageCode.RZZB && MENUII !== pageCode.LZSXBL"
             >
-              <el-form-item :label="I18N.$fanyi('结束日期')" prop="endDate">
+              <el-form-item label="结束日期" prop="endDate">
                 <el-date-picker
                   type="date"
-                  :placeholder="I18N.$fanyi('选择日期')"
+                  placeholder="选择日期"
                   v-model="queryForm.endDate"
                   style="width: 100%"
                   @change.native="(e) => $dateMask(e, queryForm, 'endDate')"
@@ -272,14 +242,14 @@
                 :loading="loading"
                 @click="queryDataList('X')"
               >
-                {{ I18N.$fanyi('查询') }}
+                查询
               </el-button>
               <el-button
                 size="mini"
                 icon="el-icon-refresh-right"
                 @click="restForm"
               >
-                {{ I18N.$fanyi('重置') }}
+                重置
               </el-button>
             </div>
           </el-row>
@@ -290,8 +260,9 @@
         v-model="activeCode"
         @tab-click="queryDataList"
         v-loading="loading"
-        stripe:element-loading-text="I18N.$fanyi('加载中.....')
-"
+        createI18nDirectiveNode
+        is
+        error
       >
         <el-tab-pane
           v-for="tableSheet in tableSheetList"
@@ -305,9 +276,10 @@
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
                 :current-page="currentPage"
-                :page-sizes=";[10, 20, 50, 100]
+                createI18nDirectiveNode
+                is
+                error:page-size="pageSize
 "
-                :page-size="pageSize"
                 layout="total, sizes"
                 :total="$filterTableContent(searchContent, tableData).length"
               ></el-pagination>
@@ -315,7 +287,7 @@
             <div style="margin-top: -30px; text-align: right">
               <el-input
                 size="mini"
-                :placeholder="I18N.$fanyi('请输入关键字')"
+                placeholder="请输入关键字"
                 prefix-icon="el-icon-search"
                 v-model="searchContent"
                 class="table-input-serarch"
@@ -327,7 +299,7 @@
                 :loading="exportLoading"
                 round
               >
-                {{ I18N.$fanyi('下载表格内容') }}
+                下载表格内容
               </el-button>
             </div>
             <div class="mt10">
@@ -356,11 +328,12 @@
                   :label="field.label"
                   :min-width="field.width"
                   :type="field.type === 'index' ? 'index' : ''"
-                  :index=";(index) => $settingTableSerialNum(index, currentPage, pageSize)
-"
-                  align="center"
-                  :formatter=";(row, column, cellValue) => formatter(row, column, cellValue, field)
-"
+                  createI18nDirectiveNode
+                  is
+                  erroralign="center"
+                  createI18nDirectiveNode
+                  is
+                  error
                 >
                   <template slot-scope="scope">
                     <template
@@ -396,7 +369,7 @@
                 <el-table-column
                   fixed="right"
                   prop="operation"
-                  :label="I18N.$fanyi('操作')"
+                  label="操作"
                   :width="operationWiidth"
                   header-align="center"
                   align="center"
@@ -414,7 +387,7 @@
                           size="mini"
                           class="mr5"
                         >
-                          {{ I18N.$fanyi('查看') }}
+                          查看
                         </el-link>
                         <el-link
                           @click.native="operationEvent(scope.row, 'ENTRY')"
@@ -426,7 +399,7 @@
                           size="mini"
                           class="mr5"
                         >
-                          {{ I18N.$fanyi('处理') }}
+                          处理
                         </el-link>
                       </template>
                       <template
@@ -442,7 +415,7 @@
                           size="mini"
                           class="mr5"
                         >
-                          {{ I18N.$fanyi('签署') }}
+                          签署
                         </el-link>
                       </template>
                       <template v-else-if="MENUII === pageCode.LZSXBL">
@@ -456,7 +429,7 @@
                           size="mini"
                           class="mr5"
                         >
-                          {{ I18N.$fanyi('查看') }}
+                          查看
                         </el-link>
                         <el-link
                           @click.native="operationEvent(scope.row, 'LZSXBL')"
@@ -468,7 +441,7 @@
                           size="mini"
                           class="mr5"
                         >
-                          {{ I18N.$fanyi('处理') }}
+                          处理
                         </el-link>
                       </template>
                       <template v-else>
@@ -479,7 +452,7 @@
                           size="mini"
                           class="mr5"
                         >
-                          {{ I18N.$fanyi('查看') }}
+                          查看
                         </el-link>
                         <el-link
                           v-show="
@@ -493,7 +466,7 @@
                           size="mini"
                           class="mr5"
                         >
-                          {{ I18N.$fanyi('下载') }}
+                          下载
                         </el-link>
                         <el-link
                           v-show="
@@ -505,7 +478,7 @@
                           size="mini"
                           class="mr5"
                         >
-                          {{ I18N.$fanyi('催办') }}
+                          催办
                         </el-link>
                         <el-link
                           v-show="
@@ -517,7 +490,7 @@
                           size="mini"
                           class="mr5"
                         >
-                          {{ I18N.$fanyi('催办') }}
+                          催办
                         </el-link>
                         <el-link
                           v-show="
@@ -529,7 +502,7 @@
                           size="mini"
                           class="mr5"
                         >
-                          {{ I18N.$fanyi('编辑') }}
+                          编辑
                         </el-link>
                         <el-link
                           v-show="
@@ -543,7 +516,7 @@
                           size="mini"
                           class="mr5"
                         >
-                          {{ I18N.$fanyi('推送员工待办') }}
+                          推送员工待办
                         </el-link>
                         <el-link
                           v-show="
@@ -557,7 +530,7 @@
                           size="mini"
                           class="mr5"
                         >
-                          {{ I18N.$fanyi('分配') }}
+                          分配
                         </el-link>
                         <el-link
                           v-show="
@@ -571,7 +544,7 @@
                           size="mini"
                           class="mr5"
                         >
-                          {{ I18N.$fanyi('编辑') }}
+                          编辑
                         </el-link>
 
                         <el-link
@@ -592,7 +565,7 @@
                           :underline="false"
                           size="mini"
                         >
-                          {{ I18N.$fanyi('删除') }}
+                          删除
                         </el-link>
                         <el-link
                           v-show="activeCode === 'T' && scope.row.ZSTAT === 'R'"
@@ -601,7 +574,7 @@
                           :underline="false"
                           size="mini"
                         >
-                          {{ I18N.$fanyi('重新审批') }}
+                          重新审批
                         </el-link>
                         <el-link
                           v-show="
@@ -649,7 +622,7 @@
                           size="mini"
                           class="mr5"
                         >
-                          {{ I18N.$fanyi('重新发送') }}
+                          重新发送
                         </el-link>
                       </template>
                     </div>
@@ -662,9 +635,10 @@
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
                 :current-page="currentPage"
-                :page-sizes=";[10, 20, 50, 100]
+                createI18nDirectiveNode
+                is
+                error:page-size="pageSize
 "
-                :page-size="pageSize"
                 layout="prev, pager, next, jumper"
                 :total="$filterTableContent(searchContent, tableData).length"
               ></el-pagination>
@@ -708,7 +682,7 @@
       ></pa-event-urging>
     </el-dialog>
     <el-dialog
-      :title="I18N.$fanyi('支付宝扫描二维码，签署合同')"
+      title="支付宝扫描二维码，签署合同"
       :visible="signVisible"
       class="sign-dialog"
       width="30%"
@@ -716,12 +690,11 @@
       :close-on-press-escape="false"
       :show-close="false"
       :append-to-body="true"
-      :before-close=";() => signClose()
-"
+      createI18nDirectiveNode
+      is
+      error
     >
-      <div class="select-title">
-        {{ I18N.$fanyi('选择待签合同') }}
-      </div>
+      <div class="select-title">选择待签合同</div>
       <el-select v-model="signUrl">
         <el-option
           v-for="item in ET_DZQZINFO"
@@ -732,12 +705,8 @@
       </el-select>
       <div v-if="signVisible" id="qrcode"></div>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="signClose">
-          {{ I18N.$fanyi('取 消') }}
-        </el-button>
-        <el-button type="primary" @click="signFile">
-          {{ I18N.$fanyi('签署完成') }}
-        </el-button>
+        <el-button @click="signClose"> 取 消 </el-button>
+        <el-button type="primary" @click="signFile"> 签署完成 </el-button>
       </span>
     </el-dialog>
   </div>
@@ -1154,7 +1123,7 @@ export default {
             this.defaultEmployeeValue = this.queryForm.employeeName
           }
         } catch (e) {
-          console.warn(I18N.$fanyi('查询参数JSON转换异常'), e)
+          console.warn('查询参数JSON转换异常', e)
         }
       }
 
@@ -1196,12 +1165,12 @@ export default {
             moduleName: localStorage.getItem('currentPageText'),
             moduleCode: this.MENUII,
             subModule: 'QUERY',
-            subModuleName: I18N.$fanyi('查询'),
+            subModuleName: '查询',
             describe:
               this.currentUserInfo.ENAME +
-              I18N.$fanyi('获取') +
+              '获取' +
               localStorage.getItem('currentPageText') +
-              I18N.$fanyi('界面的操作按钮'),
+              '界面的操作按钮',
             viewPernr: ''
           })
         })
@@ -1321,7 +1290,7 @@ export default {
         .then((response) => {
           this.ET_DZQZINFO = response.ET_DZQZINFO
           if (this.ET_DZQZINFO.length === 0)
-            return this.$message.error(I18N.$fanyi('暂无可签署合同'))
+            return this.$message.error('暂无可签署合同')
           this.signUrl = this.ET_DZQZINFO[0].SIGNURL
           this.signGUID = this.ET_DZQZINFO[0].GUID
           this.signVisible = true
@@ -1358,7 +1327,7 @@ export default {
 
         if (ES_MESSAGE.MSGTY === 'S') {
           // 成功
-          this.$message.success(I18N.$fanyi('签署完成'))
+          this.$message.success('签署完成')
           this.signVisible = false
         }
       } catch (error) {
@@ -1472,18 +1441,18 @@ export default {
           moduleName: localStorage.getItem('currentPageText'),
           moduleCode: this.MENUII,
           subModule: 'DELETE',
-          subModuleName: I18N.$fanyi('删除'),
+          subModuleName: '删除',
           viewPernr: rowobject.PERNR,
           describe:
             this.currentUserInfo.ENAME +
-            I18N.$fanyi('删除') +
+            '删除' +
             rowobject.ENAME +
             localStorage.getItem('currentPageText') +
-            I18N.$fanyi('的待办数据')
+            '的待办数据'
         })
 
         if (ES_MESSAGE.MSGTY === 'S') {
-          this.$message.success(ES_MESSAGE.MSGTX || I18N.$fanyi('操作成功'))
+          this.$message.success(ES_MESSAGE.MSGTX || '操作成功')
           this.queryDataList()
         }
       })
@@ -1646,11 +1615,11 @@ export default {
 
       this.dialogTitle =
         this.MENUII === this.pageCode.LYGL
-          ? I18N.$fanyi('正式员工简历导入')
+          ? '正式员工简历导入'
           : paramObject.FUNCT
       this.dialogTitle =
         this.MENUII === this.pageCode.YRZGL
-          ? I18N.$fanyi('正式员工简历导入')
+          ? '正式员工简历导入'
           : paramObject.FUNCT
       this.dialogVisible = true
       this.parentData = paramObject
@@ -1679,9 +1648,9 @@ export default {
       this.showDialog = flag
 
       if (this.MENUII === this.pageCode.XXCJYJ) {
-        this.dialogTitle = I18N.$fanyi('发送信息采集链接')
+        this.dialogTitle = '发送信息采集链接'
       } else {
-        this.dialogTitle = I18N.$fanyi('信息录入')
+        this.dialogTitle = '信息录入'
       }
 
       this.dialogVisible = true
@@ -2172,7 +2141,7 @@ export default {
             this.$message.error(message['MSGTX'])
           }
         } else {
-          this.$message.error(I18N.$fanyi('发送错误，请重试！'))
+          this.$message.error('发送错误，请重试！')
         }
       })
     },

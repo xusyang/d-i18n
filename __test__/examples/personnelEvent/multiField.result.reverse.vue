@@ -77,7 +77,7 @@
       :name="fieldItem.FIELD"
       v-model="fieldItem.value"
       type="date"
-      :placeholder="I18N.$fanyi('请选择日期')"
+      placeholder="请选择日期"
       value-format="yyyyMMdd"
       @blur="
         fieldItem.ZZDIS !== 'X'
@@ -222,7 +222,7 @@
         BANKL: 'KEY',
         BANKA: 'VALUE'
       }"
-      :placeholder="I18N.$fanyi('请选择银行名称')"
+      placeholder="请选择银行名称"
       v-if="fieldItem.ZZSHM === 'B'"
     ></paSelectBank>
     <template v-if="fieldItem.ZZSHM === 'T'">
@@ -271,7 +271,8 @@
     </template>
 
     <div class="el-form-item__error" v-if="fieldItem.isShowText">
-      {{ I18N.$fanyi('非法的') }} {{ fieldItem.FIELN }}
+      非法的
+      {{ fieldItem.FIELN }}
     </div>
   </el-form-item>
 </template>

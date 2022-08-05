@@ -5,11 +5,11 @@
         <el-row>
           <el-col class="el-col-sm-12">
             <el-button size="mini" type="primary" @click="downloadTemp()">
-              {{ I18N.$fanyi('下载采集模版') }}
+              下载采集模版
             </el-button>
           </el-col>
           <el-col class="el-col-sm-9">
-            <el-form-item :label="I18N.$fanyi('文件路径')">
+            <el-form-item label="文件路径">
               <el-input
                 type="text"
                 disabledstyle="width: 100%"
@@ -19,7 +19,7 @@
           </el-col>
           <el-col class="el-col-sm-2 m-l-xs">
             <el-button size="mini" type="warning" @click="selectFile">
-              {{ I18N.$fanyi('浏览') }}
+              浏览
             </el-button>
             <input
               type="file"
@@ -58,9 +58,10 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="currentPage"
-          :page-sizes=";[10, 20, 50, 100]
+          createI18nDirectiveNode
+          is
+          error:page-size="pageSize
 "
-          :page-size="pageSize"
           layout="total, sizes, prev, pager, next, jumper"
           :total="$filterTableContent(searchContent, previewList).length"
         ></el-pagination>
@@ -94,9 +95,10 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="currentPage"
-          :page-sizes=";[10, 20, 50, 100]
+          createI18nDirectiveNode
+          is
+          error:page-size="pageSize
 "
-          :page-size="pageSize"
           layout="total, sizes, prev, pager, next, jumper"
           :total="$filterTableContent(searchContent, errorTableDataList).length"
         ></el-pagination>
@@ -110,11 +112,9 @@
           v-if="previewList.length > 0 && !isShowErrorTable"
           @click="entryImport()"
         >
-          {{ I18N.$fanyi('确认导入') }}
+          确认导入
         </el-button>
-        <el-button size="mini" @click="closeDialog">
-          {{ I18N.$fanyi('取消') }}
-        </el-button>
+        <el-button size="mini" @click="closeDialog"> 取消 </el-button>
       </el-col>
     </div>
   </div>
@@ -185,23 +185,23 @@ export default {
         this.parentData.pageCode === this.pageCode.PAXXCJ ||
         this.parentData.pageCode === this.pageCode.PARZGL
       ) {
-        url = 'staticFile/' + I18N.$fanyi('入职批量导入模版') + '.xlsx'
+        url = 'staticFile/' + '入职批量导入模版' + '.xlsx'
       } else if (
         this.parentData.pageCode === this.pageCode.PAZZGL ||
         this.parentData.pageCode === this.pageCode.PAZZGLJT
       ) {
-        url = 'staticFile/' + I18N.$fanyi('转正批量导入模版') + '.xlsx'
+        url = 'staticFile/' + '转正批量导入模版' + '.xlsx'
       } else if (
         this.parentData.pageCode === this.pageCode.PAJSGL ||
         this.parentData.pageCode === this.pageCode.PAJSGLJT
       ) {
-        url = 'staticFile/' + I18N.$fanyi('晋升批量导入模版') + '.xlsx'
+        url = 'staticFile/' + '晋升批量导入模版' + '.xlsx'
       } else if (this.parentData.pageCode === this.pageCode.PADPGL) {
-        url = 'staticFile/' + I18N.$fanyi('调动批量导入模版') + '.xlsx'
+        url = 'staticFile/' + '调动批量导入模版' + '.xlsx'
       } else if (this.parentData.pageCode === this.pageCode.PADPGLJT) {
-        url = 'staticFile/' + I18N.$fanyi('调动批量导入模版') + '_v2.xlsx'
+        url = 'staticFile/' + '调动批量导入模版' + '_v2.xlsx'
       } else {
-        return this.$message.warning(I18N.$fanyi('未找到对应的下载模版'))
+        return this.$message.warning('未找到对应的下载模版')
       }
 
       this.$downloadStaticFile(url)
@@ -326,272 +326,272 @@ export default {
         fieldList = [
           {
             field: '0002-NACHN',
-            fieldName: I18N.$fanyi('姓'),
+            fieldName: '姓',
             fieldType: 'String'
           },
           {
             field: '0002-VORNA',
-            fieldName: I18N.$fanyi('姓名'),
+            fieldName: '姓名',
             fieldType: 'String'
           },
           {
             field: '0185-ICNUM',
-            fieldName: I18N.$fanyi('证件号码'),
+            fieldName: '证件号码',
             fieldType: 'String'
           },
           {
             field: '0185-AUTH1',
-            fieldName: I18N.$fanyi('发证机关'),
+            fieldName: '发证机关',
             fieldType: 'String'
           },
           {
             field: '0185-USEFR',
-            fieldName: I18N.$fanyi('有效开始日期'),
+            fieldName: '有效开始日期',
             fieldType: 'Date'
           },
           {
             field: '0185-USETO',
-            fieldName: I18N.$fanyi('有效结束日期'),
+            fieldName: '有效结束日期',
             fieldType: 'Date'
           },
           {
             field: '0002-GBDAT',
-            fieldName: I18N.$fanyi('出生日期'),
+            fieldName: '出生日期',
             fieldType: 'Date'
           },
           {
             field: '0002-GESCH',
-            fieldName: I18N.$fanyi('性别'),
+            fieldName: '性别',
             fieldType: 'String'
           },
           {
             field: '0002-FAMST',
-            fieldName: I18N.$fanyi('婚姻状况'),
+            fieldName: '婚姻状况',
             fieldType: 'String'
           },
           {
             field: '0002-GBLND',
-            fieldName: I18N.$fanyi('出生国家'),
+            fieldName: '出生国家',
             fieldType: 'String'
           },
           {
             field: '0002-NATIO',
-            fieldName: I18N.$fanyi('国籍'),
+            fieldName: '国籍',
             fieldType: 'String'
           },
           {
             field: '0002-GBDEP',
-            fieldName: I18N.$fanyi('户籍(省)'),
+            fieldName: '户籍(省)',
             fieldType: 'String'
           },
           {
             field: '0002-ZZHKSZS',
-            fieldName: I18N.$fanyi('户籍(市)'),
+            fieldName: '户籍(市)',
             fieldType: 'String'
           },
           {
             field: '0002-ZZHKSZX',
-            fieldName: I18N.$fanyi('户籍(县)'),
+            fieldName: '户籍(县)',
             fieldType: 'String'
           },
           {
             field: '0002-ZZHUKOT',
-            fieldName: I18N.$fanyi('户口类型'),
+            fieldName: '户口类型',
             fieldType: 'String'
           },
           {
             field: '0000-BEGDA',
-            fieldName: I18N.$fanyi('入职日期'),
+            fieldName: '入职日期',
             fieldType: 'Date'
           },
           {
             field: '0000-MASSG',
-            fieldName: I18N.$fanyi('入职原因'),
+            fieldName: '入职原因',
             fieldType: 'String'
           },
           {
             field: '0001-PERSG',
-            fieldName: I18N.$fanyi('员工组'),
+            fieldName: '员工组',
             fieldType: 'String'
           },
           {
             field: '0001-PERSK',
-            fieldName: I18N.$fanyi('员工子组'),
+            fieldName: '员工子组',
             fieldType: 'String'
           },
           {
             field: '0001-PLANS',
-            fieldName: I18N.$fanyi('岗位'),
+            fieldName: '岗位',
             fieldType: 'String'
           },
           {
             field: '0001-ZZGWCJ',
-            fieldName: I18N.$fanyi('人员层级(本单位)'),
+            fieldName: '人员层级(本单位)',
             fieldType: 'String'
           },
           {
             field: '0529-RACKY',
-            fieldName: I18N.$fanyi('民族'),
+            fieldName: '民族',
             fieldType: 'String'
           },
           {
             field: '0534-PCODE',
-            fieldName: I18N.$fanyi('政治面貌'),
+            fieldName: '政治面貌',
             fieldType: 'String'
           },
           {
             field: '0105-USRID',
-            fieldName: I18N.$fanyi('手机号码'),
+            fieldName: '手机号码',
             fieldType: 'String'
           },
           {
             field: '0006-ANSSA',
-            fieldName: I18N.$fanyi('地址类型'),
+            fieldName: '地址类型',
             fieldType: 'String'
           },
           {
             field: '0006-LAND1',
-            fieldName: I18N.$fanyi('国家/地区'),
+            fieldName: '国家/地区',
             fieldType: 'String'
           },
           {
             field: '0006-LOCAT',
-            fieldName: I18N.$fanyi('详细地址'),
+            fieldName: '详细地址',
             fieldType: 'String'
           },
           {
             field: '0021-FAMSA',
-            fieldName: I18N.$fanyi('关系类型'),
+            fieldName: '关系类型',
             fieldType: 'String'
           },
           {
             field: '0021-FANAM',
-            fieldName: I18N.$fanyi('姓名'),
+            fieldName: '姓名',
             fieldType: 'String'
           },
           {
             field: '0021-ZZSFJJLXR',
-            fieldName: I18N.$fanyi('是否紧急联系人'),
+            fieldName: '是否紧急联系人',
             fieldType: 'String'
           },
           {
             field: '0021-ZZDHHM',
-            fieldName: I18N.$fanyi('电话号码'),
+            fieldName: '电话号码',
             fieldType: 'String'
           },
           {
             field: '0022-SLART',
-            fieldName: I18N.$fanyi('学历'),
+            fieldName: '学历',
             fieldType: 'String'
           },
           {
             field: '0022-SLABS',
-            fieldName: I18N.$fanyi('学位'),
+            fieldName: '学位',
             fieldType: 'String'
           },
           {
             field: '0022-ZRXRQ',
-            fieldName: I18N.$fanyi('入学日期'),
+            fieldName: '入学日期',
             fieldType: ''
           },
           {
             field: '0022-BEGDA',
-            fieldName: I18N.$fanyi('毕业日期'),
+            fieldName: '毕业日期',
             fieldType: 'Date'
           },
           {
             field: '0022-INSTI',
-            fieldName: I18N.$fanyi('毕业院校'),
+            fieldName: '毕业院校',
             fieldType: 'String'
           },
           {
             field: '0022-ZZSXZY',
-            fieldName: I18N.$fanyi('所学专业'),
+            fieldName: '所学专业',
             fieldType: 'String'
           },
           {
             field: '0022-ZZSFDYXL',
-            fieldName: I18N.$fanyi('是否第一学历'),
+            fieldName: '是否第一学历',
             fieldType: 'String'
           },
           {
             field: '0022-ZZSFZGXL',
-            fieldName: I18N.$fanyi('是否最高学历'),
+            fieldName: '是否最高学历',
             fieldType: 'String'
           },
           {
             field: '0023-BEGDA',
-            fieldName: I18N.$fanyi('开始日期'),
+            fieldName: '开始日期',
             fieldType: 'Date'
           },
           {
             field: '0023-ENDDA',
-            fieldName: I18N.$fanyi('结束日期'),
+            fieldName: '结束日期',
             fieldType: 'Date'
           },
           {
             field: '0023-ARBGB',
-            fieldName: I18N.$fanyi('工作单位'),
+            fieldName: '工作单位',
             fieldType: 'String'
           },
           {
             field: '0023-ZZW',
-            fieldName: I18N.$fanyi('岗位'),
+            fieldName: '岗位',
             fieldType: 'String'
           },
           {
             field: '0041-DAT01',
-            fieldName: I18N.$fanyi('参加工作日期'),
+            fieldName: '参加工作日期',
             fieldType: 'Date'
           },
           {
             field: '0041-DAT04',
-            fieldName: I18N.$fanyi('工龄起算日期'),
+            fieldName: '工龄起算日期',
             fieldType: 'Date'
           },
           {
             field: '0016-CTTYP',
-            fieldName: I18N.$fanyi('合同类型'),
+            fieldName: '合同类型',
             fieldType: 'String'
           },
           {
             field: '0016-BEGDA',
-            fieldName: I18N.$fanyi('合同开始日期'),
+            fieldName: '合同开始日期',
             fieldType: 'Date'
           },
           {
             field: '0016-CTEDT',
-            fieldName: I18N.$fanyi('合同结束日期'),
+            fieldName: '合同结束日期',
             fieldType: 'Date'
           },
           {
             field: '0016-ZZHTQDDW',
-            fieldName: I18N.$fanyi('合同签订主体'),
+            fieldName: '合同签订主体',
             fieldType: 'String'
           },
           {
             field: '0016-ZZHTQXLX',
-            fieldName: I18N.$fanyi('合同期限类型'),
+            fieldName: '合同期限类型',
             fieldType: 'String'
           },
           {
             field: '0016-ZZHTQDZT',
-            fieldName: I18N.$fanyi('合同签订状态'),
+            fieldName: '合同签订状态',
             fieldType: 'String'
           },
           {
             field: '0016-PRBZT',
-            fieldName: I18N.$fanyi('试用期(月)'),
+            fieldName: '试用期(月)',
             fieldType: 'String'
           },
           {
             field: '0009-BANKL',
-            fieldName: I18N.$fanyi('开户银行'),
+            fieldName: '开户银行',
             fieldType: 'String'
           },
           {
             field: '0009-ZWECK',
-            fieldName: I18N.$fanyi('银行账户'),
+            fieldName: '银行账户',
             fieldType: 'String'
           }
         ]
@@ -602,17 +602,17 @@ export default {
         fieldList = [
           {
             field: '0000-PERNR',
-            fieldName: I18N.$fanyi('员工编号'),
+            fieldName: '员工编号',
             fieldType: 'String'
           },
           {
             field: '0000-BEGDA',
-            fieldName: I18N.$fanyi('转正日期'),
+            fieldName: '转正日期',
             fieldType: 'Date'
           },
           {
             field: '0000-MASSG',
-            fieldName: I18N.$fanyi('转正原因'),
+            fieldName: '转正原因',
             fieldType: 'String'
           }
         ]
@@ -623,37 +623,37 @@ export default {
         fieldList = [
           {
             field: '0000-PERNR',
-            fieldName: I18N.$fanyi('员工编号'),
+            fieldName: '员工编号',
             fieldType: 'String'
           },
           {
             field: '0000-BEGDA',
-            fieldName: I18N.$fanyi('晋升日期'),
+            fieldName: '晋升日期',
             fieldType: 'Date'
           },
           {
             field: '0000-MASSG',
-            fieldName: I18N.$fanyi('晋升原因'),
+            fieldName: '晋升原因',
             fieldType: 'String'
           },
           {
             field: '0001-PLANS',
-            fieldName: I18N.$fanyi('晋升岗位'),
+            fieldName: '晋升岗位',
             fieldType: 'String'
           },
           {
             field: '0001-ZZGWCJ',
-            fieldName: I18N.$fanyi('人员层级'),
+            fieldName: '人员层级',
             fieldType: 'String'
           },
           {
             field: '0001-ZZZX_ID',
-            fieldName: I18N.$fanyi('职级（衔）'),
+            fieldName: '职级（衔）',
             fieldType: 'String'
           },
           {
             field: '0001-ZZZD_ID',
-            fieldName: I18N.$fanyi('职等'),
+            fieldName: '职等',
             fieldType: 'String'
           }
         ]
@@ -661,89 +661,89 @@ export default {
         fieldList = [
           {
             field: '0000-PERNR',
-            fieldName: I18N.$fanyi('员工编号'),
+            fieldName: '员工编号',
             fieldType: 'String'
           }
         ]
         fieldList.push(
           {
             field: '0000-BEGDA',
-            fieldName: I18N.$fanyi('调动日期'),
+            fieldName: '调动日期',
             fieldType: 'Date'
           },
           {
             field: '0000-MASSG',
-            fieldName: I18N.$fanyi('调动原因'),
+            fieldName: '调动原因',
             fieldType: 'String'
           },
           {
             field: '0001-PLANS',
-            fieldName: I18N.$fanyi('岗位'),
+            fieldName: '岗位',
             fieldType: 'String'
           },
           {
             field: '0001-ZZGWCJ',
-            fieldName: I18N.$fanyi('人员层级(本单位)'),
+            fieldName: '人员层级(本单位)',
             fieldType: 'String'
           },
           {
             field: '0001-ZZZX_ID',
-            fieldName: I18N.$fanyi('职级'),
+            fieldName: '职级',
             fieldType: 'String'
           },
           {
             field: '0001-ZZZD_ID',
-            fieldName: I18N.$fanyi('职等'),
+            fieldName: '职等',
             fieldType: 'String'
           },
           {
             field: '0001-PERSG',
-            fieldName: I18N.$fanyi('员工组'),
+            fieldName: '员工组',
             fieldType: 'String'
           },
           {
             field: '0001-PERSK',
-            fieldName: I18N.$fanyi('员工子组'),
+            fieldName: '员工子组',
             fieldType: 'String'
           },
           {
             field: '0016-FLAG4',
-            fieldName: I18N.$fanyi('是否变更合同'),
+            fieldName: '是否变更合同',
             fieldType: 'String'
           },
           {
             field: '0016-CTTYP',
-            fieldName: I18N.$fanyi('合同类型'),
+            fieldName: '合同类型',
             fieldType: 'String'
           },
           {
             field: '0016-BEGDA',
-            fieldName: I18N.$fanyi('合同开始日期'),
+            fieldName: '合同开始日期',
             fieldType: 'Date'
           },
           {
             field: '0016-CTEDT',
-            fieldName: I18N.$fanyi('合同结束日期'),
+            fieldName: '合同结束日期',
             fieldType: 'Date'
           },
           {
             field: '0016-ZZHTQDDW',
-            fieldName: I18N.$fanyi('合同签订主体'),
+            fieldName: '合同签订主体',
             fieldType: 'String'
           },
           {
             field: '0016-ZZHTQXLX',
-            fieldName: I18N.$fanyi('合同期限类型'),
+            fieldName: '合同期限类型',
             fieldType: 'String'
           },
           {
             field: '0016-ZZHTQDZT',
-            fieldName: I18N.$fanyi('合同签订状态'),
+            fieldName: '合同签订状态',
             fieldType: 'String'
           },
           {
             field: '0016-ZZBZ',
-            fieldName: I18N.$fanyi('备注'),
+            fieldName: '备注',
             fieldType: 'String'
           }
         )
@@ -751,47 +751,47 @@ export default {
         fieldList = [
           {
             field: '0000-PERNR',
-            fieldName: I18N.$fanyi('员工编号'),
+            fieldName: '员工编号',
             fieldType: 'String'
           },
           {
             field: '0000-BEGDA',
-            fieldName: I18N.$fanyi('调动日期'),
+            fieldName: '调动日期',
             fieldType: 'Date'
           },
           {
             field: '0000-MASSG',
-            fieldName: I18N.$fanyi('调动原因'),
+            fieldName: '调动原因',
             fieldType: 'String'
           },
           {
             field: '0001-PLANS',
-            fieldName: I18N.$fanyi('岗位'),
+            fieldName: '岗位',
             fieldType: 'String'
           },
           {
             field: '0001-ZZGWCJ',
-            fieldName: I18N.$fanyi('人员层级(本单位)'),
+            fieldName: '人员层级(本单位)',
             fieldType: 'String'
           },
           {
             field: '0001-ZZZX_ID',
-            fieldName: I18N.$fanyi('职级'),
+            fieldName: '职级',
             fieldType: 'String'
           },
           {
             field: '0001-ZZZD_ID',
-            fieldName: I18N.$fanyi('职等'),
+            fieldName: '职等',
             fieldType: 'String'
           },
           {
             field: '0001-PERSG',
-            fieldName: I18N.$fanyi('员工组'),
+            fieldName: '员工组',
             fieldType: 'String'
           },
           {
             field: '0001-PERSK',
-            fieldName: I18N.$fanyi('员工子组'),
+            fieldName: '员工子组',
             fieldType: 'String'
           }
         ]
@@ -863,7 +863,7 @@ export default {
       this.errorTableHeaderList = []
       this.errorTableHeaderList.push({
         field: 'PERNR',
-        fieldName: I18N.$fanyi('员工编号')
+        fieldName: '员工编号'
       })
 
       if (
@@ -872,21 +872,21 @@ export default {
       ) {
         this.errorTableHeaderList.push({
           field: 'ICNUM',
-          fieldName: I18N.$fanyi('证件号码')
+          fieldName: '证件号码'
         })
         this.errorTableHeaderList.push({
           field: 'ENAME',
-          fieldName: I18N.$fanyi('姓名')
+          fieldName: '姓名'
         })
       }
 
       this.errorTableHeaderList.push({
         field: 'MSGTY',
-        fieldName: I18N.$fanyi('数据状态')
+        fieldName: '数据状态'
       })
       this.errorTableHeaderList.push({
         field: 'MSGTX',
-        fieldName: I18N.$fanyi('错误原因')
+        fieldName: '错误原因'
       })
     },
 
@@ -1044,7 +1044,7 @@ export default {
               !/^\d{8}$/.test(previewList[i][data[k].field])
             ) {
               this.$message.error(
-                data[k].fieldName + I18N.$fanyi('字段格式错误，应为8为数字')
+                data[k].fieldName + '字段格式错误，应为8为数字'
               )
               flag = true
             }

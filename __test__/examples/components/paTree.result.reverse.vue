@@ -2,7 +2,7 @@
   <div>
     <el-input
       size="mini"
-      :placeholder="I18N.$fanyi('输入关键字进行过滤')"
+      placeholder="输入关键字进行过滤"
       v-model="filterText"
       v-if="fieldItem.ZKJLX === 'SER'"
     ></el-input>

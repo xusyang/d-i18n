@@ -11,7 +11,7 @@ const traverseOptions: TraverseOptions = {
 }
 
 describe('ext vue reverse, file', async () => {
-  const dir = './vue/**/*.vue'
+  const dir = './examples/**/*.vue'
   const files: string[] = await new Promise(resolve => {
     glob(path.join(__dirname, dir), (err, files) => {
       resolve(files.filter(x => x.includes('result.vue')))

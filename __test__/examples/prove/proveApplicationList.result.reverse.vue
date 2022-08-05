@@ -13,15 +13,13 @@
           :model="pageData"
           label-width="120px"
         >
-          <h4>
-            <span class="li-bg-blue"></span> {{ I18N.$fanyi('新建申请') }}
-          </h4>
+          <h4><span class="li-bg-blue"></span> 新建申请</h4>
           <hr />
           <div class="paddT10">
             <el-col class="el-col-sm-8">
               <el-form-item
                 prop="zmlx"
-                :label="I18N.$fanyi('证明类型')"
+                label="证明类型"
                 :show-message="false"
                 :class="{ 'has-input-error': isActive && pageData.zmlx === '' }"
               >
@@ -43,7 +41,7 @@
             >
               <el-form-item
                 prop="employeeNum"
-                :label="I18N.$fanyi('员工姓名')"
+                label="员工姓名"
                 :show-message="false"
                 :class="{
                   'has-input-error': isActive && pageData.employeeNum === ''
@@ -70,12 +68,12 @@
 
     <div class="ibox-content mt10" v-if="baseParams.MENUII === pageCode.ZMKJ">
       <div class="clearfix">
-        <h4><span class="li-bg-blue"></span> {{ I18N.$fanyi('历史申请') }}</h4>
+        <h4><span class="li-bg-blue"></span> 历史申请</h4>
         <hr />
         <div
           class="paddT20"
           v-loading="loading"
-          :element-loading-text="I18N.$fanyi('加载中......')"
+          element-loading-text="加载中......"
         >
           <table-util
             :search-content="searchContent"
@@ -103,9 +101,10 @@
               :key="index"
               :fixed="field.fixed"
               :type="field.type === 'index' ? 'index' : ''"
-              :index=";(index) => $settingTableSerialNum(index, currentPage, pageSize)
+              createI18nDirectiveNode
+              is
+              error:prop="field.prop
 "
-              :prop="field.prop"
               :label="field.label"
               :min-width="field.width"
               header-align="center"
@@ -114,7 +113,7 @@
             <el-table-column
               fixed="right"
               prop="operation"
-              :label="I18N.$fanyi('操作')"
+              label="操作"
               width="100"
               header-align="center"
               align="center"
@@ -131,7 +130,7 @@
                     size="mini"
                     :underline="false"
                   >
-                    {{ I18N.$fanyi('预览') }}
+                    预览
                   </el-link>
 
                   <el-link
@@ -142,7 +141,7 @@
                     size="mini"
                     :underline="false"
                   >
-                    {{ I18N.$fanyi('提交') }}
+                    提交
                   </el-link>
                   <el-link
                     @click.native="deleteProve(scope.row)"
@@ -152,7 +151,7 @@
                     size="mini"
                     :underline="false"
                   >
-                    {{ I18N.$fanyi('删除') }}
+                    删除
                   </el-link>
 
                   <el-link
@@ -165,7 +164,7 @@
                     size="mini"
                     :underline="false"
                   >
-                    {{ I18N.$fanyi('预览') }}
+                    预览
                   </el-link>
                   <el-link
                     @click.native="
@@ -176,7 +175,7 @@
                     size="mini"
                     :underline="false"
                   >
-                    {{ I18N.$fanyi('下载') }}
+                    下载
                   </el-link>
                 </template>
               </template>
@@ -187,9 +186,10 @@
               @size-change="handleSizeChange"
               @current-change="handleCurrentChange"
               :current-page="currentPage"
-              :page-sizes=";[10, 20, 50, 100]
+              createI18nDirectiveNode
+              is
+              error:page-size="pageSize
 "
-              :page-size="pageSize"
               layout="prev, pager, next, jumper"
               :total="$filterTableContent(searchContent, tableData).length"
             ></el-pagination>
@@ -211,16 +211,11 @@
           :model="pageData"
           label-width="120px"
         >
-          <h4>
-            <span class="li-bg-blue"></span> {{ I18N.$fanyi('查询条件') }}
-          </h4>
+          <h4><span class="li-bg-blue"></span> 查询条件</h4>
           <hr />
           <el-row class="paddT10">
             <el-col class="el-col-sm-8">
-              <el-form-item
-                :label="I18N.$fanyi('员工姓名')"
-                prop="employeeName"
-              >
+              <el-form-item label="员工姓名" prop="employeeName">
                 <pa-search-user
                   :ipage="baseParams.MENUII"
                   @getEmployeeData="(obj) => getEmployeeData(obj, 'Q')"
@@ -231,11 +226,7 @@
               </el-form-item>
             </el-col>
             <el-col class="el-col-sm-8">
-              <el-form-item
-                :label="I18N.$fanyi('单位')"
-                prop="orgID"
-                style="width: 93%"
-              >
+              <el-form-item label="单位" prop="orgID" style="width: 93%">
                 <Tree
                   :readonly="true"
                   :pagecode="baseParams.MENUII"
@@ -251,7 +242,7 @@
             <el-col class="el-col-sm-8">
               <el-form-item
                 prop="zmlxs"
-                :label="I18N.$fanyi('证明类型')"
+                label="证明类型"
                 :class="{
                   'has-input-error': isActive && queryData.zmlx === ''
                 }"
@@ -269,20 +260,20 @@
             </el-col>
 
             <el-col class="el-col-sm-8">
-              <el-form-item :label="I18N.$fanyi('开始日期')" prop="beginDate">
+              <el-form-item label="开始日期" prop="beginDate">
                 <el-date-picker
                   type="date"
-                  :placeholder="I18N.$fanyi('选择日期')"
+                  placeholder="选择日期"
                   v-model="queryData.beginDate"
                   style="width: 90%"
                 />
               </el-form-item>
             </el-col>
             <el-col class="el-col-sm-8">
-              <el-form-item :label="I18N.$fanyi('结束日期')" prop="beginDate">
+              <el-form-item label="结束日期" prop="beginDate">
                 <el-date-picker
                   type="date"
-                  :placeholder="I18N.$fanyi('选择日期')"
+                  placeholder="选择日期"
                   v-model="queryData.endDate"
                   style="width: 90%"
                 />
@@ -296,31 +287,25 @@
                 :loading="loading"
                 @click="queryDataList"
               >
-                {{ I18N.$fanyi('查询') }}
+                查询
               </el-button>
               <el-button
                 size="mini"
                 icon="el-icon-refresh-right"
                 @click="restForm"
               >
-                {{ I18N.$fanyi('重置') }}
+                重置
               </el-button>
             </div>
           </el-row>
           <div
             class="paddT10"
             v-loading="loading"
-            :element-loading-text="I18N.$fanyi('加载中......')"
+            element-loading-text="加载中......"
           >
             <el-tabs v-model="activeCode" @tab-click="clickSheet">
-              <el-tab-pane
-                :label="I18N.$fanyi('待办列表')"
-                name="T"
-              ></el-tab-pane>
-              <el-tab-pane
-                :label="I18N.$fanyi('已办列表')"
-                name="D"
-              ></el-tab-pane>
+              <el-tab-pane label="待办列表" name="T"></el-tab-pane>
+              <el-tab-pane label="已办列表" name="D"></el-tab-pane>
             </el-tabs>
             <table-util
               :search-content="searchContent"
@@ -350,9 +335,10 @@
                 sortable:fixed="field.fixed
 "
                 :type="field.type === 'index' ? 'index' : ''"
-                :index=";(index) => $settingTableSerialNum(index, currentPage, pageSize)
+                createI18nDirectiveNode
+                is
+                error:prop="field.prop
 "
-                :prop="field.prop"
                 :label="field.label"
                 :min-width="field.width"
                 header-align="center"
@@ -361,7 +347,7 @@
               <el-table-column
                 fixed="right"
                 prop="operation"
-                :label="I18N.$fanyi('操作')"
+                label="操作"
                 :min-width="activeCode === 'T' ? '200' : '150'"
                 header-align="center"
                 align="center"
@@ -376,7 +362,7 @@
                         type="primary"
                         size="mini"
                       >
-                        {{ I18N.$fanyi('预览') }}
+                        预览
                       </el-link>
                       <el-link
                         @click.native="opreationProveData(scope.row, '7')"
@@ -388,7 +374,7 @@
                           scope.row.ZSTAT === '5' || scope.row.ZSTAT === '7'
                         "
                       >
-                        {{ I18N.$fanyi('下载打印') }}
+                        下载打印
                       </el-link>
                     </template>
                   </div>
@@ -400,9 +386,10 @@
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
                 :current-page="currentPage"
-                :page-sizes=";[10, 20, 50, 100]
+                createI18nDirectiveNode
+                is
+                error:page-size="pageSize
 "
-                :page-size="pageSize"
                 layout="prev, pager, next, jumper"
                 :total="$filterTableContent(searchContent, tableData).length"
               ></el-pagination>
@@ -562,14 +549,14 @@ export default {
 
       if (this.baseParams.MENUII === this.pageCode.ZMGL) {
         this.activeCode = 'T'
-        this.baseParams.buttonName = I18N.$fanyi('新建办理')
+        this.baseParams.buttonName = '新建办理'
         this.tableFieldList = tableField(
           this.baseParams.MENUII,
           this.activeCode
         )
       } else {
         this.activeCode = ''
-        this.baseParams.buttonName = I18N.$fanyi('新建申请')
+        this.baseParams.buttonName = '新建申请'
         this.tableFieldList = tableField(this.baseParams.MENUII)
       }
 
@@ -877,7 +864,7 @@ export default {
         this.$httpServer.sap.baseMethod(params).then((response) => {
           let ES_MESSAGE = response.ES_MESSAGE
           if (ES_MESSAGE.MSGTY === 'E') return
-          this.$message.success(ES_MESSAGE.MSGTX || I18N.$fanyi('删除成功！'))
+          this.$message.success(ES_MESSAGE.MSGTX || '删除成功！')
           this.queryDataList()
         })
       })

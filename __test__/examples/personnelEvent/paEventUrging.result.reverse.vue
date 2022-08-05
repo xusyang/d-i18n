@@ -1,19 +1,17 @@
 <template>
   <div>
     <div class="ibox-title-style">
-      {{ I18N.$fanyi('请选择以下工具生成工作待办，提醒员工完成合同签字') }}
+      请选择以下工具生成工作待办，提醒员工完成合同签字
     </div>
-    <el-checkbox v-model="checked1">
-      {{ I18N.$fanyi('悦工作门户') }}
-    </el-checkbox>
+    <el-checkbox v-model="checked1"> 悦工作门户 </el-checkbox>
     <br />
     <div class="text-center pd20">
       <el-col>
         <el-button size="mini" type="warning" @click="confirmUrging">
-          {{ I18N.$fanyi('确认') }}
+          确认
         </el-button>
         <el-button size="mini" type="danger" @click="closeDialog">
-          {{ I18N.$fanyi('取消') }}
+          取消
         </el-button>
       </el-col>
     </div>
@@ -102,7 +100,7 @@ export default {
           if (!es_message) return
 
           if (es_message.MSGTY === 'S') {
-            this.$message.success(I18N.$fanyi('悦工作门户催办成功!'))
+            this.$message.success('悦工作门户催办成功!')
           }
         })
       }
