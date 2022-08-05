@@ -51,7 +51,8 @@
                 <el-input
                   type="text"
                   size="mini"
-                  disabledstyle="width: 100%"
+                  disabled
+                  style="width: 100%"
                   v-model="filename"
                 ></el-input>
               </el-form-item>
@@ -69,8 +70,8 @@
                 :on-error=";(err, file) => handleError(err, file)
 "
                 :show-file-list="false"
-                multiple:with-credentials="true
-"
+                multiple
+                :with-credentials="true"
                 name="file"
               >
                 <el-button size="mini" type="success" :loading="loading">

@@ -490,8 +490,8 @@
                           :on-exceed="handleFileExceed"
                           :file-list="fileObject.ZACFILE"
                           :show-file-list="false"
-                          multiple:with-credentials="true
-"
+                          multiple
+                          :with-credentials="true"
                           name="file"
                           :limit="5"
                         >

@@ -260,9 +260,8 @@
         v-model="activeCode"
         @tab-click="queryDataList"
         v-loading="loading"
-        createI18nDirectiveNode
-        is
-        error
+        stripe
+        element-loading-text="加载中....."
       >
         <el-tab-pane
           v-for="tableSheet in tableSheetList"
@@ -319,7 +318,9 @@
                 @cell-click="handleCellClick"
               >
                 <el-table-column
-                  show-overflow-tooltipsortablev-for="(field, fieldIndex) in tableFieldList"
+                  show-overflow-tooltip
+                  sortable
+                  v-for="(field, fieldIndex) in tableFieldList"
                   header-align="center"
                   :key="fieldIndex"
                   :fixed="field.fixed"

@@ -97,7 +97,8 @@
             @cell-click="handleCellClick"
           >
             <el-table-column
-              show-overflow-tooltipv-for="(field, index) in tableFieldList"
+              show-overflow-tooltip
+              v-for="(field, index) in tableFieldList"
               :key="index"
               :fixed="field.fixed"
               :type="field.type === 'index' ? 'index' : ''"
@@ -328,10 +329,11 @@
               }"
             >
               <el-table-column
-                show-overflow-tooltipv-for="(field, index) in tableFieldList"
+                show-overflow-tooltip
+                v-for="(field, index) in tableFieldList"
                 :key="index"
-                sortable:fixed="field.fixed
-"
+                sortable
+                :fixed="field.fixed"
                 :type="field.type === 'index' ? 'index' : ''"
                 :index=";(index) => $settingTableSerialNum(index, currentPage, pageSize)
 "

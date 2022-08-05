@@ -122,7 +122,9 @@
             }"
           >
             <el-table-column
-              show-overflow-tooltipsortablev-for="(field, index) in tableFieldList"
+              show-overflow-tooltip
+              sortable
+              v-for="(field, index) in tableFieldList"
               :key="index"
               :fixed="field.fixed"
               :type="field.type === 'index' ? 'index' : ''"

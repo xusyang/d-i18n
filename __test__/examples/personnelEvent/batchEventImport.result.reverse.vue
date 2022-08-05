@@ -12,7 +12,8 @@
             <el-form-item label="文件路径">
               <el-input
                 type="text"
-                disabledstyle="width: 100%"
+                disabled
+                style="width: 100%"
                 v-model="filename"
               ></el-input>
             </el-form-item>
@@ -45,7 +46,8 @@
         size="small"
       >
         <el-table-column
-          show-overflow-tooltipv-for="(field, index) in tableHeaderList"
+          show-overflow-tooltip
+          v-for="(field, index) in tableHeaderList"
           :key="index"
           :prop="field.field"
           :label="field.fieldName"
@@ -81,7 +83,8 @@
         :row-style="rowStyle"
       >
         <el-table-column
-          show-overflow-tooltipv-for="(field, index) in errorTableHeaderList"
+          show-overflow-tooltip
+          v-for="(field, index) in errorTableHeaderList"
           :key="index"
           :prop="field.field"
           :label="field.fieldName"

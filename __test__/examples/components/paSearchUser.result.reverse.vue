@@ -6,9 +6,10 @@
       ref="headerSearchSelect"
       v-model="myValue"
       :remote-method="searchUsering"
-      createI18nDirectiveNode
-      is
-      errorpopper-class="pa-header-search-user-select"
+      filterable
+      remote
+      placeholder="请输入员工姓名或工号进行查找"
+      popper-class="pa-header-search-user-select"
       :disabled="disabled"
       :loading="loading"
       loading-text="加载中......"

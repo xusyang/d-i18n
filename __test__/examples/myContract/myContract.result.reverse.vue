@@ -220,7 +220,8 @@
                 sortable
               ></el-table-column>
               <el-table-column
-                show-overflow-tooltipprop="TITLE"
+                show-overflow-tooltip
+                prop="TITLE"
                 label="任务标题"
                 width="450"
                 align="center"
@@ -237,7 +238,8 @@
                 </template>
               </el-table-column>
               <el-table-column
-                show-overflow-tooltipprop="ZTEXT"
+                show-overflow-tooltip
+                prop="ZTEXT"
                 label="任务名称"
                 width="350"
                 align="center"
@@ -247,15 +249,15 @@
                 prop="RECDT"
                 label="接收日期"
                 align="center"
-                sortable:formatter="formatterDate
-"
+                sortable
+                :formatter="formatterDate"
               ></el-table-column>
               <el-table-column
                 prop="PRODT"
                 label="处理日期"
                 align="center"
-                sortable:formatter="formatterDate
-"
+                sortable
+                :formatter="formatterDate"
               ></el-table-column>
               <el-table-column
                 prop="PROTT"
@@ -264,7 +266,8 @@
                 sortable
               ></el-table-column>
               <el-table-column
-                show-overflow-tooltipprop="ENAME"
+                show-overflow-tooltip
+                prop="ENAME"
                 label="提交人"
                 align="center"
                 sortable

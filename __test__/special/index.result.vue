@@ -47,7 +47,9 @@ export default {
   methods: {
     opreationProveData(item, state) {
       // 1. 下载链接不需要翻译
-      const url = I18N.$fanyi('staticFile/员工简历下载模板.xlsx')
+
+      /*@d-i18n-disable*/
+      const url = 'staticFile/员工简历下载模板.xlsx'
 
       // 2. console 里面的内容不需要翻译
 

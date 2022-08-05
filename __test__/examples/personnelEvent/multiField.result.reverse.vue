@@ -108,7 +108,8 @@
           ? 'width97'
           : 'width97-5'
       "
-      filterablev-model="fieldItem.value"
+      filterable
+      v-model="fieldItem.value"
       value-key="KEY"
       @click.native="
         fieldItem.ZZDIS !== 'X'
@@ -164,7 +165,8 @@
       "
       v-model="fieldItem.value"
       :maxlength="fieldItem.FLENG"
-      show-word-limit:disabled="fieldItem.ZZDIS === 'X'"
+      show-word-limit
+      :disabled="fieldItem.ZZDIS === 'X'"
       v-if="fieldItem.ZKJLX === 'TXT'"
     ></el-input>
 

@@ -6,8 +6,9 @@
       ref="headerSearchSelect"
       v-model="myValue"
       :remote-method="searchUsering"
-      filterableremote:placeholder="I18N.$fanyi('请输入员工姓名或工号进行查找')
-"
+      filterable
+      remote
+      :placeholder="I18N.$fanyi('请输入员工姓名或工号进行查找')"
       popper-class="pa-header-search-user-select"
       :disabled="disabled"
       :loading="loading"

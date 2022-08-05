@@ -97,7 +97,8 @@
               <el-form-item prop="ZZXYDM" :label="I18N.$fanyi('用人单位名称')">
                 <el-select
                   v-model="pageForm.ZZXYDM"
-                  filterable:disabled="isEdit"
+                  filterable
+                  :disabled="isEdit"
                   @change="getQYXX(pageForm.ZZXYDM)"
                   class="width90p"
                 >

@@ -12,7 +12,8 @@
             <el-form-item :label="I18N.$fanyi('文件路径')">
               <el-input
                 type="text"
-                disabledstyle="width: 100%"
+                disabled
+                style="width: 100%"
                 v-model="filename"
               ></el-input>
             </el-form-item>
@@ -58,7 +59,8 @@
         size="small"
       >
         <el-table-column
-          show-overflow-tooltipv-for="(field, index) in tableHeaderList"
+          show-overflow-tooltip
+          v-for="(field, index) in tableHeaderList"
           :key="index"
           :prop="field.prop"
           :label="field.label"

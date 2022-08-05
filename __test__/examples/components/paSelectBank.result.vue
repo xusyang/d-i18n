@@ -48,7 +48,8 @@
           size="mini"
           @row-click="rowSelect"
           :row-class-name="tableRowClassName"
-          highlight-current-rowv-loading="loading"
+          highlight-current-row
+          v-loading="loading"
         >
           <el-table-column
             prop="BANKS"

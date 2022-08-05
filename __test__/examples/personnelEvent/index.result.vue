@@ -290,8 +290,8 @@
         v-model="activeCode"
         @tab-click="queryDataList"
         v-loading="loading"
-        stripe:element-loading-text="I18N.$fanyi('加载中.....')
-"
+        stripe
+        :element-loading-text="I18N.$fanyi('加载中.....')"
       >
         <el-tab-pane
           v-for="tableSheet in tableSheetList"
@@ -348,7 +348,9 @@
                 @cell-click="handleCellClick"
               >
                 <el-table-column
-                  show-overflow-tooltipsortablev-for="(field, fieldIndex) in tableFieldList"
+                  show-overflow-tooltip
+                  sortable
+                  v-for="(field, fieldIndex) in tableFieldList"
                   header-align="center"
                   :key="fieldIndex"
                   :fixed="field.fixed"

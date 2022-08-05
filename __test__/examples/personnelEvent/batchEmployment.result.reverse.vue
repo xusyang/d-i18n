@@ -10,7 +10,7 @@
           </el-col>
           <el-col class="el-col-sm-9">
             <el-form-item label="文件路径">
-              <el-input type="text" disabledstyle="width: 100%"></el-input>
+              <el-input type="text" disabled style="width: 100%"></el-input>
             </el-form-item>
           </el-col>
           <el-col class="el-col-sm-2 m-l-xs">
@@ -47,7 +47,8 @@
         size="small"
       >
         <el-table-column
-          show-overflow-tooltipv-for="(field, index) in tableHeaderList"
+          show-overflow-tooltip
+          v-for="(field, index) in tableHeaderList"
           :key="index"
           :prop="field.prop"
           :label="field.label"
