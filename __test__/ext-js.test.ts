@@ -11,20 +11,20 @@ const traverseOptions: TraverseOptions = {
 }
 
 describe('ext js, file', async () => {
-  const dir = './js/**/*.js'
+  const dir = './examples/**/*.js'
   const files: string[] = await new Promise(resolve => {
     glob(path.join(__dirname, dir), (err, files) => {
       resolve(files.filter(x => !x.includes('result')))
     })
   })
 
+  console.log(files)
   for (let i = 0; i < files.length; i++) {
     const file = files[i]
     it(file, async () => {
       const code = await readFile(file)
       let result = di18n(code, traverseOptions)
       writeFile(filePathWithResult(file), result)
-      expect(result).toMatchSnapshot()
     })
   }
 })

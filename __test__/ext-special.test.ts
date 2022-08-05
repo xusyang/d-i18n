@@ -10,8 +10,8 @@ const traverseOptions: TraverseOptions = {
   fileType: 'vue-sfc'
 }
 
-describe('ext vue, file', async () => {
-  const dir = './examples/**/*.vue'
+describe('ext-special', async () => {
+  const dir = './special/**/*.vue'
   const files: string[] = await new Promise(resolve => {
     glob(path.join(__dirname, dir), (err, files) => {
       resolve(files.filter(x => !x.includes('result')))
