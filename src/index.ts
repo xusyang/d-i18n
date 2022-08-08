@@ -31,8 +31,9 @@ export function di18n(
   traverse(ast, options, translateTexts)
 
   let result = generate(ast, options)
-  result = result.replace(/(\/\/)\s*/gm, '\n$1 ')
+  result = result.replace(/^\s*(\/\/)\s*/gm, '\n$1 ')
   result = result.replace(/^(\/\/[\s\S].*)\n$/gm, '\n$1\n')
+
   return prettier.format(result, {
     printWidth: 80,
     tabWidth: 2,
