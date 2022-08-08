@@ -1,0 +1,345 @@
+// base color
+$blue: #324157;
+$light-blue: #3a71a8;
+$red: #c03639;
+$pink: #e65d6e;
+$green: #30b08f;
+$tiffany: #4ab7bd;
+$yellow: #fec171;
+$panGreen: #30b08f;
+
+// 默认菜单主题风格
+$base-menu-color: #bfcbd9;
+$base-menu-color-active: #f4f4f5;
+$base-logo-title-color: #ffffff;
+
+$base-menu-light-color: rgba(0, 0, 0, 0.7);
+$base-menu-light-background: #ffffff;
+$base-logo-light-title-color: #001529;
+
+$base-sub-menu-background: #1d1d1d;
+$base-sub-menu-hover: rgba(61, 61, 61, 0.4);
+
+$--color-primary: #027cb0;
+$--color-success: #67c23a;
+$--color-warning: #e6a23c;
+$--color-danger: #f56c6c;
+$--color-info: #909399;
+
+$base-sidebar-width: 200px;
+
+:root {
+  // element-ui
+  --el-color-primary: hsl(198, 98%, 35%);
+
+  // 自定义
+  --color-primary: hsl(198, 98%, 35%);
+  --color-primary-focus: hsl(198, 60%, 35%);
+
+  //
+  --base-background: #e6e6e6;
+  --base-background-component: #fafafa;
+
+  --base-menu-background: #1d1d1d;
+  --base-menu-background-open: #3d3d3d;
+  --base-menu-border-radius: 6px;
+  --base-header-height: 50px;
+
+  // 圆角
+  --base-radius: 6px;
+
+  // 颜色
+  --color-title: #333;
+  --color-label: #666;
+
+  // 间距
+  --base-gutter-width: 6px;
+
+  // 字体
+  --base-font-size: 12px;
+  --base-font-bold: 800;
+
+  // dialog
+  --base-dialog-content-padding: 30px;
+}
+
+// the :export directive is the magic sauce for webpack
+// https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
+:export {
+  menucolor: $base-menu-color;
+  menulightcolor: $base-menu-light-color;
+  menucoloractive: $base-menu-color-active;
+  menulightbackground: $base-menu-light-background;
+  submenubackground: $base-sub-menu-background;
+  submenuhover: $base-sub-menu-hover;
+  sidebarwidth: $base-sidebar-width;
+  logotitlecolor: $base-logo-title-color;
+  logolighttitlecolor: $base-logo-light-title-color;
+  primarycolor: $--color-primary;
+  successcolor: $--color-success;
+  dangercolor: $--color-danger;
+  infocolor: $--color-info;
+  warningcolor: $--color-warning;
+}
+
+.el-input {
+  input {
+    background: var(--base-background-component);
+    border: 1px solid var(--base-background);
+    border-radius: var(--base-radius);
+
+    &.el-input__inner:focus {
+      outline: none;
+      border-color: var(--color-primary);
+    }
+  }
+
+  &.el-input--prefix {
+    .el-input__inner {
+      padding-left: calc(var(--base-gutter-width) * 6) !important;
+    }
+  }
+}
+
+.el-button {
+  &.el-button--small {
+    height: 32px !important;
+    box-sizing: border-box;
+  }
+
+  span {
+    letter-spacing: 1px !important;
+  }
+}
+
+.el-button--text {
+  color: var(--color-primary) !important;
+}
+
+.el-tree {
+  --base-tree-background-select: #fff;
+  background: var(--base-background-component) !important;
+
+  .el-tree-node {
+    &.is-current {
+      > .el-tree-node__content {
+        background: var(--base-tree-background-select) !important;
+        position: relative;
+        &::before {
+          position: absolute;
+          content: '';
+          top: 0;
+          bottom: 0;
+          right: 0;
+          width: 4px;
+          background: var(--color-primary);
+        }
+        .el-tree-node__label {
+          color: var(--color-primary) !important;
+          font-weight: var(--base-font-bold) !important;
+        }
+      }
+    }
+  }
+
+  .el-tree-node__label {
+    color: var(--color-title) !important;
+    font-size: calc(var(--base-font-size) * 1.2) !important;
+    font-weight: var(--base-font-bold) !important;
+    white-space: pre-wrap;
+    padding-right: var(--base-gutter-width);
+  }
+
+  .el-tree-node__content {
+    &:hover {
+      background: var(--base-tree-background-select) !important;
+    }
+
+    .disable {
+      opacity: 0.35;
+    }
+  }
+}
+
+.el-switch {
+  &.is-checked {
+    .el-switch__core {
+      border-color: var(--color-primary) !important;
+      background: var(--color-primary) !important;
+    }
+  }
+
+  .el-switch__label {
+    &.is-active {
+      color: var(--color-primary) !important;
+    }
+  }
+}
+
+.el-radio {
+  height: auto !important;
+}
+
+.el-select-dropdown__item {
+  &.selected {
+    color: var(--color-primary) !important;
+  }
+}
+
+.el-select .el-input.is-focus .el-input__inner {
+  border-color: var(--color-primary) !important;
+}
+
+.el-checkbox {
+  height: auto !important;
+}
+
+.el-checkbox-group {
+  zoom: 1.1;
+  .el-checkbox {
+    margin-bottom: var(--base-gutter-width);
+  }
+}
+
+.el-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  span {
+    font-weight: var(--base-font-bold);
+  }
+
+  @mixin squar {
+    width: auto;
+    min-width: 28px;
+    padding: 0 var(--base-gutter-width);
+    height: 28px;
+    line-height: 26px;
+    margin: 3px var(--base-gutter-width);
+    background: var(--base-background-component);
+    border: 1px solid var(--base-background);
+    border-radius: var(--base-radius);
+  }
+
+  .btn-next,
+  .btn-prev {
+    @include squar;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 !important;
+  }
+
+  .el-pager {
+    .number {
+      @include squar;
+
+      &.active {
+        color: #fff;
+        background: var(--color-primary) !important;
+        border-color: var(--color-primary) !important;
+      }
+
+      & + .number {
+        margin-left: 0px;
+      }
+    }
+  }
+
+  .el-pagination__total {
+    margin-right: calc(var(--base-gutter-width) * 4);
+  }
+
+  .el-pagination__jump {
+    margin-left: calc(var(--base-gutter-width) * 4);
+  }
+
+  .el-pagination__sizes {
+    margin-left: var(--base-gutter-width);
+  }
+}
+
+.el-table {
+  .cell {
+    text-overflow: unset !important;
+  }
+}
+
+.el-loading-mask {
+  background-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.el-drawer__body {
+  margin-top: -30px !important;
+}
+
+.el-drawer__header {
+  font-size: 18px !important;
+  font-weight: 800;
+  color: #303133 !important;
+}
+
+.el-dialog {
+  $border-radius: 10px;
+  border-radius: $border-radius !important;
+  &.is-fullscreen {
+    border-radius: 0 !important;
+  }
+
+  .el-dialog__header {
+    background: #eee !important;
+    border-top-left-radius: $border-radius !important;
+    border-top-right-radius: $border-radius !important;
+    overflow: hidden;
+    padding: 15px 20px !important;
+    .el-dialog__title {
+      font-size: 18px !important;
+      font-weight: 800;
+    }
+  }
+
+  .el-dialog__body {
+    padding: var(--base-dialog-content-padding) !important;
+
+    & + .el-dialog__footer {
+      padding-top: 0;
+    }
+  }
+
+  .dialog-footer {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.el-tree-node__content {
+  width: 100% !important;
+  height: 40px !important;
+  .el-tree-node__label {
+    font-weight: 400;
+    font-size: 14px !important;
+  }
+}
+
+.el-tree-node__expand-icon {
+  color: var(--base-menu-background);
+  font-size: 20px !important;
+  margin-top: -2px !important;
+}
+
+.el-transfer__buttons .el-button {
+  display: block;
+  margin: 10px 0 0 0;
+}
+
+.el-cascader__tags .el-tag {
+  margin: 4px 0px 4px 6px;
+}
+
+.full-width {
+  width: 100% !important;
+}
+
+.display-value {
+  font-size: calc(var(--base-font-size) * 1.1);
+}
