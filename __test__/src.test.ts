@@ -25,7 +25,6 @@ describe('ext src, file', async () => {
     it(file, async () => {
       const words = new Set<string>()
       let code = await readFile(file)
-      // code = code.replace('<template', `<template a="${i}" `)
       const result = await di18n(code, traverseOptions, words)
       await writeFile(filePathWithResult(file), result)
       if ([...words].length > 0)

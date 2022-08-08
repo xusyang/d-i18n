@@ -1,6 +1,7 @@
 import { parse } from '@vue/compiler-sfc'
+import { cloneDeep } from 'lodash'
 
 export function parseVueSfc(code: string) {
-  const descriptor = parse(code).descriptor
+  const descriptor = cloneDeep(parse(code).descriptor)
   return descriptor
 }
