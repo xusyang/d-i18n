@@ -19,11 +19,16 @@ describe('ext js, file', async () => {
   })
 
   for (let i = 0; i < files.length; i++) {
+    const words = new Set<string>()
     const file = files[i]
     it(file, async () => {
       const code = await readFile(file)
-      let result = di18n(code, traverseOptions)
+      let result = di18n(code, traverseOptions, words)
       writeFile(filePathWithResult(file), result)
+      await writeFile(
+        filePathWithResult(file, 'result.words'),
+        [...words].join('|')
+      )
     })
   }
 })
