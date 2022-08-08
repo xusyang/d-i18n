@@ -23,7 +23,11 @@ import {
 } from '../../utils'
 import { traverseJavascript } from '../javacript'
 
-function createI18nTextNode(content: string, options: TraverseOptions) {
+function createI18nTextNode(
+  content: string,
+  options: TraverseOptions,
+  translateTexts: Set<string>
+) {
   options = Object.assign({}, options, {
     isNeedImportI18NModule: false
   })
@@ -42,7 +46,7 @@ function createI18nTextNode(content: string, options: TraverseOptions) {
     ast = parseJavascript('(' + content.trim() + ')')
   }
 
-  traverseJavascript(ast, options)
+  traverseJavascript(ast, options, translateTexts)
 
   let code = generateJavascript(ast, options)
 
@@ -67,10 +71,11 @@ function createI18nDirectiveNode(
   content: string,
   bind: string,
   options: TraverseOptions,
+  translateTexts: Set<string>,
   bindIsStatic: boolean = true
 ) {
   try {
-    const node = createI18nTextNode(content, options)
+    const node = createI18nTextNode(content, options, translateTexts)
     bind = bindIsStatic ? bind : `[${bind}]`
     if (isStringLiteral(node) && bindIsStatic) {
       return `${bind}=${node}`
@@ -88,9 +93,10 @@ function createI18nDirectiveNode(
  */
 function generateTraverseNodeInterpolation(
   content: string,
-  options: TraverseOptions
+  options: TraverseOptions,
+  translateTexts: Set<string>
 ) {
-  const node = createI18nTextNode(content, options)
+  const node = createI18nTextNode(content, options, translateTexts)
   if (isStringLiteral(node)) {
     return {
       type: NodeTypes.TEXT as any as number,
@@ -113,7 +119,8 @@ function generateTraverseNodeInterpolation(
  */
 function generateTraverseNodeProps(
   attributes: (AttributeNode | DirectiveNode)[],
-  options: TraverseOptions
+  options: TraverseOptions,
+  translateTexts: Set<string>
 ) {
   const attrs = attributes.filter(
     attr =>
@@ -132,7 +139,12 @@ function generateTraverseNodeProps(
     // const attrText = `'${attr.value?.content || ''}'`
     const attrText = attr.value?.loc.source || ''
     if (isNeedTraslateText(attrText)) {
-      const node = createI18nDirectiveNode(attrText, attr.name, options)
+      const node = createI18nDirectiveNode(
+        attrText,
+        attr.name,
+        options,
+        translateTexts
+      )
       attr.loc.source = node
     }
   })
@@ -141,11 +153,11 @@ function generateTraverseNodeProps(
   directives.forEach(directive => {
     const sArg = directive.arg as SimpleExpressionNode
     const sExp = directive.exp as SimpleExpressionNode
-
     const node = createI18nDirectiveNode(
       sExp.content || '',
       sArg.content || '',
       options,
+      translateTexts,
       sArg.isStatic
     )
 
@@ -157,25 +169,32 @@ function generateTraverseNodeProps(
 
 function generateTraverseNodeElements(
   children: TemplateChildNode[],
-  options: TraverseOptions
+  options: TraverseOptions,
+  translateTexts: Set<string>
 ) {
   children.forEach((child, index) => {
     if (isElement(child)) {
-      child.props = generateTraverseNodeProps(child.props, options)
-      generateTraverseNodeElements(child.children, options)
+      child.props = generateTraverseNodeProps(
+        child.props,
+        options,
+        translateTexts
+      )
+      generateTraverseNodeElements(child.children, options, translateTexts)
     } else if (isText(child)) {
       if (isNeedTraslateText(child.content)) {
         // TODO 原则上应该是不需要对字符串做trim的操作
         children[index] = generateTraverseNodeInterpolation(
           '`' + child.content.trim() + '`',
-          options
+          options,
+          translateTexts
         ) as TemplateChildNode
       }
     } else if (isInterpolation(child)) {
       // TODO child.content ExpressionNode
       children[index] = generateTraverseNodeInterpolation(
         (child.content as any).content,
-        options
+        options,
+        translateTexts
       ) as TemplateChildNode
     }
   })
@@ -183,10 +202,15 @@ function generateTraverseNodeElements(
 
 export function traverseVueSfc(
   descriptor: SFCDescriptor,
-  options: TraverseOptions
+  options: TraverseOptions,
+  translateTexts: Set<string>
 ) {
   if (descriptor?.template) {
-    generateTraverseNodeElements(descriptor.template.ast.children, options)
+    generateTraverseNodeElements(
+      descriptor.template.ast.children,
+      options,
+      translateTexts
+    )
   }
 
   // TODO
@@ -194,13 +218,13 @@ export function traverseVueSfc(
   // 2. jsx / tsx 的处理
   if (descriptor?.script) {
     const ast = parseJavascript(descriptor.script.content)
-    traverseJavascript(ast, options)
+    traverseJavascript(ast, options, translateTexts)
     descriptor.script.content = generateJavascript(ast, options)
   }
 
   if (descriptor?.scriptSetup) {
     const ast = parseJavascript(descriptor.scriptSetup.content)
-    traverseJavascript(ast, options)
+    traverseJavascript(ast, options, translateTexts)
     descriptor.scriptSetup.content = generateJavascript(ast, options)
   }
 

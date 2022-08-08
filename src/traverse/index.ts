@@ -12,12 +12,16 @@ import { traverseVueSfc } from './vue'
  */
 export function traverse(
   ast: t.Node | t.Node[] | SFCDescriptor,
-  options: TraverseOptions = { forwordOrReverse: false, fileType: 'javascript' }
+  options: TraverseOptions = {
+    forwordOrReverse: false,
+    fileType: 'javascript'
+  },
+  translateTexts: Set<string>
 ) {
   if (options.fileType === 'javascript') {
-    return traverseJavascript(ast as t.Node | t.Node[], options)
+    return traverseJavascript(ast as t.Node | t.Node[], options, translateTexts)
   } else if (options.fileType === 'vue-sfc') {
-    return traverseVueSfc(ast as SFCDescriptor, options)
+    return traverseVueSfc(ast as SFCDescriptor, options, translateTexts)
   } else {
     throw new Error('fileType is not supported')
   }

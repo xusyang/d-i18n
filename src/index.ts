@@ -17,14 +17,19 @@ function mergeOptions(options: TraverseOptions) {
   )
 }
 
-export function di18n(code: string, options: TraverseOptions) {
+export function di18n(
+  code: string,
+  options: TraverseOptions,
+  translateTexts: Set<string> = new Set()
+) {
   options = mergeOptions(options)
   options.di18nMethodsNames = flatten(
     options.di18nMethodsNames!.map(x => ['this.' + x, x])
   )
 
   const ast = parse(code, options)
-  traverse(ast, options)
+  traverse(ast, options, translateTexts)
+
   let result = generate(ast, options)
   result = result.replace(/(\/\/)\s*/gm, '\n$1 ')
   result = result.replace(/^(\/\/[\s\S].*)\n$/gm, '\n$1\n')

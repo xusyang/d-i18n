@@ -16,21 +16,23 @@ import { isNeedTraslateNode, isNeedTraslateText } from '../../utils'
  */
 export function traverseJavascript(
   ast: t.Node | t.Node[],
-  options: TraverseOptions
+  options: TraverseOptions,
+  translateTexts: Set<string>
 ) {
-  const visitor = generateVisitor()
+  const visitor = generateVisitor(translateTexts)
   return babelTraverse<TraverseOptions>(ast, visitor, undefined, options)
 }
 
-const createTemplateI18N = (text: string) => {
+const createTemplateI18N = (text: string, translateTexts: Set<string>) => {
   if (isNeedTraslateText(text)) {
+    translateTexts.add(text)
     return text ? `${consts.JS_I18N}('${text}')` : ''
   } else {
     return text ? `'${text}'` : ''
   }
 }
 
-function generateVisitor() {
+function generateVisitor(translateTexts: Set<string> = new Set()) {
   const visitor: Visitor<TraverseOptions> = {
     // 入口的处理
     Program: {
@@ -115,9 +117,11 @@ function generateVisitor() {
           })?.node?.leadingComments ||
           []
 
+        const text = path.node.value
         if (comments.length > 0) {
           path.skip()
-        } else if (isNeedTraslateText(path.node.value)) {
+        } else if (isNeedTraslateText(text)) {
+          translateTexts.add(text)
           path.replaceWith(
             t.expressionStatement(
               t.callExpression(
@@ -125,7 +129,7 @@ function generateVisitor() {
                   t.identifier(consts.IMPORT_I18N_OBJ),
                   t.identifier(consts.JS_I18N_FUNC)
                 ),
-                [t.stringLiteral(path.node.value)]
+                [t.stringLiteral(text)]
               )
             )
           )
@@ -155,11 +159,11 @@ function generateVisitor() {
             const str = strs[i]
             // 是否为 template params
             if (i === strs.length - 1) {
-              exp += createTemplateI18N(str)
+              exp += createTemplateI18N(str, translateTexts)
               exp = exp.replace(/(^\s\+\s|\s\+\s$)/g, '')
             } else {
               exp +=
-                createTemplateI18N(str) +
+                createTemplateI18N(str, translateTexts) +
                 ' + ' +
                 generateBabel(path.node.expressions[i] as t.Node).code +
                 ' + '
@@ -173,14 +177,16 @@ function generateVisitor() {
           )
         }
       } else {
-        if (isNeedTraslateText(path.node.quasis[0].value.raw)) {
+        const text = path.node.quasis[0].value.raw
+        if (isNeedTraslateText(text)) {
+          translateTexts.add(text)
           path.replaceWith(
             t.callExpression(
               t.memberExpression(
                 t.identifier(consts.IMPORT_I18N_OBJ),
                 t.identifier(consts.JS_I18N_FUNC)
               ),
-              [t.stringLiteral(path.node.quasis[0].value.raw)]
+              [t.stringLiteral(text)]
             )
           )
         }
