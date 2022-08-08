@@ -11,7 +11,7 @@ const traverseOptions: TraverseOptions = {
 }
 
 describe('ext-special', async () => {
-  const dir = './special/**/*.vue'
+  const dir = './special/**/002-v-bind.vue'
   const files: string[] = await new Promise(resolve => {
     glob(path.join(__dirname, dir), (err, files) => {
       resolve(files.filter(x => !x.includes('result')))

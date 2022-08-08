@@ -76,11 +76,15 @@ function createI18nDirectiveNode(
 ) {
   try {
     const node = createI18nTextNode(content, options, translateTexts)
-    bind = bindIsStatic ? bind : `[${bind}]`
-    if (isStringLiteral(node) && bindIsStatic) {
-      return `${bind}=${node}`
+    if (bind) {
+      bind = bindIsStatic ? bind : `[${bind}]`
+      if (isStringLiteral(node) && bindIsStatic) {
+        return `${bind}=${node}`
+      } else {
+        return `:${bind}="${node}"`
+      }
     } else {
-      return `:${bind}="${node}"`
+      return `v-bind="${node}"`
     }
   } catch (error) {
     console.log('error', content)
@@ -136,7 +140,6 @@ function generateTraverseNodeProps(
   ) as DirectiveNode[]
 
   attrs.forEach(attr => {
-    // const attrText = `'${attr.value?.content || ''}'`
     const attrText = attr.value?.loc.source || ''
     if (isNeedTraslateText(attrText)) {
       const node = createI18nDirectiveNode(
@@ -155,13 +158,12 @@ function generateTraverseNodeProps(
     const sExp = directive.exp as SimpleExpressionNode
     const node = createI18nDirectiveNode(
       sExp.content || '',
-      sArg.content || '',
+      (sArg && sArg.content) || '',
       options,
       translateTexts,
-      sArg.isStatic
+      sArg && sArg.isStatic
     )
-
-    directive.loc.source = node
+    directive!.loc!.source = node || ''
   })
 
   return attributes
