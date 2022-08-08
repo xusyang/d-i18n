@@ -37,6 +37,10 @@ export function isNeedTraslateText(str: string): boolean {
   return !!(str && /[\u{4E00}-\u{9FFF}]/gmu.test(str))
 }
 
+export function isClearQuoat(str: string) {
+  return str.replace(/['"]/g, '')
+}
+
 /**
  * 是否需要翻译当前节点
  */

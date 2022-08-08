@@ -4,7 +4,11 @@ import { default as template } from '@babel/template'
 import * as t from '@babel/types'
 import { consts } from '../../constants'
 import { TraverseOptions } from '../../types'
-import { isNeedTraslateNode, isNeedTraslateText } from '../../utils'
+import {
+  isNeedTraslateNode,
+  isNeedTraslateText,
+  isClearQuoat
+} from '../../utils'
 
 /**
  *
@@ -25,6 +29,7 @@ export function traverseJavascript(
 
 const createTemplateI18N = (text: string, translateTexts: Set<string>) => {
   if (isNeedTraslateText(text)) {
+    text = isClearQuoat(text)
     translateTexts.add(text)
     return text ? `${consts.JS_I18N}('${text}')` : ''
   } else {
@@ -117,10 +122,11 @@ function generateVisitor(translateTexts: Set<string> = new Set()) {
           })?.node?.leadingComments ||
           []
 
-        const text = path.node.value
+        let text = path.node.value
         if (comments.length > 0) {
           path.skip()
         } else if (isNeedTraslateText(text)) {
+          text = isClearQuoat(text)
           translateTexts.add(text)
           path.replaceWith(
             t.expressionStatement(
@@ -177,8 +183,9 @@ function generateVisitor(translateTexts: Set<string> = new Set()) {
           )
         }
       } else {
-        const text = path.node.quasis[0].value.raw
+        let text = path.node.quasis[0].value.raw
         if (isNeedTraslateText(text)) {
+          text = isClearQuoat(text)
           translateTexts.add(text)
           path.replaceWith(
             t.callExpression(
