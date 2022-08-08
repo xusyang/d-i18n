@@ -1,19 +1,27 @@
 import {
   AttributeNode,
   DirectiveNode,
-  SimpleExpressionNode
+  SimpleExpressionNode,
+  TemplateChildNode
 } from '@vue/compiler-core'
+import { SFCDescriptor } from '@vue/compiler-sfc'
 import prettier from 'prettier'
 import { consts } from '../../constants'
 import { generateJavascript } from '../../generator'
 import { parseJavascript } from '../../parse'
-import { traverseJavascript } from '../../traverse'
-import { NodeTypes, TraverseOptions } from '../../types'
+import {
+  isElement,
+  isInterpolation,
+  isText,
+  NodeTypes,
+  TraverseOptions
+} from '../../types'
 import {
   isNeedTraslateText,
   isRawHtmlAttribute,
   isStringLiteral
 } from '../../utils'
+import { traverseJavascript } from '../javacript'
 
 function createI18nTextNode(content: string, options: TraverseOptions) {
   options = Object.assign({}, options, {
@@ -78,7 +86,7 @@ function createI18nDirectiveNode(
 /**
  * 创建插值文本
  */
-export function generateTraverseNodeInterpolation(
+function generateTraverseNodeInterpolation(
   content: string,
   options: TraverseOptions
 ) {
@@ -102,11 +110,8 @@ export function generateTraverseNodeInterpolation(
 
 /**
  * 创建属性节点
- *
- * @param child
- * @returns
  */
-export function generateTraverseNodeProps(
+function generateTraverseNodeProps(
   attributes: (AttributeNode | DirectiveNode)[],
   options: TraverseOptions
 ) {
@@ -148,4 +153,56 @@ export function generateTraverseNodeProps(
   })
 
   return attributes
+}
+
+function generateTraverseNodeElements(
+  children: TemplateChildNode[],
+  options: TraverseOptions
+) {
+  children.forEach((child, index) => {
+    if (isElement(child)) {
+      child.props = generateTraverseNodeProps(child.props, options)
+      generateTraverseNodeElements(child.children, options)
+    } else if (isText(child)) {
+      if (isNeedTraslateText(child.content)) {
+        // TODO 原则上应该是不需要对字符串做trim的操作
+        children[index] = generateTraverseNodeInterpolation(
+          '`' + child.content.trim() + '`',
+          options
+        ) as TemplateChildNode
+      }
+    } else if (isInterpolation(child)) {
+      // TODO child.content ExpressionNode
+      children[index] = generateTraverseNodeInterpolation(
+        (child.content as any).content,
+        options
+      ) as TemplateChildNode
+    }
+  })
+}
+
+export function traverseVueSfc(
+  descriptor: SFCDescriptor,
+  options: TraverseOptions
+) {
+  if (descriptor?.template) {
+    generateTraverseNodeElements(descriptor.template.ast.children, options)
+  }
+
+  // TODO
+  // 1. 语法糖的处理
+  // 2. jsx / tsx 的处理
+  if (descriptor?.script) {
+    const ast = parseJavascript(descriptor.script.content)
+    traverseJavascript(ast, options)
+    descriptor.script.content = generateJavascript(ast, options)
+  }
+
+  if (descriptor?.scriptSetup) {
+    const ast = parseJavascript(descriptor.scriptSetup.content)
+    traverseJavascript(ast, options)
+    descriptor.scriptSetup.content = generateJavascript(ast, options)
+  }
+
+  return descriptor
 }

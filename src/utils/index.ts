@@ -72,6 +72,7 @@ export function isRawHtmlAttribute(attr: string): boolean {
  * 判断是否是一个字符串节点
  *
  * TODO 如何优雅的来判断代码片段是一个 expression or static text node
+ *
  */
 export function isStringLiteral(code: string) {
   try {
