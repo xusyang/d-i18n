@@ -227,9 +227,7 @@ export default {
      */
     uploading() {
       this.previewList = []
-      let index = 1
-
-      // 从第几行开始解析
+      let index = 1 //从第几行开始解析
 
       if (
         this.parentData.pageCode === this.pageCode.PAXXCJ ||
@@ -240,28 +238,19 @@ export default {
         index = 2
       }
 
-      let file = document.querySelector('input[type=file]').files[0]
-
-      // 展示界面文件名
+      let file = document.querySelector('input[type=file]').files[0] //展示界面文件名
 
       this.filename = file.name
       let formData = new FormData()
-      formData.append('file', file)
+      formData.append('file', file) //传入json表头
 
-      // 传入json表头
-
-      formData.append('excelHeadData', JSON.stringify(this.getExcelTitle()))
-
-      // 从第几行开始解析
+      formData.append('excelHeadData', JSON.stringify(this.getExcelTitle())) //从第几行开始解析
 
       formData.append('rowIndex', index)
       this.$httpServer.file.getExcelData(formData).then((response) => {
-        this.excelData = response.data
+        this.excelData = response.data //保存一份数据,用于调用sap接口传值
 
-        // 保存一份数据,用于调用sap接口传值
-
-        this.assembleTableData(response.data)
-        // 解析excel返回的数据
+        this.assembleTableData(response.data) //解析excel返回的数据
       })
     },
 
@@ -274,19 +263,13 @@ export default {
      */
     assembleTableData(list) {
       // 是否显示错误消息table
-      this.isShowErrorTable = false
+      this.isShowErrorTable = false //表头
 
-      // 表头
-
-      this.tableHeaderList = this.getExcelTitle()
-
-      // 处理数据动态展示界面
+      this.tableHeaderList = this.getExcelTitle() //处理数据动态展示界面
 
       let previewList = []
       list.forEach((item) => {
-        let valueList = []
-
-        // 通过表头组装value值
+        let valueList = [] //通过表头组装value值
 
         this.tableHeaderList.forEach((data) => {
           for (let key in item) {
@@ -844,9 +827,7 @@ export default {
       let keys = Object.keys(obj).sort()
       let newObj = {}
       keys.forEach((k) => {
-        let newKey = k.split('-')[0]
-
-        // 判断是不是同一个信息类型
+        let newKey = k.split('-')[0] //判断是不是同一个信息类型
 
         if (!newObj[newKey]) newObj[newKey] = {}
         let field = k.split('-')[1]
@@ -929,9 +910,7 @@ export default {
      * @date 2020年07月20日
      */
     entryImport() {
-      if (this.verifImportData()) return
-
-      // 校验导入数据
+      if (this.verifImportData()) return //校验导入数据
 
       let parentData = this.parentData
       this.errorTableDataList = []
@@ -984,9 +963,7 @@ export default {
       let dataList = []
       et_output.forEach((op) => {
         let isError = false
-        let valueList = []
-
-        // 通过表头组装value值
+        let valueList = [] //通过表头组装value值
 
         this.errorTableHeaderList.forEach((data) => {
           for (let key in op) {

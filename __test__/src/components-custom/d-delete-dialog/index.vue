@@ -1,21 +1,12 @@
 <template>
-  <el-dialog
-    :title="I18N.$fanyi('删除提示')"
-    v-model="show"
-    width="600px"
-    append-to-body
-  >
-    <span>
-      {{ title }}
-    </span>
+  <el-dialog title="删除提示" v-model="show" width="600px" append-to-body>
+    <span>{{title}}</span>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="handleCancel">
-          {{ I18N.$fanyi('取消') }}
-        </el-button>
-        <el-button type="primary" @click="handleComfirm">
-          {{ I18N.$fanyi('确定') }}
-        </el-button>
+        <el-button @click="handleCancel">取消</el-button>
+        <el-button type="primary" @click="handleComfirm"
+          >确定</el-button
+        >
       </span>
     </template>
   </el-dialog>
@@ -47,6 +38,9 @@ const handleComfirm = () => {
 }
 
 defineExpose({
-  open
+  open,
 })
 </script>
+<style scoped>
+
+</style>

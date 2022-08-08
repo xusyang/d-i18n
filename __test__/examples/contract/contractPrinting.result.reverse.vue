@@ -471,9 +471,7 @@ export default {
       ZZHTQDDWData: [],
       pageData: {},
       isNRegister: false,
-      user: JSON.parse(localStorage.CURRENT_USER_INFO)
-
-      // 登录人信息
+      user: JSON.parse(localStorage.CURRENT_USER_INFO) //登录人信息
     }
   },
 
@@ -512,27 +510,17 @@ export default {
           this.pageForm.ZGZNR_M = this.$isEmpty(es_output.ZGZNR_M)
             ? '管理岗位'
             : es_output.ZGZNR_M
-          this.pageForm.BEGDA = this.$formatDate(es_output.BEGDA, 'en')
+          this.pageForm.BEGDA = this.$formatDate(es_output.BEGDA, 'en') //合同开始日期
 
-          // 合同开始日期
+          this.pageForm.CTEDT = this.$formatDate(es_output.CTEDT, 'en') //合同结束日期
 
-          this.pageForm.CTEDT = this.$formatDate(es_output.CTEDT, 'en')
+          this.pageForm.ZZHTZZRQ = this.$formatDate(es_output.ZZHTZZRQ, 'en') //合同结束日期
 
-          // 合同结束日期
-
-          this.pageForm.ZZHTZZRQ = this.$formatDate(es_output.ZZHTZZRQ, 'en')
-
-          // 合同结束日期
-
-          this.pageForm.ZZSYKSRQ = this.$formatDate(es_output.ZZSYKSRQ, 'en')
-
-          // 合同结束日期
+          this.pageForm.ZZSYKSRQ = this.$formatDate(es_output.ZZSYKSRQ, 'en') //合同结束日期
 
           this.pageForm.ZFXR = this.$isEmpty(es_output.ZFXR)
             ? '6'
-            : es_output.ZFXR
-
-          // 用章人
+            : es_output.ZFXR //用章人
 
           this.pageForm.ZGZR = es_output.ZGZR
           this.pageForm.ZGZR_NAME = es_output.ZGZR_NAME
@@ -611,9 +599,7 @@ export default {
     MonthsBetw(date1, date2) {
       // 用-分成数组
       date1 = date1.split('-')
-      date2 = date2.split('-')
-
-      // 获取年,月数
+      date2 = date2.split('-') //获取年,月数
 
       const year1 = parseInt(date1[0]),
         month1 = parseInt(date1[1]),
@@ -633,21 +619,13 @@ export default {
      */
     updateDataStatus(state) {
       let inputData = this.$deepClone(this.pageForm)
-      inputData.BEGDA = this.$formatDate(inputData.BEGDA, 'num')
+      inputData.BEGDA = this.$formatDate(inputData.BEGDA, 'num') //合同开始日期
 
-      // 合同开始日期
+      inputData.CTEDT = this.$formatDate(inputData.CTEDT, 'num') //合同结束日期
 
-      inputData.CTEDT = this.$formatDate(inputData.CTEDT, 'num')
+      inputData.ZZHTZZRQ = this.$formatDate(inputData.ZZHTZZRQ, 'num') //合同结束日期
 
-      // 合同结束日期
-
-      inputData.ZZHTZZRQ = this.$formatDate(inputData.ZZHTZZRQ, 'num')
-
-      // 合同结束日期
-
-      inputData.ZZSYKSRQ = this.$formatDate(inputData.ZZSYKSRQ, 'num')
-
-      // 试用期开始日期
+      inputData.ZZSYKSRQ = this.$formatDate(inputData.ZZSYKSRQ, 'num') //试用期开始日期
 
       let params = {
         sapInterface: 'PE058',
@@ -655,10 +633,7 @@ export default {
         IV_GUID: this.baseParams.GUID,
         IS_INPUT: JSON.stringify(inputData),
 
-        // IV_STATS:state === 'C' ? '0' : state
-
-        //
-        // 撤销传0
+        // IV_STATS:state === 'C' ? '0' : state////撤销传0
         IV_STATS: state
       }
       this.$httpServer.sap.baseMethod(params).then((response) => {
@@ -710,9 +685,7 @@ export default {
      * @date 2020年07月20日
      */
     getDynamicTemplate() {
-      let wordData = {}
-
-      // word 填充的数据
+      let wordData = {} //word 填充的数据
 
       let params = {}
       wordData.HTBH =
@@ -720,324 +693,178 @@ export default {
         this.$formatDate(this.pageForm.BEGDA, 'num') +
         '-' +
         this.baseParams.PERNR
-      wordData.YRDWJF = this.pageForm.ZZHTQDDW
+      wordData.YRDWJF = this.pageForm.ZZHTQDDW //用人单位（甲方） *2
 
-      // 用人单位（甲方） *2
+      wordData.YRDWJFS = this.pageForm.ZZHTQDDW //用人单位（甲方） *2
 
-      wordData.YRDWJFS = this.pageForm.ZZHTQDDW
+      wordData.DZJF = this.pageForm.ZZHTQDDW //地址（甲方）
 
-      // 用人单位（甲方） *2
+      wordData.ZGYF = this.pageForm.ENAME //职工乙方 姓名 *2
 
-      wordData.DZJF = this.pageForm.ZZHTQDDW
+      wordData.FDDBR = this.pageForm.ZFR_NAME //法定代表人（主要负责人）
 
-      // 地址（甲方）
+      wordData.SFZHM = this.pageForm.ICNUM //身份证号码
 
-      wordData.ZGYF = this.pageForm.ENAME
+      wordData.JJLX = this.pageForm.ZQYJJLX_T //经济类型
 
-      // 职工乙方 姓名 *2
+      wordData.HJDZ = this.pageForm.ZHJDZ //户籍地址
 
-      wordData.FDDBR = this.pageForm.ZFR_NAME
+      wordData.TXDZJF = this.pageForm.ZTXDZ_DW //通讯地址甲方
 
-      // 法定代表人（主要负责人）
+      wordData.TXDZYF = this.pageForm.ZTXDZ_GR //通讯地址乙方
 
-      wordData.SFZHM = this.pageForm.ICNUM
+      wordData.LXRJF = this.pageForm.ZLXR_NAME //联系人甲方
 
-      // 身份证号码
+      wordData.DHJF = this.pageForm.ZPHONE_DW //电话甲方
 
-      wordData.JJLX = this.pageForm.ZQYJJLX_T
-
-      // 经济类型
-
-      wordData.HJDZ = this.pageForm.ZHJDZ
-
-      // 户籍地址
-
-      wordData.TXDZJF = this.pageForm.ZTXDZ_DW
-
-      // 通讯地址甲方
-
-      wordData.TXDZYF = this.pageForm.ZTXDZ_GR
-
-      // 通讯地址乙方
-
-      wordData.LXRJF = this.pageForm.ZLXR_NAME
-
-      // 联系人甲方
-
-      wordData.DHJF = this.pageForm.ZPHONE_DW
-
-      // 电话甲方
-
-      wordData.LXDHYF = this.pageForm.ZPHONE_GR
-
-      // 联系电话乙方
+      wordData.LXDHYF = this.pageForm.ZPHONE_GR //联系电话乙方
 
       if (this.pageForm.ZZHTQXLX === '01') {
-        wordData.DJZFS = 1
-        // 甲、乙双方同意按以下第
+        wordData.DJZFS = 1 //甲、乙双方同意按以下第
       } else if (this.pageForm.ZZHTQXLX === '02') {
-        wordData.DJZFS = 2
-        // 甲、乙双方同意按以下第
+        wordData.DJZFS = 2 //甲、乙双方同意按以下第
       } else if (this.pageForm.ZZHTQXLX === '03') {
-        wordData.DJZFS = 3
-        // 甲、乙双方同意按以下第
+        wordData.DJZFS = 3 //甲、乙双方同意按以下第
       } else {
-        wordData.DJZFS = ''
-        // 甲、乙双方同意按以下第
-      }
-
-      // 如果是有固定期限，那么固定期限和工作为期限的开始日期和结束日期都是/
+        wordData.DJZFS = '' //甲、乙双方同意按以下第
+      } //如果是有固定期限，那么固定期限和工作为期限的开始日期和结束日期都是/
 
       if (this.pageForm.ZZHTQXLX === '01') {
-        wordData.YGDQXNA = this.$formatDate(this.pageForm.BEGDA, 'Y')
+        wordData.YGDQXNA = this.$formatDate(this.pageForm.BEGDA, 'Y') //有固定期限年
 
-        // 有固定期限年
+        wordData.YGDQXYA = this.$formatDate(this.pageForm.BEGDA, 'M') //有固定期限月
 
-        wordData.YGDQXYA = this.$formatDate(this.pageForm.BEGDA, 'M')
+        wordData.YGDQXRA = this.$formatDate(this.pageForm.BEGDA, 'D') //有固定期限日
 
-        // 有固定期限月
+        wordData.YGDQXNB = this.$formatDate(this.pageForm.CTEDT, 'Y') //有固定期限结束年
 
-        wordData.YGDQXRA = this.$formatDate(this.pageForm.BEGDA, 'D')
+        wordData.YGDQXYB = this.$formatDate(this.pageForm.CTEDT, 'M') //有固定期限结束月
 
-        // 有固定期限日
+        wordData.YGDQXRB = this.$formatDate(this.pageForm.CTEDT, 'D') //有固定期限结束日
 
-        wordData.YGDQXNB = this.$formatDate(this.pageForm.CTEDT, 'Y')
+        wordData.WGDQXNA = '/' //无固定期限年
 
-        // 有固定期限结束年
+        wordData.WGDQXYA = '/' //无固定期限月
 
-        wordData.YGDQXYB = this.$formatDate(this.pageForm.CTEDT, 'M')
+        wordData.WGDQXRA = '/' //无固定期限日
 
-        // 有固定期限结束月
+        wordData.GZQXN = '/' //工作期限年
 
-        wordData.YGDQXRB = this.$formatDate(this.pageForm.CTEDT, 'D')
+        wordData.GZQXY = '/' //工作期限月
 
-        // 有固定期限结束日
-
-        wordData.WGDQXNA = '/'
-
-        // 无固定期限年
-
-        wordData.WGDQXYA = '/'
-
-        // 无固定期限月
-
-        wordData.WGDQXRA = '/'
-
-        // 无固定期限日
-
-        wordData.GZQXN = '/'
-
-        // 工作期限年
-
-        wordData.GZQXY = '/'
-
-        // 工作期限月
-
-        wordData.GZQXR = '/'
-        // 工作期限日
-      }
-
-      // 如果是无固定期限，那么固定期限和工作为期限的开始日期和结束日期都是/
+        wordData.GZQXR = '/' //工作期限日
+      } //如果是无固定期限，那么固定期限和工作为期限的开始日期和结束日期都是/
 
       if (this.pageForm.ZZHTQXLX === '02') {
-        wordData.GZQXN = '/'
+        wordData.GZQXN = '/' //工作期限年
 
-        // 工作期限年
+        wordData.GZQXY = '/' //工作期限月
 
-        wordData.GZQXY = '/'
+        wordData.GZQXR = '/' //工作期限日
 
-        // 工作期限月
+        wordData.WGDQXNA = this.$formatDate(this.pageForm.BEGDA, 'Y') //无固定期限年
 
-        wordData.GZQXR = '/'
+        wordData.WGDQXYA = this.$formatDate(this.pageForm.BEGDA, 'M') //无固定期限月
 
-        // 工作期限日
+        wordData.WGDQXRA = this.$formatDate(this.pageForm.BEGDA, 'D') //无固定期限日
 
-        wordData.WGDQXNA = this.$formatDate(this.pageForm.BEGDA, 'Y')
+        wordData.YGDQXNA = '/' //有固定期限年
 
-        // 无固定期限年
+        wordData.YGDQXYA = '/' //有固定期限月
 
-        wordData.WGDQXYA = this.$formatDate(this.pageForm.BEGDA, 'M')
+        wordData.YGDQXRA = '/' //有固定期限日
 
-        // 无固定期限月
+        wordData.YGDQXNB = '/' //有固定期限结束年
 
-        wordData.WGDQXRA = this.$formatDate(this.pageForm.BEGDA, 'D')
+        wordData.YGDQXYB = '/' //有固定期限结束月
 
-        // 无固定期限日
-
-        wordData.YGDQXNA = '/'
-
-        // 有固定期限年
-
-        wordData.YGDQXYA = '/'
-
-        // 有固定期限月
-
-        wordData.YGDQXRA = '/'
-
-        // 有固定期限日
-
-        wordData.YGDQXNB = '/'
-
-        // 有固定期限结束年
-
-        wordData.YGDQXYB = '/'
-
-        // 有固定期限结束月
-
-        wordData.YGDQXRB = '/'
-        // 有固定期限结束日
-      }
-
-      // 如果是工作为期限，那么固定期限和无固定期限的开始日期和结束日期都是/
+        wordData.YGDQXRB = '/' //有固定期限结束日
+      } //如果是工作为期限，那么固定期限和无固定期限的开始日期和结束日期都是/
 
       if (this.pageForm.ZZHTQXLX === '03') {
-        wordData.YGDQXNA = '/'
+        wordData.YGDQXNA = '/' //有固定期限年
 
-        // 有固定期限年
+        wordData.YGDQXYA = '/' //有固定期限月
 
-        wordData.YGDQXYA = '/'
+        wordData.YGDQXRA = '/' //有固定期限日
 
-        // 有固定期限月
+        wordData.YGDQXNB = '/' //有固定期限结束年
 
-        wordData.YGDQXRA = '/'
+        wordData.YGDQXYB = '/' //有固定期限结束月
 
-        // 有固定期限日
+        wordData.YGDQXRB = '/' //有固定期限结束日
 
-        wordData.YGDQXNB = '/'
+        wordData.WGDQXNA = '/' //无固定期限年
 
-        // 有固定期限结束年
+        wordData.WGDQXYA = '/' //无固定期限月
 
-        wordData.YGDQXYB = '/'
+        wordData.WGDQXRA = '/' //无固定期限日
 
-        // 有固定期限结束月
+        wordData.GZQXN = this.$formatDate(this.pageForm.BEGDA, 'Y') //工作期限年
 
-        wordData.YGDQXRB = '/'
+        wordData.GZQXY = this.$formatDate(this.pageForm.BEGDA, 'M') //工作期限月
 
-        // 有固定期限结束日
-
-        wordData.WGDQXNA = '/'
-
-        // 无固定期限年
-
-        wordData.WGDQXYA = '/'
-
-        // 无固定期限月
-
-        wordData.WGDQXRA = '/'
-
-        // 无固定期限日
-
-        wordData.GZQXN = this.$formatDate(this.pageForm.BEGDA, 'Y')
-
-        // 工作期限年
-
-        wordData.GZQXY = this.$formatDate(this.pageForm.BEGDA, 'M')
-
-        // 工作期限月
-
-        wordData.GZQXR = this.$formatDate(this.pageForm.BEGDA, 'D')
-        // 工作期限日
+        wordData.GZQXR = this.$formatDate(this.pageForm.BEGDA, 'D') //工作期限日
       }
 
-      wordData.GZBZ = this.pageForm.ZHTZZBZ || ''
-      // 工作标志
+      wordData.GZBZ = this.pageForm.ZHTZZBZ || '' //工作标志
 
       // 试用期结束日期有值就是2没值就是1
 
       wordData.SYQDJZFS =
-        this.pageForm.ZZHTZZRQ !== '00000000' && this.pageForm.ZZHTZZRQ ? 2 : 1
-
-      // 试用期限双方同意按以下第
+        this.pageForm.ZZHTZZRQ !== '00000000' && this.pageForm.ZZHTZZRQ ? 2 : 1 //试用期限双方同意按以下第
 
       wordData.SYQNKS = this.returnSlash(
         this.$formatDate(this.pageForm.ZZSYKSRQ, 'Y')
-      )
-
-      // 试用期开始年
+      ) //试用期开始年
 
       wordData.SYQYKS = this.returnSlash(
         this.$formatDate(this.pageForm.ZZSYKSRQ, 'M')
-      )
-
-      // 试用期开始月
+      ) //试用期开始月
 
       wordData.SYQRKS = this.returnSlash(
         this.$formatDate(this.pageForm.ZZSYKSRQ, 'D')
-      )
-
-      // 试用期开始日
+      ) //试用期开始日
 
       wordData.SYQNJS = this.returnSlash(
         this.$formatDate(this.pageForm.ZZHTZZRQ, 'Y')
-      )
-
-      // 试用期结束年
+      ) //试用期结束年
 
       wordData.SYQYJS = this.returnSlash(
         this.$formatDate(this.pageForm.ZZHTZZRQ, 'M')
-      )
-
-      // 试用期结束月
+      ) //试用期结束月
 
       wordData.SYQRJS = this.returnSlash(
         this.$formatDate(this.pageForm.ZZHTZZRQ, 'D')
-      )
+      ) //试用期结束日
 
-      // 试用期结束日
+      wordData.YFGZNR = this.pageForm.ZGZNR_M //乙方的工作内容
 
-      wordData.YFGZNR = this.pageForm.ZGZNR_M
+      wordData.YFGZNRLXA = this.pageForm.ZGZNR === '1' ? '是' : '/' //乙方工作内容确定为（填“是”）
 
-      // 乙方的工作内容
+      wordData.YFGZNRLXB = this.pageForm.ZGZNR === '2' ? '是' : '/' //乙方工作内容确定为（填“是”）
 
-      wordData.YFGZNRLXA = this.pageForm.ZGZNR === '1' ? '是' : '/'
+      wordData.YFGZDD = this.pageForm.ZGZDD //乙方工作地点
 
-      // 乙方工作内容确定为（填“是”）
+      wordData.JYDJZFS = this.pageForm.ZGZZ //（甲、乙双方同意按以下第
 
-      wordData.YFGZNRLXB = this.pageForm.ZGZNR === '2' ? '是' : '/'
+      wordData.JYN = this.pageForm.ZGZZJSZQ === '1' ? '年' : '/' //综合计算工时工作制，即经劳动行政部门审批，乙方所在岗位实行以（填“是”）：年
 
-      // 乙方工作内容确定为（填“是”）
+      wordData.JYBN = this.pageForm.ZGZZJSZQ === '2' ? '半年' : '/' //半年
 
-      wordData.YFGZDD = this.pageForm.ZGZDD
+      wordData.JYJ = this.pageForm.ZGZZJSZQ === '3' ? '季' : '/' //季
 
-      // 乙方工作地点
+      wordData.JYY = this.pageForm.ZGZZJSZQ === '4' ? '月' : '/' //月
 
-      wordData.JYDJZFS = this.pageForm.ZGZZ
+      wordData.JSGZY = this.pageForm.ZJSGZ //计时工资
 
-      // （甲、乙双方同意按以下第
+      wordData.YFSYQGZ = this.pageForm.ZSYQGZ //乙方试用期工资为
 
-      wordData.JYN = this.pageForm.ZGZZJSZQ === '1' ? '年' : '/'
-
-      // 综合计算工时工作制，即经劳动行政部门审批，乙方所在岗位实行以（填“是”）：年
-
-      wordData.JYBN = this.pageForm.ZGZZJSZQ === '2' ? '半年' : '/'
-
-      // 半年
-
-      wordData.JYJ = this.pageForm.ZGZZJSZQ === '3' ? '季' : '/'
-
-      // 季
-
-      wordData.JYY = this.pageForm.ZGZZJSZQ === '4' ? '月' : '/'
-
-      // 月
-
-      wordData.JSGZY = this.pageForm.ZJSGZ
-
-      // 计时工资
-
-      wordData.YFSYQGZ = this.pageForm.ZSYQGZ
-
-      // 乙方试用期工资为
-
-      wordData.YFFFGZSJ = this.pageForm.ZFXR
-
-      // 甲方给乙方发放工资的时间为：每月
+      wordData.YFFFGZSJ = this.pageForm.ZFXR //甲方给乙方发放工资的时间为：每月
 
       wordData.QMRQ = this.$formatDate(this.pageForm.BEGDA, 'ch')
       wordData.QMRQS = this.$formatDate(this.pageForm.BEGDA, 'ch')
-      wordData.DZYJYF = this.pageForm.ZEMAIL_GR
-
-      // 电子邮件乙方
+      wordData.DZYJYF = this.pageForm.ZEMAIL_GR //电子邮件乙方
 
       if (this.pageForm.ZLDHTMB === '1') {
         params.templateName = 'ldht.ftl'
@@ -1050,9 +877,7 @@ export default {
       }
 
       params.fileName = '劳动合同'
-      params.wordParams = wordData
-
-      // 下载word
+      params.wordParams = wordData //下载word
 
       this.downloadWord(params)
     },
@@ -1232,370 +1057,211 @@ export default {
             state = 'C'
           }
 
-          let wordData = {}
+          let wordData = {} //word 填充的数据
 
-          // word 填充的数据
+          wordData.isSubmit = state // 是否需要上传阿里云
 
-          wordData.isSubmit = state
-
-          // 是否需要上传阿里云
-
-          wordData.HTMBID = this.pageForm.ZLDHTMB
-
-          // 合同模板ID
+          wordData.HTMBID = this.pageForm.ZLDHTMB // 合同模板ID
 
           wordData.HTBH = this.baseParams.GUID
-          wordData.YRDWJF = this.pageForm.ZZHTQDDW
+          wordData.YRDWJF = this.pageForm.ZZHTQDDW //用人单位（甲方） *2
 
-          // 用人单位（甲方） *2
+          wordData.YRDWJFS = this.pageForm.ZZHTQDDW //用人单位（甲方） *2
 
-          wordData.YRDWJFS = this.pageForm.ZZHTQDDW
+          wordData.DZJF = this.pageForm.ZTXDZ_DW //地址（甲方）
 
-          // 用人单位（甲方） *2
+          wordData.ZGYF = this.pageForm.ENAME //职工乙方 姓名 *2
 
-          wordData.DZJF = this.pageForm.ZTXDZ_DW
+          wordData.FDDBR = this.pageForm.ZFR_NAME //法定代表人（主要负责人）
 
-          // 地址（甲方）
+          wordData.SFZHM = this.pageForm.ICNUM //身份证号码
 
-          wordData.ZGYF = this.pageForm.ENAME
+          wordData.JJLX = this.pageForm.ZQYJJLX_T //经济类型
 
-          // 职工乙方 姓名 *2
+          wordData.HJDZ = this.pageForm.ZHJDZ //户籍地址
 
-          wordData.FDDBR = this.pageForm.ZFR_NAME
+          wordData.TXDZJF = this.pageForm.ZTXDZ_DW //通讯地址甲方
 
-          // 法定代表人（主要负责人）
+          wordData.TXDZYF = this.pageForm.ZTXDZ_GR //通讯地址乙方
 
-          wordData.SFZHM = this.pageForm.ICNUM
+          wordData.LXRJF = this.pageForm.ZLXR_NAME //联系人甲方
 
-          // 身份证号码
+          wordData.DHJF = this.pageForm.ZPHONE_DW //电话甲方
 
-          wordData.JJLX = this.pageForm.ZQYJJLX_T
+          wordData.LXDHYF = this.pageForm.ZPHONE_GR //联系电话乙方
 
-          // 经济类型
-
-          wordData.HJDZ = this.pageForm.ZHJDZ
-
-          // 户籍地址
-
-          wordData.TXDZJF = this.pageForm.ZTXDZ_DW
-
-          // 通讯地址甲方
-
-          wordData.TXDZYF = this.pageForm.ZTXDZ_GR
-
-          // 通讯地址乙方
-
-          wordData.LXRJF = this.pageForm.ZLXR_NAME
-
-          // 联系人甲方
-
-          wordData.DHJF = this.pageForm.ZPHONE_DW
-
-          // 电话甲方
-
-          wordData.LXDHYF = this.pageForm.ZPHONE_GR
-
-          // 联系电话乙方
-
-          wordData.DZYJYF = this.pageForm.ZEMAIL_GR
-
-          // 电子邮箱（必填）
+          wordData.DZYJYF = this.pageForm.ZEMAIL_GR // 电子邮箱（必填）
 
           if (this.pageForm.ZZHTQXLX === '01') {
-            wordData.DJZFS = 1
-            // 甲、乙双方同意按以下第
+            wordData.DJZFS = 1 //甲、乙双方同意按以下第
           } else if (this.pageForm.ZZHTQXLX === '02') {
-            wordData.DJZFS = 2
-            // 甲、乙双方同意按以下第
+            wordData.DJZFS = 2 //甲、乙双方同意按以下第
           } else if (this.pageForm.ZZHTQXLX === '03') {
-            wordData.DJZFS = 3
-            // 甲、乙双方同意按以下第
+            wordData.DJZFS = 3 //甲、乙双方同意按以下第
           } else {
-            wordData.DJZFS = ''
-            // 甲、乙双方同意按以下第
-          }
-
-          // 如果是有固定期限，那么固定期限和工作为期限的开始日期和结束日期都是/
+            wordData.DJZFS = '' //甲、乙双方同意按以下第
+          } //如果是有固定期限，那么固定期限和工作为期限的开始日期和结束日期都是/
 
           if (this.pageForm.ZZHTQXLX === '01') {
             wordData.YGDQXNA = this.returnSlash(
               this.$formatDate(this.pageForm.BEGDA, 'Y')
-            )
-
-            // 有固定期限年
+            ) //有固定期限年
 
             wordData.YGDQXYA = this.returnSlash(
               this.$formatDate(this.pageForm.BEGDA, 'M')
-            )
-
-            // 有固定期限月
+            ) //有固定期限月
 
             wordData.YGDQXRA = this.returnSlash(
               this.$formatDate(this.pageForm.BEGDA, 'D')
-            )
-
-            // 有固定期限日
+            ) //有固定期限日
 
             wordData.YGDQXNB = this.returnSlash(
               this.$formatDate(this.pageForm.CTEDT, 'Y')
-            )
-
-            // 有固定期限结束年
+            ) //有固定期限结束年
 
             wordData.YGDQXYB = this.returnSlash(
               this.$formatDate(this.pageForm.CTEDT, 'M')
-            )
-
-            // 有固定期限结束月
+            ) //有固定期限结束月
 
             wordData.YGDQXRB = this.returnSlash(
               this.$formatDate(this.pageForm.CTEDT, 'D')
-            )
+            ) //有固定期限结束日
 
-            // 有固定期限结束日
+            wordData.WGDQXNA = '/' //无固定期限年
 
-            wordData.WGDQXNA = '/'
+            wordData.WGDQXYA = '/' //无固定期限月
 
-            // 无固定期限年
+            wordData.WGDQXRA = '/' //无固定期限日
 
-            wordData.WGDQXYA = '/'
+            wordData.GZQXN = '/' //工作期限年
 
-            // 无固定期限月
+            wordData.GZQXY = '/' //工作期限月
 
-            wordData.WGDQXRA = '/'
-
-            // 无固定期限日
-
-            wordData.GZQXN = '/'
-
-            // 工作期限年
-
-            wordData.GZQXY = '/'
-
-            // 工作期限月
-
-            wordData.GZQXR = '/'
-            // 工作期限日
-          }
-
-          // 如果是无固定期限，那么固定期限和工作为期限的开始日期和结束日期都是/
+            wordData.GZQXR = '/' //工作期限日
+          } //如果是无固定期限，那么固定期限和工作为期限的开始日期和结束日期都是/
 
           if (this.pageForm.ZZHTQXLX === '02') {
-            wordData.GZQXN = '/'
+            wordData.GZQXN = '/' //工作期限年
 
-            // 工作期限年
+            wordData.GZQXY = '/' //工作期限月
 
-            wordData.GZQXY = '/'
-
-            // 工作期限月
-
-            wordData.GZQXR = '/'
-
-            // 工作期限日
+            wordData.GZQXR = '/' //工作期限日
 
             wordData.WGDQXNA = this.returnSlash(
               this.$formatDate(this.pageForm.BEGDA, 'Y')
-            )
-
-            // 无固定期限年
+            ) //无固定期限年
 
             wordData.WGDQXYA = this.returnSlash(
               this.$formatDate(this.pageForm.BEGDA, 'M')
-            )
-
-            // 无固定期限月
+            ) //无固定期限月
 
             wordData.WGDQXRA = this.returnSlash(
               this.$formatDate(this.pageForm.BEGDA, 'D')
-            )
+            ) //无固定期限日
 
-            // 无固定期限日
+            wordData.YGDQXNA = '/' //有固定期限年
 
-            wordData.YGDQXNA = '/'
+            wordData.YGDQXYA = '/' //有固定期限月
 
-            // 有固定期限年
+            wordData.YGDQXRA = '/' //有固定期限日
 
-            wordData.YGDQXYA = '/'
+            wordData.YGDQXNB = '/' //有固定期限结束年
 
-            // 有固定期限月
+            wordData.YGDQXYB = '/' //有固定期限结束月
 
-            wordData.YGDQXRA = '/'
-
-            // 有固定期限日
-
-            wordData.YGDQXNB = '/'
-
-            // 有固定期限结束年
-
-            wordData.YGDQXYB = '/'
-
-            // 有固定期限结束月
-
-            wordData.YGDQXRB = '/'
-            // 有固定期限结束日
-          }
-
-          // 如果是工作为期限，那么固定期限和无固定期限的开始日期和结束日期都是/
+            wordData.YGDQXRB = '/' //有固定期限结束日
+          } //如果是工作为期限，那么固定期限和无固定期限的开始日期和结束日期都是/
 
           if (this.pageForm.ZZHTQXLX === '03') {
-            wordData.YGDQXNA = '/'
+            wordData.YGDQXNA = '/' //有固定期限年
 
-            // 有固定期限年
+            wordData.YGDQXYA = '/' //有固定期限月
 
-            wordData.YGDQXYA = '/'
+            wordData.YGDQXRA = '/' //有固定期限日
 
-            // 有固定期限月
+            wordData.YGDQXNB = '/' //有固定期限结束年
 
-            wordData.YGDQXRA = '/'
+            wordData.YGDQXYB = '/' //有固定期限结束月
 
-            // 有固定期限日
+            wordData.YGDQXRB = '/' //有固定期限结束日
 
-            wordData.YGDQXNB = '/'
+            wordData.WGDQXNA = '/' //无固定期限年
 
-            // 有固定期限结束年
+            wordData.WGDQXYA = '/' //无固定期限月
 
-            wordData.YGDQXYB = '/'
-
-            // 有固定期限结束月
-
-            wordData.YGDQXRB = '/'
-
-            // 有固定期限结束日
-
-            wordData.WGDQXNA = '/'
-
-            // 无固定期限年
-
-            wordData.WGDQXYA = '/'
-
-            // 无固定期限月
-
-            wordData.WGDQXRA = '/'
-
-            // 无固定期限日
+            wordData.WGDQXRA = '/' //无固定期限日
 
             wordData.GZQXN = this.returnSlash(
               this.$formatDate(this.pageForm.BEGDA, 'Y')
-            )
-
-            // 工作期限年
+            ) //工作期限年
 
             wordData.GZQXY = this.returnSlash(
               this.$formatDate(this.pageForm.BEGDA, 'M')
-            )
-
-            // 工作期限月
+            ) //工作期限月
 
             wordData.GZQXR = this.returnSlash(
               this.$formatDate(this.pageForm.BEGDA, 'D')
-            )
-            // 工作期限日
-          }
+            ) //工作期限日
+          } //工作标志
 
-          // 工作标志
-
-          wordData.GZBZ = this.pageForm.ZHTZZBZ || ''
-
-          // 试用期结束日期有值就是2没值就是1
+          wordData.GZBZ = this.pageForm.ZHTZZBZ || '' //试用期结束日期有值就是2没值就是1
 
           wordData.SYQDJZFS =
             this.pageForm.ZZHTZZRQ !== '00000000' && this.pageForm.ZZHTZZRQ
               ? 2
-              : 1
-
-          // 试用期限双方同意按以下第
+              : 1 //试用期限双方同意按以下第
 
           wordData.SYQNKS = this.returnSlash(
             this.$formatDate(this.pageForm.ZZSYKSRQ, 'Y')
-          )
-
-          // 试用期开始年
+          ) //试用期开始年
 
           wordData.SYQYKS = this.returnSlash(
             this.$formatDate(this.pageForm.ZZSYKSRQ, 'M')
-          )
-
-          // 试用期开始月
+          ) //试用期开始月
 
           wordData.SYQRKS = this.returnSlash(
             this.$formatDate(this.pageForm.ZZSYKSRQ, 'D')
-          )
-
-          // 试用期开始日
+          ) //试用期开始日
 
           wordData.SYQNJS = this.returnSlash(
             this.$formatDate(this.pageForm.ZZHTZZRQ, 'Y')
-          )
-
-          // 试用期结束年
+          ) //试用期结束年
 
           wordData.SYQYJS = this.returnSlash(
             this.$formatDate(this.pageForm.ZZHTZZRQ, 'M')
-          )
-
-          // 试用期结束月
+          ) //试用期结束月
 
           wordData.SYQRJS = this.returnSlash(
             this.$formatDate(this.pageForm.ZZHTZZRQ, 'D')
-          )
+          ) //试用期结束日
 
-          // 试用期结束日
+          wordData.YFGZNR = this.pageForm.ZGZNR_M //乙方的工作内容
 
-          wordData.YFGZNR = this.pageForm.ZGZNR_M
+          wordData.YFGZNRLXA = this.pageForm.ZGZNR === '1' ? '是' : '/' //乙方工作内容确定为（填“是”）
 
-          // 乙方的工作内容
+          wordData.YFGZNRLXB = this.pageForm.ZGZNR === '2' ? '是' : '/' //乙方工作内容确定为（填“是”）
 
-          wordData.YFGZNRLXA = this.pageForm.ZGZNR === '1' ? '是' : '/'
+          wordData.YFGZDD = this.pageForm.ZGZDD //乙方工作地点
 
-          // 乙方工作内容确定为（填“是”）
+          wordData.JYDJZFS = this.pageForm.ZGZZ //（甲、乙双方同意按以下第
 
-          wordData.YFGZNRLXB = this.pageForm.ZGZNR === '2' ? '是' : '/'
+          wordData.JYN = this.pageForm.ZGZZJSZQ === '1' ? '年' : '/' //综合计算工时工作制，即经劳动行政部门审批，乙方所在岗位实行以（填“是”）：年
 
-          // 乙方工作内容确定为（填“是”）
+          wordData.JYBN = this.pageForm.ZGZZJSZQ === '2' ? '半年' : '/' //半年
 
-          wordData.YFGZDD = this.pageForm.ZGZDD
+          wordData.JYJ = this.pageForm.ZGZZJSZQ === '3' ? '季' : '/' //季
 
-          // 乙方工作地点
+          wordData.JYY = this.pageForm.ZGZZJSZQ === '4' ? '月' : '/' //月
 
-          wordData.JYDJZFS = this.pageForm.ZGZZ
+          wordData.JSGZY = this.pageForm.ZJSGZ //计时工资
 
-          // （甲、乙双方同意按以下第
+          wordData.YFSYQGZ = this.pageForm.ZSYQGZ //乙方试用期工资为
 
-          wordData.JYN = this.pageForm.ZGZZJSZQ === '1' ? '年' : '/'
+          wordData.YFFFGZSJ = this.pageForm.ZFXR.replace(/\D/gi, '') //甲方给乙方发放工资的时间为：每月
 
-          // 综合计算工时工作制，即经劳动行政部门审批，乙方所在岗位实行以（填“是”）：年
+          wordData.QMRQ = this.pageForm.ZFR_NAME // 甲方
 
-          wordData.JYBN = this.pageForm.ZGZZJSZQ === '2' ? '半年' : '/'
-
-          // 半年
-
-          wordData.JYJ = this.pageForm.ZGZZJSZQ === '3' ? '季' : '/'
-
-          // 季
-
-          wordData.JYY = this.pageForm.ZGZZJSZQ === '4' ? '月' : '/'
-
-          // 月
-
-          wordData.JSGZY = this.pageForm.ZJSGZ
-
-          // 计时工资
-
-          wordData.YFSYQGZ = this.pageForm.ZSYQGZ
-
-          // 乙方试用期工资为
-
-          wordData.YFFFGZSJ = this.pageForm.ZFXR.replace(/\D/gi, '')
-
-          // 甲方给乙方发放工资的时间为：每月
-
-          wordData.QMRQ = this.pageForm.ZFR_NAME
-
-          // 甲方
-
-          wordData.QMRQS = this.pageForm.ENAME
-
-          // 乙方
+          wordData.QMRQS = this.pageForm.ENAME // 乙方
 
           let data = this.$deepClone(wordData)
           this.$httpServer.file.createHt2Ufs(data).then((response) => {

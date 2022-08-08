@@ -353,9 +353,7 @@ export default {
       if (!this.queryForm.credentialsType || !this.queryForm.credentialsNum)
         return
       this.currentPage = 1
-      this.tableData = []
-
-      // 更新表头
+      this.tableData = [] //更新表头
 
       this.tableFieldList = tableField(this.MENUII, this.activeCode)
       let params = {
@@ -466,13 +464,9 @@ export default {
       this.dialogTitle = '选择入职模版'
       this.dialogVisible = true
       this.dialogWidth = '650px'
-      this.parentData.pageCode = this.MENUII
+      this.parentData.pageCode = this.MENUII //证件类型
 
-      // 证件类型
-
-      this.parentData.credentialsType = this.queryForm.credentialsType
-
-      // 证件号码 进行base64加密
+      this.parentData.credentialsType = this.queryForm.credentialsType //证件号码 进行base64加密
 
       this.parentData.credentialsNum = Base64.encode(
         this.queryForm.credentialsNum
@@ -534,17 +528,13 @@ export default {
      */
     handleDownload() {
       let tableFieldList = this.$deepClone(this.tableFieldList)
-      tableFieldList.splice(0, 1)
-
-      // 去掉序号字段
+      tableFieldList.splice(0, 1) //去掉序号字段
 
       let fileName = localStorage.getItem('currentPageText') + '.xlsx'
       let tableData = this.$filterTableContent(
         this.searchContent,
         this.tableData
-      )
-
-      // 参数1=>table表头 参数2=>接口输出字段 参数3=>接口参数 参数4=>自定义表格数据 参数5=>文件名称
+      ) //参数1=>table表头 参数2=>接口输出字段 参数3=>接口参数 参数4=>自定义表格数据 参数5=>文件名称
 
       let params = {
         HEAD_FIELD: null,

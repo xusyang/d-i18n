@@ -165,9 +165,7 @@ export default {
       let params = {
         addressee: this.parentData.emailAddress,
 
-        // "13149920325@163.com",
-
-        // 暂时写死
+        // "13149920325@163.com",//暂时写死
         copyTo: '',
         bcc: '',
         title: this.pageForm.title,
@@ -175,9 +173,7 @@ export default {
         imgPath: '',
         attachmentPath: '',
         fileList: ''
-      }
-
-      // 发送邮件
+      } //发送邮件
 
       this.$httpServer.base.sendEmail(params).then(() => {
         this.$message.success('发送成功')
@@ -198,9 +194,7 @@ export default {
         IV_USER: '',
         IV_GUID: this.parentData.guid,
         IV_OPERA: operaType
-      }
-
-      // 板块操作
+      } //板块操作
 
       this.$httpServer.sap.baseMethod(params).then(() => {
         this.$router.push({

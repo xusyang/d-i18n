@@ -6,7 +6,7 @@
       'is-expanded': expanded,
       'is-current': current,
       'is-focusable': !disabled,
-      'is-checked': !disabled && checked
+      'is-checked': !disabled && checked,
     }"
     role="treeitem"
     tabindex="-1"
@@ -27,9 +27,9 @@
           {
             'is-leaf': node?.isLeaf,
             'is-hidden': hiddenExpandIcon,
-            expanded: !node?.isLeaf && expanded
+            expanded: !node?.isLeaf && expanded,
           },
-          'el-tree-node__expand-icon'
+          'el-tree-node__expand-icon',
         ]"
         @click.stop="handleExpandIconClick"
       >
@@ -58,25 +58,28 @@ import {
   ROOT_TREE_INJECTION_KEY,
   NODE_CONTEXTMENU,
   treeNodeEmits,
-  treeNodeProps
+  treeNodeProps,
 } from './virtual-tree'
+
 const DEFAULT_ICON = 'caret-right'
+
 export default defineComponent({
   name: 'ElTreeNode',
   components: {
     ElIcon,
     CaretRight,
     ElCheckbox,
-    ElNodeContent
+    ElNodeContent,
   },
   props: treeNodeProps,
   emits: treeNodeEmits,
-
   setup(props, { emit }) {
     const tree = inject(ROOT_TREE_INJECTION_KEY)
+
     const indent = computed(() => {
       return tree?.props.indent ?? 16
     })
+
     const icon = computed(() => {
       return tree?.props.icon ?? DEFAULT_ICON
     })
@@ -84,21 +87,17 @@ export default defineComponent({
     const handleClick = (e: MouseEvent) => {
       emit('click', props.node, e)
     }
-
     const handleExpandIconClick = () => {
       emit('toggle', props.node)
     }
-
     const handleCheckChange = (value: boolean) => {
       emit('check', props.node, value)
     }
-
     const handleContextMenu = (event: Event) => {
       if (tree?.instance?.vnode?.props?.['onNodeContextmenu']) {
         event.stopPropagation()
         event.preventDefault()
       }
-
       tree?.ctx.emit(NODE_CONTEXTMENU, event, props.node?.data, props.node)
     }
 
@@ -108,8 +107,8 @@ export default defineComponent({
       handleClick,
       handleExpandIconClick,
       handleCheckChange,
-      handleContextMenu
+      handleContextMenu,
     }
-  }
+  },
 })
 </script>

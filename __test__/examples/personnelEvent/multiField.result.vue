@@ -346,8 +346,7 @@ export default {
         fieldItem.valueList.length > 1
       ) {
         if (fieldItem.emptyFields) {
-          this.emptyField(fieldItem.emptyFields, fieldItem, infoTypeItem)
-          // 清空字段的value
+          this.emptyField(fieldItem.emptyFields, fieldItem, infoTypeItem) //清空字段的value
         }
 
         return
@@ -390,37 +389,25 @@ export default {
           et_list = [],
           et_fields = []
         let ES_MESSAGE = response.ES_MESSAGE
-        if (ES_MESSAGE.MSGTY === 'E') return
-
-        // 下拉框的value
+        if (ES_MESSAGE.MSGTY === 'E') return //下拉框的value
 
         et_list = response.ET_LIST
         this.$set(fieldItem, 'valueList', et_list)
         GonsiList = et_list
-        et_org = response.ET_ORG
-
-        // 需要清空字段的值
+        et_org = response.ET_ORG //需要清空字段的值
 
         et_fields = response.ET_FIELDS
-        this.$set(fieldItem, 'emptyFields', et_fields)
-        // 字段里面保存一份需要清空的字段 备用
+        this.$set(fieldItem, 'emptyFields', et_fields) // 字段里面保存一份需要清空的字段 备用
 
         // 需要清空的字段
 
         if (et_fields.length > 0) {
-          this.emptyField(et_fields, fieldItem, infoTypeItem)
-          // 清空字段的value
-        }
+          this.emptyField(et_fields, fieldItem, infoTypeItem) // 清空字段的value
+        } // 初始化树结构
 
-        // 初始化树结构
+        let treeList = [] // 树结构转换前的数组
 
-        let treeList = []
-
-        // 树结构转换前的数组
-
-        let treeData = []
-
-        // 树结构专用
+        let treeData = [] // 树结构专用
 
         let treeMap = {}
 
@@ -565,16 +552,11 @@ export default {
                       inftyList[o].INFTY === jsonInftyList[i].INFTY &&
                       inftyList[o].SUBTY === jsonInftyList[i].SUBTY
                     ) {
-                      inftyList[o].ZZHID = jsonInftyList[i].ZZHID
+                      inftyList[o].ZZHID = jsonInftyList[i].ZZHID //是否隐藏
 
-                      // 是否隐藏
+                      inftyList[o].ACTIO = jsonInftyList[i].ACTIO //多条数据的操作类型，控制按钮
 
-                      inftyList[o].ACTIO = jsonInftyList[i].ACTIO
-
-                      // 多条数据的操作类型，控制按钮
-
-                      inftyList[o].ZZREQ = jsonInftyList[i].ZZREQ
-                      // 是否必填
+                      inftyList[o].ZZREQ = jsonInftyList[i].ZZREQ //是否必填
                     }
                   }
                 }
@@ -608,17 +590,11 @@ export default {
                       for (let n in fieldList) {
                         try {
                           if (fieldList[n].FIELD === jsonList[i].FIELD) {
-                            fieldList[n].ZZDIS = jsonList[i].ZZDIS
+                            fieldList[n].ZZDIS = jsonList[i].ZZDIS //是否可输入
 
-                            // 是否可输入
+                            fieldList[n].ZZREQ = jsonList[i].ZZREQ //是否必填
 
-                            fieldList[n].ZZREQ = jsonList[i].ZZREQ
-
-                            // 是否必填
-
-                            fieldList[n].ZZHID = jsonList[i].ZZHID
-
-                            // 是否隐藏
+                            fieldList[n].ZZHID = jsonList[i].ZZHID //是否隐藏
 
                             if (fieldList[n].ZZSHM === 'T') {
                               if (!jsonList[i].ZZDEF) {
@@ -634,9 +610,7 @@ export default {
                               } else {
                                 let obj = JSON.parse(jsonList[i].ZZDEF)
                                 fieldList[n].value = obj
-                                fieldList[n].valueList = []
-
-                                // 清空原有选项
+                                fieldList[n].valueList = [] //清空原有选项
 
                                 fieldList[n].valueList.push(
                                   JSON.parse(jsonList[i].ZZDEF)
@@ -652,8 +626,7 @@ export default {
                               fieldList[n].value = jsonList[i].ZZDEF
                               fieldList[n].ZZBDS = new RegExp(
                                 jsonList[i].ZZBDS.replace(/\s/g, '')
-                              )
-                              // 处理正则表达式
+                              ) //处理正则表达式
                             }
                           }
                         } catch (e) {

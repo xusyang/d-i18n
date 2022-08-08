@@ -139,9 +139,7 @@ export default {
       loading: false,
       currentUserInfo: this.$isEmpty(localStorage.CURRENT_USER_INFO)
         ? {}
-        : JSON.parse(localStorage.CURRENT_USER_INFO)
-
-      // 当前用户信息
+        : JSON.parse(localStorage.CURRENT_USER_INFO) //当前用户信息
     }
   },
 

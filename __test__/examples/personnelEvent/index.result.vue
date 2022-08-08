@@ -749,21 +749,15 @@
 // 人员搜索
 import paSearchUser from '../../pa/components/paSearchUser'
 import BatchEventImport from './batchEventImport'
-import BatchEmployment from './batchEmployment'
-
-// 批导录用
+import BatchEmployment from './batchEmployment' //批导录用
 
 // 表格字段 start
 
-import tableField from '../../pa/common/tableField'
-
-// 表格字段 end
+import tableField from '../../pa/common/tableField' //表格字段 end
 
 import ResumeImport from '@/views/pa/personnelEvent/resumeImport'
 import SendOffer from '../../rc/offer/sendOffer'
-import PaEventUrging from './paEventUrging.vue'
-
-// 表格字段 end
+import PaEventUrging from './paEventUrging.vue' //表格字段 end
 
 export default {
   name: 'index',
@@ -931,9 +925,7 @@ export default {
         sapInterface = 'PE066'
         activeCode = {
           IV_TOCHECK: this.activeCode,
-          IV_TITE: this.queryForm.titeName
-
-          // 任务标题
+          IV_TITE: this.queryForm.titeName //任务标题
         }
       } else if (this.pageCode.LZSXBL === this.MENUII) {
         sapInterface = 'PE087'
@@ -985,9 +977,7 @@ export default {
      */
     queryDataList(isClickQuery) {
       this.currentPage = 1
-      this.tableData = []
-
-      // 更新公共的table表头
+      this.tableData = [] // 更新公共的table表头
 
       isClickQuery !== 'X' && this.getTableField()
       let params = {}
@@ -1013,9 +1003,7 @@ export default {
         }
       } else {
         params = this.getQueryParams()
-      }
-
-      // 降档 离岗 返岗查询不同接口
+      } //降档 离岗 返岗查询不同接口
 
       if (
         this.MENUII === this.pageCode.PAFGGL ||
@@ -1059,9 +1047,7 @@ export default {
      * @update  1、2020-09-14 DELOITTE-PengKang 增加清空人员字段
      */
     restForm() {
-      this.$refs['queryForm'].resetFields()
-
-      // 手动清空人员和组织
+      this.$refs['queryForm'].resetFields() //手动清空人员和组织
 
       this.queryForm.orgID = ''
       this.queryForm.orgName = ''
@@ -1070,9 +1056,7 @@ export default {
       this.queryForm.employeeName = ''
       this.queryForm.employeeNum = ''
       this.queryForm.beginDate = ''
-      this.queryForm.endDate = ''
-
-      // 清空组件的value
+      this.queryForm.endDate = '' //清空组件的value
 
       this.$refs.paSearchUser && this.$refs.paSearchUser.emptMyValue()
     },
@@ -1117,9 +1101,7 @@ export default {
      * @date 2020年07月20日
      */
     initFunction() {
-      this.MENUII = this.$route.query.MENUII
-
-      // 清空组件的value
+      this.MENUII = this.$route.query.MENUII //清空组件的value
 
       this.$refs.paSearchUser && this.$refs.paSearchUser.emptMyValue()
       this.defaultEmployeeValue = ''
@@ -1133,9 +1115,7 @@ export default {
         employeeName: ''
       }
       this.isShowButtn = false
-      this.buttonList = []
-
-      // 合同管理初始化时间范围：为前一月到现在；
+      this.buttonList = [] //合同管理初始化时间范围：为前一月到现在；
 
       if (this.MENUII === this.pageCode.LZSXBL) {
         this.queryForm.beginDate = ''
@@ -1189,9 +1169,7 @@ export default {
                 break
               }
             }
-          }
-
-          // 保存操作日志
+          } //保存操作日志
 
           this.$commitLog({
             parentModuleCode: 'HOME_HR',
@@ -1465,9 +1443,7 @@ export default {
       }
 
       this.$httpServer.sap.baseMethod(params).then((response) => {
-        let ES_MESSAGE = response.ES_MESSAGE
-
-        // 保存操作日志
+        let ES_MESSAGE = response.ES_MESSAGE //保存操作日志
 
         this.$commitLog({
           parentModuleCode: 'HOME_HR',
@@ -1558,9 +1534,7 @@ export default {
         url = '/rc/sendNewNeed'
       } else if (operationType === 'ENTRY') {
         // 入职模式
-        params.isEntry = '1'
-
-        // 判断只读还是可改
+        params.isEntry = '1' //判断只读还是可改
 
         if (this.activeCode === 'F') {
           // 1只读
@@ -1606,14 +1580,10 @@ export default {
         url = '/pa/getFileds'
       } else {
         url = '/pa/getFileds'
-      }
-
-      // 记录返回参数
+      } //记录返回参数
 
       let backingQueryParams = this.queryForm
-      backingQueryParams.activeCode = this.activeCode
-
-      // 记录定位sheet页
+      backingQueryParams.activeCode = this.activeCode //记录定位sheet页
 
       params.backingQueryParams = JSON.stringify(backingQueryParams)
       this.$router.push({
@@ -1638,9 +1608,7 @@ export default {
       } else {
         // 事件导入
         this.showDialog = 'import'
-      }
-
-      // 批导录用
+      } //批导录用
 
       if (paramObject.FUNC === 'FC06') {
         this.showDialog = 'batchEmployment'
@@ -1656,15 +1624,11 @@ export default {
           : paramObject.FUNCT
       this.dialogVisible = true
       this.parentData = paramObject
-      this.parentData.pageCode = this.MENUII
-
-      // 快速入职
+      this.parentData.pageCode = this.MENUII //快速入职
 
       if (paramObject.FUNC === 'FC03') {
         this.parentData.displayFlag = 'IDcard'
-      }
-
-      // 批量导入入职数据
+      } //批量导入入职数据
 
       if (paramObject.FUNC === 'FC02') {
         this.parentData.displayFlag = 'batch'
@@ -1821,13 +1785,9 @@ export default {
      * @param cell
      */
     handleCellClick(row, column, event, cell) {
-      let processCode = row.ZWFNO
+      let processCode = row.ZWFNO //流程processCode
 
-      // 流程processCode
-
-      let guid = row.GUID
-
-      // 业务GUID
+      let guid = row.GUID //业务GUID
 
       let isShowLink = false
 
@@ -2082,17 +2042,13 @@ export default {
     handleDownload() {
       this.exportLoading = true
       let tableFieldList = this.$deepClone(this.tableFieldList)
-      tableFieldList.splice(0, 1)
-
-      // 去掉序号字段
+      tableFieldList.splice(0, 1) //去掉序号字段
 
       let fileName = localStorage.getItem('currentPageText') + '.xlsx'
       let tableData = this.$filterTableContent(
         this.searchContent,
         this.tableData
-      )
-
-      // 参数1=>table表头 参数2=>接口输出字段 参数3=>接口参数 参数4=>自定义表格数据 参数5=>文件名称
+      ) //参数1=>table表头 参数2=>接口输出字段 参数3=>接口参数 参数4=>自定义表格数据 参数5=>文件名称
 
       let params = {
         HEAD_FIELD: null,
@@ -2244,9 +2200,7 @@ export default {
 
   created() {
     // 初始化函数
-    this.initFunction()
-
-    // 页面监听
+    this.initFunction() //页面监听
 
     this.addEventListener()
   }

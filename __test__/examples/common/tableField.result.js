@@ -7127,8 +7127,7 @@ export default function tableField(menuii, taskType) {
       type: 'String',
       width: 120,
       fixed: false
-    },
-    // {prop: 'BTEXT',label: "人事子范围",type: "String", width: 120, fixed: false},
+    }, // {prop: 'BTEXT',label: "人事子范围",type: "String", width: 120, fixed: false},
     {
       prop: 'ZZZX_T',
       label: I18N.$fanyi('职衔'),

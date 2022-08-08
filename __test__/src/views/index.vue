@@ -4,29 +4,43 @@
       <div class="home-left">
         <div class="user-info panel">
           <h4>个人信息</h4>
-          <img :src="getters.avatar" alt="" class="avatar">
-          <div class="name">{{getters.name}}</div>
-          <div class="role">{{getters.user_roles.join(',')}}</div>
+          <img :src="getters.avatar" alt="" class="avatar" />
+          <div class="name">{{ getters.name }}</div>
+          <div class="role">{{ getters.user_roles.join(',') }}</div>
         </div>
         <div class="notice panel">
           <h4>
             我的消息提醒
-            <span>共 <strong>{{noticeTotal}}</strong> 条</span>
+            <span
+              >共 <strong>{{ noticeTotal }}</strong> 条</span
+            >
             <span @click="handleClear">清空</span>
           </h4>
           <ul>
-            <li v-for="(item, index) in noticeData" :key="index" @click="handleNotice(item)">
-              <svg-icon icon-class="shenhe"/>
+            <li
+              v-for="(item, index) in noticeData"
+              :key="index"
+              @click="handleNotice(item)"
+            >
+              <svg-icon icon-class="shenhe" />
               <div>
-                <h5>{{nameMap[item.msg_type].name}}</h5>
-                <p>{{item.msg_name}}</p>
+                <h5>{{ nameMap[item.msg_type].name }}</h5>
+                <p>{{ item.msg_name }}</p>
               </div>
-              <span>{{item.msg_time}}</span>
+              <span>{{ item.msg_time }}</span>
             </li>
           </ul>
           <div class="pagination">
-            <el-icon @click="handlePage('reduce')" :class="{disable: noticeCurrentPage===1}"><arrow-left /></el-icon>
-            <el-icon @click="handlePage('add')" :class="{disable: noticeCurrentPage===totalPage}"><arrow-right /></el-icon>
+            <el-icon
+              @click="handlePage('reduce')"
+              :class="{ disable: noticeCurrentPage === 1 }"
+              ><arrow-left
+            /></el-icon>
+            <el-icon
+              @click="handlePage('add')"
+              :class="{ disable: noticeCurrentPage === totalPage }"
+              ><arrow-right
+            /></el-icon>
           </div>
         </div>
       </div>
@@ -37,13 +51,18 @@
             <div class="alloc-panel-content">
               <template v-for="(item, index) in allocExecuteData" :key="index">
                 <dl>
-                  <svg-icon :icon-class="item.icon"/>
+                  <svg-icon :icon-class="item.icon" />
                   <dd>
-                    {{item.name}}
-                    <p @click="handleQuickAccess(406)" style="cursor: pointer;">{{item.value}}</p>
+                    {{ item.name }}
+                    <p @click="handleQuickAccess(406)" style="cursor: pointer">
+                      {{ item.value }}
+                    </p>
                   </dd>
                 </dl>
-                <el-divider direction="vertical" v-if="index<allocExecuteData.length-1"/>
+                <el-divider
+                  direction="vertical"
+                  v-if="index < allocExecuteData.length - 1"
+                />
               </template>
             </div>
           </div>
@@ -52,13 +71,21 @@
             <div class="alloc-panel-content">
               <template v-for="(item, index) in allocResultData">
                 <dl>
-                  <svg-icon :icon-class="item.icon"/>
+                  <svg-icon :icon-class="item.icon" />
                   <dd>
-                    {{item.name}}
-                    <p @click="handleQuickAccess(item.route)" style="cursor: pointer;">{{item.value}}</p>
+                    {{ item.name }}
+                    <p
+                      @click="handleQuickAccess(item.route)"
+                      style="cursor: pointer"
+                    >
+                      {{ item.value }}
+                    </p>
                   </dd>
                 </dl>
-                <el-divider direction="vertical" v-if="index<allocResultData.length-1"/>
+                <el-divider
+                  direction="vertical"
+                  v-if="index < allocResultData.length - 1"
+                />
               </template>
             </div>
           </div>
@@ -66,11 +93,16 @@
         <div class="quick-access panel">
           <h4>快速访问</h4>
           <div class="quick-access-content">
-            <div class="item" v-for="(item, index) in quickAccessData" :key="index" @click="handleQuickAccess(item.value)">
+            <div
+              class="item"
+              v-for="(item, index) in quickAccessData"
+              :key="index"
+              @click="handleQuickAccess(item.value)"
+            >
               <div>
-                <svg-icon :icon-class="item.icon"/>
+                <svg-icon :icon-class="item.icon" />
               </div>
-              {{item.name}}
+              {{ item.name }}
             </div>
           </div>
         </div>
@@ -93,22 +125,22 @@
           <div class="alloc-time-content">
             <div class="left">
               本月分摊执行平均时长
-              <h3>{{avgExecTimeFmt}}</h3>
-              <p v-if="tbByMonth!=='Nan'">
+              <h3>{{ avgExecTimeFmt }}</h3>
+              <p v-if="tbByMonth !== 'Nan'">
                 同比上月
                 <el-icon>
-                  <caret-bottom v-if="tbByMonth.indexOf('-')>-1"/>
-                  <caret-top v-else/>
+                  <caret-bottom v-if="tbByMonth.indexOf('-') > -1" />
+                  <caret-top v-else />
                 </el-icon>
-                <span>{{tbByMonth.replace('-', '')}}</span>
+                <span>{{ tbByMonth.replace('-', '') }}</span>
               </p>
               <p v-else>同比上月 --</p>
             </div>
-            <el-divider direction="vertical"/>
+            <el-divider direction="vertical" />
             <div class="right">
               <p>近一年分摊执行平均时长统计</p>
               <div class="chart">
-                <Line :datas="allocTimeData" id="allocTime"/>
+                <Line :datas="allocTimeData" id="allocTime" />
               </div>
             </div>
           </div>
@@ -122,7 +154,15 @@
 import { reactive, ref, computed, getCurrentInstance, watch } from 'vue'
 import { useStore } from 'vuex'
 import Line from '@/components-custom/d-echart/Line.vue'
-import { allocatePerform, allocateException, avgExecTime, avgExecTimeLineChart, noticeList, noticeReadUnread, noticeClear } from '@/api/home'
+import {
+  allocatePerform,
+  allocateException,
+  avgExecTime,
+  avgExecTimeLineChart,
+  noticeList,
+  noticeReadUnread,
+  noticeClear
+} from '@/api/home'
 import router from '@/router'
 import Cookies from 'js-cookie'
 
@@ -165,42 +205,42 @@ const allocTimeData = ref([])
 const avgExecTimeFmt = ref('')
 const tbByMonth = ref('')
 
-const pickerOptions = (time) => {
+const pickerOptions = time => {
   return time.getTime() > Date.now()
 }
-const handleQuickAccess = (viewId) => {
+const handleQuickAccess = viewId => {
   router.push(`/lowcode/lcview/${viewId}`)
 }
-const handlePage = (type) => {
+const handlePage = type => {
   if (type === 'add' && noticeCurrentPage.value !== totalPage.value) {
-    noticeCurrentPage.value ++
+    noticeCurrentPage.value++
     fetchNoticeList()
   }
   if (type === 'reduce' && noticeCurrentPage.value !== 1) {
-    noticeCurrentPage.value --
+    noticeCurrentPage.value--
     fetchNoticeList()
   }
 }
 
 const nameMap = {
   APPLY_TODO: {
-    name: '提交给我的审核',
+    name: '提交给我的审核'
   },
   APPLY_FINISHED: {
-    name: '我的申请审批完成',
+    name: '我的申请审批完成'
   },
   ALLOCATE_EXEC_DONE: {
     name: '分摊执行已完成',
-    viewId: '406',
+    viewId: '406'
   },
   ALLOCATE_RESULT_EXCEPTION: {
     name: '分摊结果异常',
-    viewId: '442',
-  },
+    viewId: '442'
+  }
 }
 
-const handleNotice = (item) => {
-  const { id, ref_data, msg_type  } = item
+const handleNotice = item => {
+  const { id, ref_data, msg_type } = item
   const query = JSON.parse(ref_data)
   if (msg_type === 'APPLY_TODO') {
     router.push({
@@ -213,10 +253,10 @@ const handleNotice = (item) => {
         type: 'todo'
       }
     })
-  } else if ( msg_type === 'APPLY_FINISHED') {
+  } else if (msg_type === 'APPLY_FINISHED') {
     const viewIdMap = {
-      'DYDY': '344',
-      'FYDJ': '426'
+      DYDY: '344',
+      FYDJ: '426'
     }
     handleQuickAccess(viewIdMap[query.processDefinitionKey])
   } else {
@@ -224,7 +264,7 @@ const handleNotice = (item) => {
   }
   setTimeout(() => {
     noticeReadUnread(id, {
-      "read_flag": 1,
+      read_flag: 1
     }).then(res => {
       console.log(res)
     })
@@ -274,23 +314,21 @@ const fetchAvgExecTimeLineChart = () => {
     endYm: dateRange.value[1]
   }
   avgExecTimeLineChart(params).then(res => {
-    allocTimeData.value = res.data.map(item => (
-      {
-        name: item.ym,
-        value: item.avgExecHours
-      }
-    ))
+    allocTimeData.value = res.data.map(item => ({
+      name: item.ym,
+      value: item.avgExecHours
+    }))
   })
 }
 
 const fetchNoticeList = () => {
   const params = {
-    conditions: [
+    conditions: [
       {
         fieldCode: 'read_flag',
         op: 'eq',
-        values: [0]
-      },
+        values: [0]
+      }
       // {
       //   'fieldCode': 'create_by',
       //   'op': 'eq',
@@ -299,8 +337,8 @@ const fetchNoticeList = () => {
     ],
     sorts: [
       {
-        'field': 'create_time',
-        'direction': 'desc'
+        field: 'create_time',
+        direction: 'desc'
       }
     ],
     pageNo: noticeCurrentPage.value,
@@ -308,7 +346,9 @@ const fetchNoticeList = () => {
   }
   noticeList(params).then(res => {
     noticeTotal.value = res.data.total
-    totalPage.value = Math.floor((noticeTotal.value + noticePageSize - 1) / noticePageSize)
+    totalPage.value = Math.floor(
+      (noticeTotal.value + noticePageSize - 1) / noticePageSize
+    )
     noticeData.value = res.data.rows
   })
 }
@@ -319,14 +359,16 @@ fetchAvgExecTime()
 fetchAvgExecTimeLineChart()
 fetchNoticeList()
 
-watch(() => store.getters.legalId, (val) => {
-  fetchAllocatePerform()
-  fetchAllocateException()
-  fetchAvgExecTime()
-  fetchAvgExecTimeLineChart()
-  fetchNoticeList()
-})
-
+watch(
+  () => store.getters.legalId,
+  val => {
+    fetchAllocatePerform()
+    fetchAllocateException()
+    fetchAvgExecTime()
+    fetchAvgExecTimeLineChart()
+    fetchNoticeList()
+  }
+)
 </script>
 
 <style lang="scss" scoped>
@@ -369,12 +411,12 @@ watch(() => store.getters.legalId, (val) => {
           width: 28px;
           height: 28px;
           margin-left: 10px;
-          background: #FFFFFF;
-          border: 1px solid rgba(198,198,198,1);
+          background: #ffffff;
+          border: 1px solid rgba(198, 198, 198, 1);
           border-radius: 6px;
           cursor: pointer;
           &.disable {
-            color: #C0C4CC;
+            color: #c0c4cc;
             cursor: not-allowed;
           }
         }
@@ -438,7 +480,7 @@ watch(() => store.getters.legalId, (val) => {
         cursor: pointer;
         text-align: center;
         &:hover {
-          background: rgba(2,124,176,0.05);
+          background: rgba(2, 124, 176, 0.05);
           border-radius: 6px;
         }
       }
@@ -472,10 +514,10 @@ watch(() => store.getters.legalId, (val) => {
           color: #999;
           .el-icon {
             margin-right: 4px;
-            color: #00B401;
+            color: #00b401;
           }
           span {
-            color: #00B401;
+            color: #00b401;
           }
         }
       }
@@ -487,13 +529,12 @@ watch(() => store.getters.legalId, (val) => {
         }
       }
     }
-    
   }
   .panel {
     box-sizing: border-box;
     padding: 20px;
     background: #fff;
-    box-shadow: 0px 2px 4px 0px rgba(204,204,204,0.44);
+    box-shadow: 0px 2px 4px 0px rgba(204, 204, 204, 0.44);
     border-radius: 6px;
 
     h4 {
@@ -512,12 +553,12 @@ watch(() => store.getters.legalId, (val) => {
           margin-left: auto;
         }
         &:last-child {
-          color: #027CB0;
+          color: #027cb0;
           cursor: pointer;
         }
       }
       strong {
-        color: #027CB0;
+        color: #027cb0;
       }
     }
   }
@@ -537,7 +578,7 @@ watch(() => store.getters.legalId, (val) => {
       margin-bottom: 10px;
       width: 330px;
       height: 65px;
-      background: #F8FAFB;
+      background: #f8fafb;
       border-radius: 6px;
       cursor: pointer;
       .svg-icon {
@@ -550,7 +591,7 @@ watch(() => store.getters.legalId, (val) => {
     }
     p {
       font-size: 13px;
-      color: #027CB0;
+      color: #027cb0;
     }
     span {
       margin-left: auto;
@@ -559,7 +600,8 @@ watch(() => store.getters.legalId, (val) => {
     }
   }
 
-  h5,p {
+  h5,
+  p {
     margin: 0;
   }
 }

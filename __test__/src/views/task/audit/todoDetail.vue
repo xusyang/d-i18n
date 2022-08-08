@@ -3,24 +3,14 @@
     <template #content>
       <div class="panel">
         <el-steps class="steps" simple>
-          <el-step
-            v-for="(item, index) in steps"
-            :key="index"
-            :status="getStatus(item, index)"
-          >
+          <el-step v-for="(item, index) in steps" :key="index" :status="getStatus(item, index)">
             <template #icon>
-              <span>
-                {{ index + 1 }}
-              </span>
+              <span>{{ index + 1 }}</span>
             </template>
             <template #title>
-              <div>
-                {{ stepTitle(index) }}
-              </div>
+              <div>{{ stepTitle(index) }}</div>
               <div>{{ getUserName(item) }} {{ parseTime(item.time) }}</div>
-              <div v-if="item.desc">
-                {{ item.desc }}
-              </div>
+              <div v-if="item.desc">{{ item.desc }}</div>
             </template>
           </el-step>
         </el-steps>
@@ -32,18 +22,10 @@
 
       <div class="panel" v-if="route.query.type === 'todo'">
         <Audit
-          createI18nDirectiveNode
-          is
-          error
-          createI18nDirectiveNode
-          is
-          error
-          createI18nDirectiveNode
-          is
-          error
-          createI18nDirectiveNode
-          is
-          error
+          :processDefinitionKey="(route.query.processDefinitionKey as string)"
+          :menuCode="(route.query.menuCode as string)"
+          :sourceId="(route.query.sourceId as string)"
+          :taskId="(route.query.taskId as string)"
           @success="handleSuccess"
           @cancel="handleCancel"
         />
@@ -61,27 +43,28 @@ import { listUser } from '@/api/system/user'
 import { ref, getCurrentInstance } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { parseTime } from '@/utils/ruoyi'
+
 const steps = ref([])
 const listUsers = ref([])
+
 const route = useRoute()
 const router = useRouter()
 const { proxy } = getCurrentInstance()
 
 const stepTitle = (index) => {
   if (index === 0) {
-    return I18N.$fanyi('提交申请')
+    return '提交申请'
   } else if (index === steps.value.length - 1) {
-    return I18N.$fanyi('发布')
+    return '发布'
   } else {
-    return I18N.$fanyi('审核') + index
+    return '审核' + index
   }
 }
 
 // 流程状态
-
 const fetchTaskDetail = () => {
   processStatus({
-    processInstanceId: route.query.processInstanceId
+    processInstanceId: route.query.processInstanceId,
   }).then((res) => {
     res.data.forEach((item) => {
       if (Array.isArray(item.assigneeDtoList) && item.assigneeDtoList.length) {
@@ -109,17 +92,14 @@ const getStatus = (item, index) => {
   const statusMap = {
     '1': 'finish',
     '2': 'error',
-    '3': 'error'
+    '3': 'error',
   }
-
   if (index === 0) {
     return 'finish'
   }
-
   if (index === stepLen - 1 && steps.value[stepLen - 2].agree === '1') {
     return 'finish'
   }
-
   return statusMap[item.agree] || 'wait'
 }
 
@@ -130,11 +110,9 @@ const handleSuccess = () => {
     })
   }, 1000)
 }
-
 const handleCancel = () => {
   router.push('/task/audit/list')
 }
-
 fetchListUser()
 fetchTaskDetail()
 </script>

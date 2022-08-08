@@ -377,9 +377,7 @@ export default {
       handler: function (newV, oldV) {
         if (newV.ZLITT_TEC_OBJ.value.KEY && newV.ZLITT_TEC_OBJ.value.VALUE) {
           // 人员工号
-          newV.params.PERNR = newV.ZLITT_TEC_OBJ.value.KEY
-
-          // 人员名称
+          newV.params.PERNR = newV.ZLITT_TEC_OBJ.value.KEY //人员名称
 
           newV.params.ZLITT_TEC = newV.ZLITT_TEC_OBJ.value.VALUE
         }
@@ -399,9 +397,7 @@ export default {
 
       if (type) {
         // 提交
-        this.loading = false
-
-        // 选择否的情况默认为保存不提交
+        this.loading = false //选择否的情况默认为保存不提交
 
         if (this.headerDataListStruce.params.ZSTAT === '2') {
           type = 'B'
@@ -558,23 +554,17 @@ export default {
     initFunction() {
       // start==========清空上一个表单的主要信息
       this.baseParams.STAT = ''
-      this.baseParams.GUID = ''
-
-      // end============清空上一个表单的主要信息
+      this.baseParams.GUID = '' //end============清空上一个表单的主要信息
 
       if (this.$route.query) {
         // base64解密
-        let baseParams = this.$route.query
-
-        // 新建获取按钮的时候用到
+        let baseParams = this.$route.query //新建获取按钮的时候用到
 
         baseParams.EV_FUNC = baseParams.FUNC
         baseParams.ICNUM = baseParams.ICNUM
           ? Base64.decode(baseParams.ICNUM)
           : ''
-        this.baseParams = baseParams
-
-        // 是否是入职
+        this.baseParams = baseParams //是否是入职
 
         this.isEntry = baseParams.isEntry
 
@@ -619,17 +609,13 @@ export default {
         IV_GUID: this.baseParams.GUID,
         IV_USER: this.currentUserInfo.PERNR,
         IV_IPAGE: this.baseParams.MENUII,
-        LV_BUTTON: LV_BUTTON || 'C'
-
-        // 默认提交T 保存B 查询进入C
+        LV_BUTTON: LV_BUTTON || 'C' //默认提交T 保存B 查询进入C
       }
 
       if (params.LV_BUTTON !== 'C') {
         let ES_STRUCE = {
           ES_STRUCE: this.headerDataListStruce.params
-        }
-
-        // 转checkList
+        } //转checkList
 
         let checkObj = {
           ZMECH: '',
@@ -645,9 +631,7 @@ export default {
           checkObj[this.headerDataListStruce.checkList[i]] = 'X'
 
         Object.assign(ES_STRUCE.ES_STRUCE, checkObj)
-        Object.assign(params, ES_STRUCE)
-
-        // 删除入职日期
+        Object.assign(params, ES_STRUCE) //删除入职日期
 
         delete this.headerDataListStruce.params.BEGDA
       }
@@ -657,13 +641,9 @@ export default {
         .baseMethod(params, null, true)
         .then((response) => {
           this.loading = false
-          let et_struce = response.ES_STRUCE
+          let et_struce = response.ES_STRUCE //消息文本
 
-          // 消息文本
-
-          let message = response.E_MESSAGE
-
-          // 消息类型S成功 E错误 W警告 I消息 A中
+          let message = response.E_MESSAGE //消息类型S成功 E错误 W警告 I消息 A中
 
           let et_type = response.E_TYPE
 
@@ -672,25 +652,17 @@ export default {
             return
           }
 
-          if (message) this.$message.success(message)
+          if (message) this.$message.success(message) //判断提交成功后返回列表
 
-          // 判断提交成功后返回列表
+          if (params.LV_BUTTON === 'T') this.backing() //判断ZSTAT是否为0空值 0为默认值手动改1是
 
-          if (params.LV_BUTTON === 'T') this.backing()
-
-          // 判断ZSTAT是否为0空值 0为默认值手动改1是
-
-          if (et_struce.ZSTAT === '0') et_struce.ZSTAT = '1'
-
-          // 展示个人信息
+          if (et_struce.ZSTAT === '0') et_struce.ZSTAT = '1' //展示个人信息
 
           this.headerDataListStruce.params = et_struce
 
           if (et_struce.ZROLETYPE === '03') {
             this.getBCOptions(et_struce.ZBASE)
-          }
-
-          // 回显小师傅数据结构 headerDataListStruce.ZLITT_TEC_OBJ - 不确定是否需要
+          } //回显小师傅数据结构 headerDataListStruce.ZLITT_TEC_OBJ - 不确定是否需要
 
           if (!et_struce.PERNR && et_struce.PERNR !== '00000000') {
             this.employeeCallback(
@@ -700,9 +672,7 @@ export default {
               },
               this.headerDataListStruce.ZLITT_TEC_OBJ
             )
-          }
-
-          // 日期格式化
+          } //日期格式化
 
           if (this.headerDataListStruce.params.BEGDA) {
             this.headerDataListStruce.params.BEGDA =
@@ -710,9 +680,7 @@ export default {
                 /^(\d{4})(\d{2})(\d{2})$/,
                 '$1-$2-$3'
               )
-          }
-
-          // 复选数据
+          } //复选数据
 
           let {
             ZMECH,
@@ -737,9 +705,7 @@ export default {
           let checkList = []
 
           for (let i in checkListObj)
-            if (checkListObj[i] === 'X') checkList.push(i)
-
-          // 复选框值
+            if (checkListObj[i] === 'X') checkList.push(i) //复选框值
 
           this.headerDataListStruce.checkList = checkList
         })

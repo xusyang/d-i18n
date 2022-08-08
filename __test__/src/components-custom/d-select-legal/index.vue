@@ -3,10 +3,11 @@
     <el-cascader
       v-model="first_legal"
       :options="getters.operate_legal"
-      :show-all-levels="false"
+      :show-all-levels="false" 
       :props="treeProps"
       @change="change"
-    ></el-cascader>
+    >
+    </el-cascader>
   </div>
 </template>
 
@@ -16,20 +17,25 @@ import { useStore } from 'vuex'
 import { legalTree } from '@/api/login'
 import cache from '@/plugins/cache'
 import { deepTree } from '@/utils/ruoyi'
+
 const store = useStore()
 const emit = defineEmits(['submit'])
+
 const getters = computed(() => store.getters)
+
 const first_legal = computed({
   get() {
     return getters.value.operate_legal_first
   },
+  set() {},
+})
 
-  set() {}
-})
-const treeProps = reactive({
-  value: 'id',
-  label: 'legalName'
-})
+const treeProps = reactive(
+  { 
+    value: 'id', 
+    label: 'legalName',
+  }
+)
 
 function change(val) {
   emit('submit')
@@ -37,14 +43,12 @@ function change(val) {
   store.dispatch('RefreshLegalFirst', val)
 }
 
-legalTree().then((res) => {
+legalTree().then(res => {
   const first_legal = cache.local.getJSON('operate_legal_first') || []
-
-  if (!res.data.find((item) => item.id === first_legal[0])) {
+  if (!res.data.find(item => item.id === first_legal[0])) {
     const operate_legal_first = deepTree([res.data[0]])
     store.dispatch('RefreshLegalFirst', operate_legal_first)
   }
-
   store.dispatch('RefreshLegalTree', res.data)
   store.dispatch('app/legalChange', first_legal[0])
 })

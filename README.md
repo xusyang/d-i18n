@@ -30,6 +30,7 @@ d-i18n 是基于 Typescript 实现的全场景的自动国际化平台，有别�
 2. 支持console操作集不做翻译，直接输出原始的字符串。
 3. Html Attribute属性不做翻译，直接输出原始的字符串。
 4. 支持`@d-i18n-disable-file`, `@d-i18n-disable-file-line` 注释不做翻译，直接输出原始的字符串。
+5. 翻译后，注释节点的位置与之前不一致
 
 
 ## bug

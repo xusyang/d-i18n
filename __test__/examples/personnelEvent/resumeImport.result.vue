@@ -185,29 +185,19 @@ export default {
      *
      */
     uploading() {
-      let index = 2
+      let index = 2 //从第几行开始解析
 
-      // 从第几行开始解析
-
-      let file = document.querySelector('input[type=file]').files[0]
-
-      // 展示界面文件名
+      let file = document.querySelector('input[type=file]').files[0] //展示界面文件名
 
       this.filename = file.name
       let formData = new FormData()
-      formData.append('file', file)
-
-      // 从第几行开始解析
+      formData.append('file', file) //从第几行开始解析
 
       formData.append('rowIndex', index)
       this.$httpServer.file.getResumeData(formData).then((response) => {
-        let result = response.data
+        let result = response.data //保存一份数据,用于调用sap接口传值
 
-        // 保存一份数据,用于调用sap接口传值
-
-        this.excelData = JSON.stringify(result)
-
-        // 解析excel返回的数据
+        this.excelData = JSON.stringify(result) //解析excel返回的数据
 
         this.previewList = result
       })

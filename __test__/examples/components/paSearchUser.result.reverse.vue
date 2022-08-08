@@ -82,9 +82,7 @@ export default {
     },
     resign: {
       type: String
-    }
-
-    // X 是排除离职人员
+    } //X 是排除离职人员
   },
 
   data() {

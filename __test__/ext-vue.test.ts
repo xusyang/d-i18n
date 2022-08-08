@@ -4,7 +4,6 @@ import { describe, expect, it } from 'vitest'
 import { TraverseOptions } from '../src/types'
 import { filePathWithResult, readFile, writeFile } from '../src/utils'
 import { di18n } from '../src'
-import { words } from 'lodash'
 
 const traverseOptions: TraverseOptions = {
   forwordOrReverse: true,

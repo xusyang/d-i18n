@@ -612,9 +612,7 @@ export default {
      * @returns {*}
      */
     $route(oldVal, newVal) {
-      if (newVal.fullPath === oldVal.fullPath) return
-
-      // 重置是否显示搜索框
+      if (newVal.fullPath === oldVal.fullPath) return // 重置是否显示搜索框
 
       this.isShowSearch = false
       this.groupList = []
@@ -622,9 +620,7 @@ export default {
       this.fileListDefinition = []
       this.allFileList[0] = []
       this.allFileList[1] = []
-      this.verificationList = []
-
-      // 初始化是否显示附件
+      this.verificationList = [] // 初始化是否显示附件
 
       this.isShowFile = false
       this.initFunction()
@@ -755,9 +751,7 @@ export default {
         IV_PERNR: this.baseParams.employeeNum,
         IV_IPAGE: this.baseParams.MENUII,
         IV_DATUM: new Date().Format('yyyyMMdd')
-      }
-
-      // 合同续签
+      } //合同续签
 
       if (this.baseParams.MENUII === this.pageCode.SPHTXQ)
         param.sapInterface = 'PA057'
@@ -802,53 +796,33 @@ export default {
         IV_IPAGE: this.baseParams.MENUII
       }
       this.$httpServer.sap.baseMethod(param).then((response) => {
-        this.groupList = []
-
-        // 附件，信息分组，字段数据
+        this.groupList = [] //附件，信息分组，字段数据
 
         let files = [],
           group = [],
           fieldData = []
         let ES_MESSAGE = response.ES_MESSAGE
-        if (ES_MESSAGE.MSGTY === 'E') return
+        if (ES_MESSAGE.MSGTY === 'E') return //信息分组
 
-        // 信息分组
+        group = response.ET_GRP //获取分组对应的数据VALUE
 
-        group = response.ET_GRP
+        fieldData = response.EV_DATA //事件编码
 
-        // 获取分组对应的数据VALUE
+        this.baseParams.zaction = response.EV_ZACTI //人员编号
 
-        fieldData = response.EV_DATA
-
-        // 事件编码
-
-        this.baseParams.zaction = response.EV_ZACTI
-
-        // 人员编号
-
-        this.baseParams.employeeNum = response.EV_PERNR
-
-        // 获取抬头信息
+        this.baseParams.employeeNum = response.EV_PERNR //获取抬头信息
 
         this.baseParams.employeeNum &&
-          this.getPersonnelBaseData(this.baseParams.employeeNum)
+          this.getPersonnelBaseData(this.baseParams.employeeNum) //附件
 
-        // 附件
-
-        files = response.ET_FILE
-
-        // 状态
+        files = response.ET_FILE //状态
 
         this.baseParams.STAT = response.EV_STAT
         this.baseParams.EV_DISP = response.EV_DISP
-        this.baseParams.EV_FUNC = response.EV_FUNC
-
-        // 再入职
+        this.baseParams.EV_FUNC = response.EV_FUNC //再入职
 
         this.baseParams.REHIRE = response.EV_REHIRE
-        this.getButton()
-
-        // 头像
+        this.getButton() //头像
 
         this.photoBase64 = response.EV_PHOTO
 
@@ -856,9 +830,7 @@ export default {
           this.photo = 'data:image/png;base64,' + this.photoBase64
         }
 
-        if (this.$isEmpty(fieldData)) return
-
-        // 多模版数据
+        if (this.$isEmpty(fieldData)) return //多模版数据
 
         for (let i in group) {
           for (let j in group[i].ACBLK) {
@@ -901,9 +873,7 @@ export default {
         this.groupList = this.processDataGrp(group)
 
         if (this.groupList.length > 0 && !this.activeCode) {
-          let index = 0
-
-          // 找出非隐藏的第一个附件下标
+          let index = 0 //找出非隐藏的第一个附件下标
 
           for (let i in this.groupList) {
             if (this.groupList[i].ZZHID === 'X') {
@@ -911,9 +881,7 @@ export default {
             } else {
               break
             }
-          }
-
-          // 没有分组时默认显示附件
+          } //没有分组时默认显示附件
 
           if (+index === this.groupList.length) {
             this.activeCode = 'fileTabSheet'
@@ -927,13 +895,9 @@ export default {
          * @type {Array}
          */
 
-        this.fileList = []
+        this.fileList = [] // 必填附件
 
-        // 必填附件
-
-        this.fileListDefinition = []
-
-        // 非必填附件
+        this.fileListDefinition = [] // 非必填附件
 
         for (let i in files) {
           if (!files[i].isShowInput) {
@@ -1013,9 +977,7 @@ export default {
               }
 
               for (const o in valueList) {
-                const values = valueList[o]
-
-                // 存在models[o] undefined情况
+                const values = valueList[o] //存在models[o] undefined情况
 
                 models[o] = this.$sortInfoList(models[o], 'SORTD', 'asc')
 
@@ -1099,8 +1061,7 @@ export default {
                       if (+i !== 0) {
                         models[o][l].ZZBDS = this.regularReplace(
                           models[o][l].ZZBDS
-                        )
-                        // 处理正则表达式
+                        ) //处理正则表达式
                       } else {
                         models[o][l].value = values[models[o][l].FIELD]
                           ? values[models[o][l].FIELD]
@@ -1109,22 +1070,19 @@ export default {
                           : ''
                         models[o][l].ZZBDS = this.regularReplace(
                           models[o][l].ZZBDS
-                        )
-                        // 处理正则表达式
+                        ) //处理正则表达式
                       }
                     } else {
                       if (models[o][l].ZZDEF) {
                         models[o][l].value = models[o][l].ZZDEF
                         models[o][l].ZZBDS = this.regularReplace(
                           models[o][l].ZZBDS
-                        )
-                        // 处理正则表达式
+                        ) //处理正则表达式
                       } else {
                         models[o][l].value = ''
                         models[o][l].ZZBDS = this.regularReplace(
                           models[o][l].ZZBDS
-                        )
-                        // 处理正则表达式
+                        ) //处理正则表达式
                       }
                     }
                   }
@@ -1207,17 +1165,14 @@ export default {
                 } else {
                   if (fields[o].value) {
                     fields[o].value = values.toString().replace(/<br\/>/g, '\n')
-                    fields[o].ZZBDS = this.regularReplace(fields[o].ZZBDS)
-                    // 处理正则表达式
+                    fields[o].ZZBDS = this.regularReplace(fields[o].ZZBDS) //处理正则表达式
                   } else {
                     if (fields[o].ZZDEF) {
                       fields[o].value = fields[o].ZZDEF
-                      fields[o].ZZBDS = this.regularReplace(fields[o].ZZBDS)
-                      // 处理正则表达式
+                      fields[o].ZZBDS = this.regularReplace(fields[o].ZZBDS) //处理正则表达式
                     } else {
                       fields[o].value = ''
-                      fields[o].ZZBDS = this.regularReplace(fields[o].ZZBDS)
-                      // 处理正则表达式
+                      fields[o].ZZBDS = this.regularReplace(fields[o].ZZBDS) //处理正则表达式
                     }
                   }
                 }
@@ -1254,9 +1209,7 @@ export default {
         IV_PARAM: JSON.stringify({
           MENUII: this.baseParams.MENUII,
           SUBKEY: this.baseParams.SUBKEY
-        })
-
-        // 决策树
+        }) //决策树
       }
       let res = await this.$httpServer.sap.baseMethod(params)
       let ES_HTDATA = res.ES_HTDATA
@@ -1358,8 +1311,7 @@ export default {
           }
 
           if (fd.ZZBDS) {
-            fd.ZZBDS = this.regularReplace(fd.ZZBDS)
-            // 处理正则表达式
+            fd.ZZBDS = this.regularReplace(fd.ZZBDS) //处理正则表达式
           } else {
             fd.ZZBDS = ''
           }
@@ -1434,9 +1386,7 @@ export default {
             }
           })
         })
-      })
-
-      // 遍历分组拿到默认值
+      }) //遍历分组拿到默认值
 
       group.forEach((gp) => {
         gp.ACBLK = this.$sortInfoList(gp.ACBLK, 'SORTD', 'asc')
@@ -1505,9 +1455,7 @@ export default {
         IV_ICTYP: this.baseParams.ICTYP,
         IV_ICNUM: this.baseParams.ICNUM,
         IV_ZXXCJ: this.getZXXCJParams()
-      }
-
-      // 合同变更、合同续签 只查询模板不查询值
+      } //合同变更、合同续签 只查询模板不查询值
 
       if (
         this.baseParams.MENUII === this.pageCode.SPHTBG &&
@@ -1524,25 +1472,17 @@ export default {
         // 如果可以，渲染表单 并 显示提交按键
         this.groupList = []
         let group = [],
-          files = []
-
-        // 附件
+          files = [] //附件
 
         let ES_MESSAGE = response.ES_MESSAGE
         if (ES_MESSAGE.MSGTY === 'E') return
         files = response.ET_FILE
         group = response.ET_GRP
-        this.baseParams.zaction = response.EV_ZACTI
+        this.baseParams.zaction = response.EV_ZACTI //获取button
 
-        // 获取button
+        this.getButton() //多模板数据 比如多个教育信息
 
-        this.getButton()
-
-        // 多模板数据 比如多个教育信息
-
-        group = this.$sortInfoList(group, 'SORTD', 'asc')
-
-        // 合同变更、合同续签 只查询模板不查询值
+        group = this.$sortInfoList(group, 'SORTD', 'asc') //合同变更、合同续签 只查询模板不查询值
 
         if (
           this.baseParams.MENUII === this.pageCode.SPHTBG ||
@@ -1568,9 +1508,7 @@ export default {
               })
             })
           })
-          let SPHTdata = await this.getSPHTdate()
-
-          // 模板赋值
+          let SPHTdata = await this.getSPHTdate() //模板赋值
 
           group = this.assignmentSP(SPHTdata, group)
           files = SPHTdata.ET_FILE
@@ -1581,9 +1519,7 @@ export default {
         this.groupList = group
 
         if (this.groupList.length > 0) {
-          let index = 0
-
-          // 找出非隐藏的第一个附件下标
+          let index = 0 //找出非隐藏的第一个附件下标
 
           for (let i in this.groupList) {
             if (this.groupList[i].ZZHID === 'X') {
@@ -1591,9 +1527,7 @@ export default {
             } else {
               break
             }
-          }
-
-          // 定位附件
+          } //定位附件
 
           if (index === this.groupList.length) {
             this.activeCode = 'fileTabSheet'
@@ -1607,13 +1541,9 @@ export default {
          * @type {Array}
          */
 
-        this.fileList = []
+        this.fileList = [] //清空附件
 
-        // 清空附件
-
-        this.fileListDefinition = []
-
-        // 清空附件自定义
+        this.fileListDefinition = [] // 清空附件自定义
 
         for (let i in files) {
           if (!files[i].isShowInput) {
@@ -1642,19 +1572,14 @@ export default {
      */
     addModel(item, index) {
       let obj = item
-      let models = obj.models
-
-      // 模板多教育经历
+      let models = obj.models // 模板多教育经历
 
       let model = this.$sortInfoList(this.$deepClone(obj.FIELD), 'SORTD', 'asc')
 
       for (let i in model) {
         if (model[i].ZZBDS) {
-          model[i].ZZBDS = new RegExp(this.replaceSpace(model[i].ZZBDS))
-          // 处理正则表达式
-        }
-
-        // 新增表格数据如果有默认值，设置原本的默认值
+          model[i].ZZBDS = new RegExp(this.replaceSpace(model[i].ZZBDS)) //处理正则表达式
+        } //新增表格数据如果有默认值，设置原本的默认值
 
         if (model[i].ZZSHM === 'D') {
           // 下拉框
@@ -1837,9 +1762,7 @@ export default {
                 objectData.VALUE.push(obj)
               }
 
-              objectData.VALUE = JSON.stringify(objectData.VALUE)
-
-              // 装换数据
+              objectData.VALUE = JSON.stringify(objectData.VALUE) //装换数据
 
               iv_data.push(objectData)
             } else {
@@ -1885,9 +1808,7 @@ export default {
               }
 
               objectData.VALUE.push(obj)
-              objectData.VALUE = JSON.stringify(objectData.VALUE)
-
-              // 装换数据
+              objectData.VALUE = JSON.stringify(objectData.VALUE) //装换数据
 
               iv_data.push(objectData)
             }
@@ -1941,9 +1862,7 @@ export default {
         if (response.status === 'success') {
           let result = response.response
           let fileobject = {
-            // FILEID: result.id,
-
-            // 文件ID,20210518:id超出sap表字段长，改为空，由sap自增长
+            // FILEID: result.id, //文件ID,20210518:id超出sap表字段长，改为空，由sap自增长
             ATTNN: result.name,
 
             // 文件名称
@@ -1956,13 +1875,9 @@ export default {
             FILEEXT: result.type,
 
             // 附件类型
-            FILESIZE: result.size
-
-            // 文件大小
+            FILESIZE: result.size //文件大小
           }
-          fileItem.DEL_FLG = ''
-
-          // 删除标记设置为空
+          fileItem.DEL_FLG = '' //删除标记设置为空
 
           /**
            * ZATTT 140 为一寸照片  一寸照片只能上传一张
@@ -2042,9 +1957,7 @@ export default {
       if (fileObject.ZATTT === '140' && file.size > 5242880) {
         this.$message.warning('寸彩色免冠照片不能大于5M')
         return false
-      }
-
-      // 不能大于5M
+      } //不能大于5M
 
       if (file.size > 5242880) {
         this.$message.warning('单个附件不能大于5M')
@@ -2105,8 +2018,7 @@ export default {
      */
     deleteFile(file, index) {
       file.ZACFILE.splice(index, 1)
-      if (file.ZATTT === '140') this.photoBase64 = ''
-      // 清空头像
+      if (file.ZATTT === '140') this.photoBase64 = '' //清空头像
     },
 
     /**
@@ -2287,9 +2199,7 @@ export default {
       await this.$httpServer.sap
         .baseMethod(saveParams)
         .then(async (response) => {
-          let es_message = response.ES_MESSAGE
-
-          // 保存操作日志
+          let es_message = response.ES_MESSAGE //保存操作日志
 
           let role = localStorage.getItem('role')
           this.$commitLog({
@@ -2334,18 +2244,12 @@ export default {
               this.startSign('10')
             } else {
               this.$message.success(es_message.MSGTX || '操作成功！')
-              let workflowId = response.E_ZWFNO
+              let workflowId = response.E_ZWFNO //获取流程编码
 
-              // 获取流程编码
-
-              let workflowSubject = response.EV_TITLE
-
-              // 获取流程主题
+              let workflowSubject = response.EV_TITLE //获取流程主题
 
               let applyName = response.EV_ENAME
-              this.baseParams.GUID = response.EV_GUID
-
-              // GUID
+              this.baseParams.GUID = response.EV_GUID //GUID
 
               if (params.ACTIO === 'K' && !this.$isEmpty(workflowId)) {
                 // HACK 6.转正： 发起流程
@@ -2371,8 +2275,7 @@ export default {
                 ) {
                   this.backing()
                 } else {
-                  this.getAcData()
-                  // 保存之后读取数据
+                  this.getAcData() //保存之后读取数据
                 }
               }
             }
@@ -2401,9 +2304,7 @@ export default {
      * @returns {string | ArrayBuffer}
      */
     seeProcess(params) {
-      let processCode = params.ZWFNO
-
-      // 流程processCode
+      let processCode = params.ZWFNO //流程processCode
 
       this.$openWorkflowPage(this.baseParams.GUID, processCode, 'ViewUrl')
     },
@@ -2469,9 +2370,7 @@ export default {
      */
     async createOffer(offerData) {
       if (offerData) {
-        let params = {}
-
-        // 组装offer 模版参数 start
+        let params = {} //组装offer 模版参数 start
 
         let bdrq =
           offerData.ZZHR_BDRQ && offerData.ZZHR_BDRQ !== '00000000'
@@ -2482,97 +2381,54 @@ export default {
                 )
               ).Format('yyyy年MM月dd日')
             : ''
-        params.ENAME = offerData.ENAME
-
-        // 姓名
+        params.ENAME = offerData.ENAME //姓名
 
         params.pdfDate = new Date().Format('yyyy年MM月dd日')
-        params.pdfdate = new Date().Format('yyyy年MM月dd日')
-
-        // 保留 BK === 'SP'
+        params.pdfdate = new Date().Format('yyyy年MM月dd日') // 保留 BK === 'SP'
 
         params.docxname = offerData.ZOFTYPE + '.docx'
         params.xmlname = offerData.ZOFTYPE + '.xml'
         params.outputDocxFileName =
           '录用通知函' + '(' + offerData.ENAME + ').doc'
-        params.BRANCH = offerData.ZYPDW
+        params.BRANCH = offerData.ZYPDW //子公司名称
 
-        // 子公司名称
+        params.BM = offerData.ZPBM //部门
 
-        params.BM = offerData.ZPBM
+        params.GW = offerData.ZPGW //岗位
 
-        // 部门
+        params.MBQX = offerData.ZZMBQX // 目标全薪
 
-        params.GW = offerData.ZPGW
+        params.BDRQ = bdrq // 报到日期
 
-        // 岗位
+        params.BDSJ = '' // 报到时间-
 
-        params.MBQX = offerData.ZZMBQX
+        params.GDXC = offerData.ZZMBQX // (年) 固定薪酬-
 
-        // 目标全薪
+        params.YGDXC = offerData.ZZJBYX // 月固定薪酬 月度基本工资
 
-        params.BDRQ = bdrq
+        params.JXJJ = offerData.ZZSPJXJJ //绩效奖金
 
-        // 报到日期
+        params.NCBJXJJ = offerData.ZZHRSPNCB //年储备绩效奖金
 
-        params.BDSJ = ''
+        params.YCBJXJJ = offerData.ZZHRSPYCB //月储备绩效奖金
 
-        // 报到时间-
+        params.ZZHR_LXR = offerData.ZZHR_LXR //联系人
 
-        params.GDXC = offerData.ZZMBQX
+        params.ZZHR_LXDH = offerData.ZZHR_LXDH //联系电话
 
-        // (年) 固定薪酬-
+        params.ZZHR_BDDZ = offerData.ZZHR_BDDZ //报道地址
 
-        params.YGDXC = offerData.ZZJBYX
+        params.ZZHR_LXYX = offerData.ZHREMAIL // 联系邮箱
 
-        // 月固定薪酬 月度基本工资
+        params.ZPGS = offerData.ZPGS // 招聘公司
 
-        params.JXJJ = offerData.ZZSPJXJJ
+        params.BDRQ_N = this.$formatDate(offerData.ZZHR_BDRQ, 'Y') //报到日期年
 
-        // 绩效奖金
+        params.BDRQ_Y = this.$formatDate(offerData.ZZHR_BDRQ, 'M') //报到日期月
 
-        params.NCBJXJJ = offerData.ZZHRSPNCB
+        params.BDRQ_R = this.$formatDate(offerData.ZZHR_BDRQ, 'D') //报到日期日
 
-        // 年储备绩效奖金
-
-        params.YCBJXJJ = offerData.ZZHRSPYCB
-
-        // 月储备绩效奖金
-
-        params.ZZHR_LXR = offerData.ZZHR_LXR
-
-        // 联系人
-
-        params.ZZHR_LXDH = offerData.ZZHR_LXDH
-
-        // 联系电话
-
-        params.ZZHR_BDDZ = offerData.ZZHR_BDDZ
-
-        // 报道地址
-
-        params.ZZHR_LXYX = offerData.ZHREMAIL
-
-        // 联系邮箱
-
-        params.ZPGS = offerData.ZPGS
-
-        // 招聘公司
-
-        params.BDRQ_N = this.$formatDate(offerData.ZZHR_BDRQ, 'Y')
-
-        // 报到日期年
-
-        params.BDRQ_Y = this.$formatDate(offerData.ZZHR_BDRQ, 'M')
-
-        // 报到日期月
-
-        params.BDRQ_R = this.$formatDate(offerData.ZZHR_BDRQ, 'D')
-
-        // 报到日期日
-
-        params.ZZZD = offerData.ZZZDT
-        // 员工职等文本
+        params.ZZZD = offerData.ZZZDT // 员工职等文本
 
         // 组装offer 模版参数 end
 
@@ -2611,9 +2467,7 @@ export default {
     initFunction(employeeNum) {
       // start==========清空上一个表单的主要信息
       this.baseParams.STAT = ''
-      this.baseParams.GUID = ''
-
-      // end============清空上一个表单的主要信息
+      this.baseParams.GUID = '' //end============清空上一个表单的主要信息
 
       let baseParams = this.approveBaseParams || this.$route.query
 
@@ -2626,9 +2480,7 @@ export default {
           ? Base64.decode(baseParams.ICNUM)
           : ''
         this.baseParams = baseParams
-        employeeNum = baseParams.PERNR ? baseParams.PERNR : employeeNum
-
-        // 重入职的时候需要传人员编号
+        employeeNum = baseParams.PERNR ? baseParams.PERNR : employeeNum //重入职的时候需要传人员编号
 
         if (!this.$isEmpty(baseParams.GUID)) {
           // 修改
@@ -2644,18 +2496,14 @@ export default {
           }
         } else if (!this.$isEmpty(employeeNum)) {
           // 赋值新的员工编号
-          this.baseParams.employeeNum = employeeNum
-
-          // 新建
+          this.baseParams.employeeNum = employeeNum // 新建
 
           this.initFileds()
         } else if (this.baseParams.MENUII === this.pageCode.WDGZ) {
           this.getPersonnelBaseData()
           this.initFileds()
         } else if (baseParams.MENUII === this.pageCode.WYLZ) {
-          this.baseParams.employeeNum = this.currentUserInfo.PERNR
-
-          // 获取当前员工是否有未完成的的事件记录 GUID
+          this.baseParams.employeeNum = this.currentUserInfo.PERNR //获取当前员工是否有未完成的的事件记录 GUID
 
           let param = {
             IV_PERNR: this.baseParams.employeeNum,
@@ -2856,17 +2704,11 @@ export default {
      */
     assemblyWordTemplateParams(data) {
       let params = {}
-      data.YRDWLXR = '孙丽娜'
+      data.YRDWLXR = '孙丽娜' //联系人
 
-      // 联系人
+      data.ZJSGZ = '200000' //计时工资
 
-      data.ZJSGZ = '200000'
-
-      // 计时工资
-
-      data.YFSYQGZ = '600000'
-
-      // 试用期工资
+      data.YFSYQGZ = '600000' //试用期工资
 
       params.templateName = 'ldhtmb_group.ftl'
       params.fileName =

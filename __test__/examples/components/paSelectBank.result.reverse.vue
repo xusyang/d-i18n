@@ -95,9 +95,7 @@ export default {
       searchData: [],
       search: '',
       loading: false,
-      clearing: false
-
-      // apiInterface: this.$httpServer.sap.baseMethod,
+      clearing: false // apiInterface: this.$httpServer.sap.baseMethod,
     }
   },
 
@@ -125,9 +123,7 @@ export default {
 
       try {
         if (this.loading) return
-        this.loading = true
-
-        // 节流
+        this.loading = true // 节流
 
         this.searchData = []
         const res = await this.$httpServer.sap.baseMethod(

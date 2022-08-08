@@ -3,16 +3,11 @@
     <div :class="{ card: route.name !== 'Index' }" class="content">
       <router-view v-slot="{ Component, route }">
         <keep-alive :include="cachedViews">
-          <component
-            :is="handleComponent(Component, route)"
-            :key="route.path"
-          />
+          <component :is="handleComponent(Component, route)" :key="route.path" />
         </keep-alive>
       </router-view>
-      <div class="app-micro-container">
-        <div id="app-micro-container">
-          {{ I18N.$fanyi('加载中...') }}
-        </div>
+      <div class="app-micro-container" >
+        <div id="app-micro-container">加载中...</div>
       </div>
     </div>
   </section>
@@ -24,40 +19,35 @@ import { start } from 'qiankun'
 import { useStore } from 'vuex'
 import { useRoute, RouteRecordNormalized, RouteRecordName } from 'vue-router'
 import config from '@/config'
+
 let store = useStore()
 const route = useRoute()
+
 store.dispatch('tagsView/addCachedView', route)
 const cachedViews = computed(() => {
   return store.state.tagsView.cachedViews
 })
+
 const isActiveQianKun = computed(() => {
-  return [config.LOWCODE_PREFIX, config.FLOW_PREFIX].some(
-    (item) => route.path.indexOf(item) > -1
-  )
+  return [config.LOWCODE_PREFIX, config.FLOW_PREFIX].some((item) => route.path.indexOf(item) > -1)
   // return route.path.indexOf(config.FLOW_PREFIX) > -1
 })
 
 // 给组件添加name，使keep-alive生效
-
 const handleComponent = (
-  component: Record<
-    'type',
-    {
-      name: RouteRecordName | undefined
-    }
-  >,
-  route: RouteRecordNormalized
+  component: Record<'type', { name: RouteRecordName | undefined }>,
+  route: RouteRecordNormalized,
 ) => {
   if (component) {
     component.type.name = route.name
-
     // 子应用直接return
-
-    if (route.path.indexOf('lowcode') > -1 || route.path.indexOf('flow') > -1) {
+    if (
+      route.path.indexOf('lowcode') > -1 || 
+      route.path.indexOf('flow') > -1
+    ) {
       return
     }
   }
-
   return component
 }
 

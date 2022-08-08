@@ -321,9 +321,7 @@ export default {
         BEGDA: '',
 
         // 开始时间
-        ENDDA: ''
-
-        // 结束时间
+        ENDDA: '' // 结束时间
       },
       searchContent: '',
       searchContent2: '',
@@ -335,9 +333,7 @@ export default {
         E_ZZFC: {},
         EV_ZZBZ: {},
         EV_ZZFZR: {},
-        EV_ZZJX: {}
-
-        // EV_ZZJX: {},
+        EV_ZZJX: {} // EV_ZZJX: {},
       },
       treeSelectionId: '',
       user: JSON.parse(localStorage.CURRENT_USER_INFO),

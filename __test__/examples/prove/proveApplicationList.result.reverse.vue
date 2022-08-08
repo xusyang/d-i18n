@@ -455,9 +455,7 @@ export default {
         ? {}
         : JSON.parse(localStorage.CURRENT_USER_INFO),
       processEnv: import.meta.env,
-      rowData: {}
-
-      // -证明列表-行数据，用于dialog显示
+      rowData: {} //-证明列表-行数据，用于dialog显示
     }
   },
 
@@ -530,9 +528,7 @@ export default {
      * @returns {*}
      */
     restForm() {
-      this.queryData = {}
-
-      // 清空组件的value
+      this.queryData = {} //清空组件的value
 
       this.$refs.paSearchUser.emptMyValue()
     },
@@ -604,17 +600,13 @@ export default {
      */
     newApplication() {
       this.isActive = true
-      this.rowData = {}
-
-      // 员工
+      this.rowData = {} //员工
 
       if (
         this.pageData.zmlx === '' &&
         this.baseParams.MENUII === this.pageCode.ZMKJ
       )
-        return
-
-      // HR
+        return //HR
 
       if (
         (!this.pageData.employeeName || !this.pageData.zmlx) &&
@@ -730,9 +722,7 @@ export default {
       // 下载证明，并且更改证明状态
       if (state === '1' || state === '7') {
         this.$downloadFile(item.FILEID, item.FILENAME)
-      }
-
-      // 7是已下载打印的状态 所以不需要在更改状态
+      } //7是已下载打印的状态 所以不需要在更改状态
 
       if (item.ZSTAT !== '7') {
         let params = {
@@ -750,9 +740,7 @@ export default {
           let es_message = response.ES_MESSAGE
 
           if (es_message.MSGTY === 'S') {
-            this.$message.success(es_message.MSGTX)
-
-            // 关闭弹框
+            this.$message.success(es_message.MSGTX) //关闭弹框
 
             this.queryDataList()
 
@@ -806,13 +794,9 @@ export default {
      * @param column
      */
     handleCellClick(row, column) {
-      let processCode = row.ZWFNO
+      let processCode = row.ZWFNO //流程processCode
 
-      // 流程processCode
-
-      let guid = row.GUID
-
-      // 业务GUID
+      let guid = row.GUID //业务GUID
 
       if (
         column.property === 'ZSTAT_T' &&

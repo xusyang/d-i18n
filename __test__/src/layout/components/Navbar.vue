@@ -7,17 +7,9 @@
       @toggleClick="toggleSideBar"
     />
 
-    <breadcrumb
-      id="breadcrumb-container"
-      class="breadcrumb-container"
-      v-if="!$store.state.settings.topNav"
-    />
+    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" v-if="!$store.state.settings.topNav" />
 
-    <top-nav
-      id="topmenu-container"
-      class="topmenu-container"
-      v-if="$store.state.settings.topNav"
-    />
+    <top-nav id="topmenu-container" class="topmenu-container" v-if="$store.state.settings.topNav" />
   </div>
 </template>
 
@@ -25,6 +17,7 @@
 import Breadcrumb from '@/components/Breadcrumb'
 import TopNav from '@/components/TopNav'
 import Hamburger from '@/components/Hamburger'
+
 const store = useStore()
 const getters = computed(() => store.getters)
 

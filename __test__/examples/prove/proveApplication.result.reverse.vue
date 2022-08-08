@@ -244,9 +244,7 @@ export default {
      * @returns {*}
      */
     submit(state) {
-      this.isValidationActive = true
-
-      // 迁出证明需要验证必填项  【40表示为迁出证明】
+      this.isValidationActive = true //迁出证明需要验证必填项  【40表示为迁出证明】
 
       if (
         this.parentData.proveId === '40' &&
@@ -269,100 +267,57 @@ export default {
 
         if (msgData.MSGTY === 'S') {
           let params = {}
-          let wordData = {}
+          let wordData = {} //增加默认取值（因为大部分的模版的字段都是一样的）	20201105 hwj
 
-          // 增加默认取值（因为大部分的模版的字段都是一样的）	20201105 hwj
+          wordData.NAME = respData.ENAME //姓名
 
-          wordData.NAME = respData.ENAME
+          wordData.ZJHM = respData.ICNUM //身份证号码
 
-          // 姓名
+          wordData.KSN = this.subStringDate(respData.BEGDA, 'Y') //开始年
 
-          wordData.ZJHM = respData.ICNUM
+          wordData.KSY = this.subStringDate(respData.BEGDA, 'M') //开始月
 
-          // 身份证号码
+          wordData.KSR = this.subStringDate(respData.BEGDA, 'D') //开始日
 
-          wordData.KSN = this.subStringDate(respData.BEGDA, 'Y')
+          wordData.PLANS = respData.PLANS //职位
 
-          // 开始年
+          wordData.ZRZBM = respData.ZRZBM //部门
 
-          wordData.KSY = this.subStringDate(respData.BEGDA, 'M')
+          wordData.LKBM = respData.ZLKBM //落款部门
 
-          // 开始月
+          wordData.NSR = respData.ZNX //年薪
 
-          wordData.KSR = this.subStringDate(respData.BEGDA, 'D')
-
-          // 开始日
-
-          wordData.PLANS = respData.PLANS
-
-          // 职位
-
-          wordData.ZRZBM = respData.ZRZBM
-
-          // 部门
-
-          wordData.LKBM = respData.ZLKBM
-
-          // 落款部门
-
-          wordData.NSR = respData.ZNX
-
-          // 年薪
-
-          wordData.YSR = respData.ZYX
-
-          // 月薪
+          wordData.YSR = respData.ZYX //月薪
 
           wordData.ZMRQ = this.strDateToChineseDate(
             new Date().Format('yyyy-MM-dd')
-          )
+          ) //证明日期
 
-          // 证明日期
-
-          wordData.FILEDATE = new Date().Format('yyyy-MM-dd')
-          // fileDate
+          wordData.FILEDATE = new Date().Format('yyyy-MM-dd') //fileDate
 
           // 保留BK=SP
 
-          wordData.COMPANY = respData.WERKS_T
-
-          // 公司
+          wordData.COMPANY = respData.WERKS_T //公司
 
           if (this.parentData.proveId === '11') {
             // 在职证明-公司抬头纸模版
-            wordData.NAME = respData.ENAME
+            wordData.NAME = respData.ENAME //姓名
 
-            // 姓名
+            wordData.ZJHM = respData.ICNUM //身份证号码
 
-            wordData.ZJHM = respData.ICNUM
+            wordData.KSN = this.subStringDate(respData.BEGDA, 'Y') //开始年
 
-            // 身份证号码
+            wordData.KSY = this.subStringDate(respData.BEGDA, 'M') //开始月
 
-            wordData.KSN = this.subStringDate(respData.BEGDA, 'Y')
+            wordData.PLANS = respData.PLANS //职位
 
-            // 开始年
+            wordData.NSR = respData.ZYX //月薪
 
-            wordData.KSY = this.subStringDate(respData.BEGDA, 'M')
-
-            // 开始月
-
-            wordData.PLANS = respData.PLANS
-
-            // 职位
-
-            wordData.NSR = respData.ZYX
-
-            // 月薪
-
-            wordData.ZRZBM = respData.ZLKBM
-
-            // 部门
+            wordData.ZRZBM = respData.ZLKBM //部门
 
             wordData.ZMRQ = this.strDateToChineseDate(
               new Date().Format('yyyy-MM-dd')
-            )
-
-            // 证明日期
+            ) //证明日期
 
             params.templateName = 'zzzm_sp.ftl'
             params.wordName =
@@ -370,51 +325,31 @@ export default {
             params.wordParams = wordData
           } else if (this.parentData.proveId === '12') {
             // 在职证明-出国旅游
-            wordData.NAME = respData.ENAME
+            wordData.NAME = respData.ENAME //姓名
 
-            // 姓名
+            wordData.ZJHM = respData.ICNUM //身份证号码
 
-            wordData.ZJHM = respData.ICNUM
+            wordData.KSN = this.subStringDate(respData.BEGDA, 'Y') //开始年
 
-            // 身份证号码
+            wordData.KSY = this.subStringDate(respData.BEGDA, 'M') //开始月
 
-            wordData.KSN = this.subStringDate(respData.BEGDA, 'Y')
+            wordData.PLANS = respData.PLANS //职位
 
-            // 开始年
-
-            wordData.KSY = this.subStringDate(respData.BEGDA, 'M')
-
-            // 开始月
-
-            wordData.PLANS = respData.PLANS
-
-            // 职位
-
-            wordData.NSR = respData.ZYX
-
-            // 月薪
+            wordData.NSR = respData.ZYX //月薪
 
             wordData.BEGDA = this.$moment(this.pageData.begda).format(
               'YYYY/MM/DD'
-            )
-
-            // 旅游开始日期
+            ) //旅游开始日期
 
             wordData.ENDDA = this.$moment(this.pageData.endda).format(
               'YYYY/MM/DD'
-            )
+            ) //旅游结束日期
 
-            // 旅游结束日期
-
-            wordData.GJ = this.pageData.gj
-
-            // 国家
+            wordData.GJ = this.pageData.gj //国家
 
             wordData.ZMRQ = this.strDateToChineseDate(
               new Date().Format('yyyy-MM-dd')
-            )
-
-            // 证明日期
+            ) //证明日期
 
             params.templateName = 'zzzm_cgly_sp.ftl'
             params.wordName =
@@ -426,43 +361,25 @@ export default {
             params.wordParams = wordData
           } else if (this.parentData.proveId === '13') {
             // 收入证明-公司抬头纸模版
-            wordData.NAME = respData.ENAME
+            wordData.NAME = respData.ENAME //姓名
 
-            // 姓名
+            wordData.ZJHM = respData.ICNUM //身份证号码
 
-            wordData.ZJHM = respData.ICNUM
+            wordData.KSN = this.subStringDate(respData.BEGDA, 'Y') //开始年
 
-            // 身份证号码
+            wordData.KSY = this.subStringDate(respData.BEGDA, 'M') //开始月
 
-            wordData.KSN = this.subStringDate(respData.BEGDA, 'Y')
+            wordData.PLANS = respData.PLANS //职位
 
-            // 开始年
+            wordData.ZRZBM = respData.ZLKBM //部门
 
-            wordData.KSY = this.subStringDate(respData.BEGDA, 'M')
+            wordData.NSR = respData.ZYX //月薪
 
-            // 开始月
-
-            wordData.PLANS = respData.PLANS
-
-            // 职位
-
-            wordData.ZRZBM = respData.ZLKBM
-
-            // 部门
-
-            wordData.NSR = respData.ZYX
-
-            // 月薪
-
-            wordData.ZBZ = respData.ZBZMC
-
-            // 币种
+            wordData.ZBZ = respData.ZBZMC //币种
 
             wordData.ZMRQ = this.strDateToChineseDate(
               new Date().Format('yyyy-MM-dd')
-            )
-
-            // 证明日期
+            ) //证明日期
 
             params.templateName = 'srzm_sp.ftl'
             params.wordName =
@@ -470,42 +387,28 @@ export default {
             params.wordParams = wordData
           } else if (this.parentData.proveId === '14') {
             // 出入国境证明
-            wordData.ENAME = respData.ENAME
+            wordData.ENAME = respData.ENAME //姓名
 
-            // 姓名
-
-            wordData.ZJHM = respData.ICNUM
-
-            // 身份证号码
+            wordData.ZJHM = respData.ICNUM //身份证号码
 
             wordData.BEGDA = this.$isEmpty(respData.BEGDA)
               ? ''
               : new Date(
                   respData.BEGDA.replace(/^(\d{4})(\d{2})(\d{2})$/, '$1-$2-$3')
                 ).Format('yyyy/MM/dd')
-            wordData.ZNX = respData.ZNX_YEAR
+            wordData.ZNX = respData.ZNX_YEAR //年薪
 
-            // 年薪
+            wordData.PLANS = respData.PLANS //职位
 
-            wordData.PLANS = respData.PLANS
-
-            // 职位
-
-            wordData.GJ = this.pageData.gj
-
-            // 国家
+            wordData.GJ = this.pageData.gj //国家
 
             wordData.KSRQ = this.$isEmpty(this.pageData.begda)
               ? ''
-              : new Date(this.pageData.begda).Format('yyyy/MM/dd')
-
-            // 开始日期
+              : new Date(this.pageData.begda).Format('yyyy/MM/dd') //开始日期
 
             wordData.JSRQ = this.$isEmpty(this.pageData.endda)
               ? ''
-              : new Date(this.pageData.endda).Format('yyyy/MM/dd')
-
-            // 结束日期
+              : new Date(this.pageData.endda).Format('yyyy/MM/dd') //结束日期
 
             params.templateName = 'cglyzm_sp.ftl'
             params.wordName =
@@ -636,16 +539,9 @@ export default {
         let e_zwfno = response.E_ZWFNO
 
         if (es_message.MSGTY === 'S') {
-          this.$message.success(es_message.MSGTX)
+          this.$message.success(es_message.MSGTX) //关闭弹框
 
-          // 关闭弹框
-
-          this.closeDialog('Q')
-          // 发起流程
-
-          // 增加板块的流程
-
-          // 后判断，只有板块的不需要发起流程
+          this.closeDialog('Q') //发起流程	    //增加板块的流程 //后判断，只有板块的不需要发起流程
 
           if (ev_action === 'K') {
             this.$startWorkFlow({
@@ -743,9 +639,7 @@ export default {
       if (fileType.indexOf(postf.toLowerCase()) === -1) {
         this.$message.warning('请选择正确的文件类型，如' + '：.doc, .docx')
         return false
-      }
-
-      // 不能大于10M
+      } //不能大于10M
 
       if (file.size > 10485760) {
         this.$message.warning('证明不能大于10M')

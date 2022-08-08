@@ -5,9 +5,7 @@
         <el-card class="box-card" shadow="never">
           <template v-slot:header>
             <div class="clearfix">
-              <span>
-                {{ I18N.$fanyi('个人信息') }}
-              </span>
+              <span>个人信息</span>
             </div>
           </template>
           <div>
@@ -16,40 +14,36 @@
             </div>
             <ul class="list-group list-group-striped">
               <li class="list-group-item">
-                <svg-icon icon-class="user" /> {{ I18N.$fanyi('用户名称') }}
-                <div class="pull-right">
-                  {{ state.user.userName }}
-                </div>
+                <svg-icon icon-class="user" />
+                用户名称
+                <div class="pull-right">{{ state.user.userName }}</div>
               </li>
               <li class="list-group-item">
-                <svg-icon icon-class="phone" /> {{ I18N.$fanyi('手机号码') }}
-                <div class="pull-right">
-                  {{ state.user.phoneNumber }}
-                </div>
+                <svg-icon icon-class="phone" />
+                手机号码
+                <div class="pull-right">{{ state.user.phoneNumber }}</div>
               </li>
               <li class="list-group-item">
-                <svg-icon icon-class="email" /> {{ I18N.$fanyi('用户邮箱') }}
-                <div class="pull-right">
-                  {{ state.user.email }}
-                </div>
+                <svg-icon icon-class="email" />
+                用户邮箱
+                <div class="pull-right">{{ state.user.email }}</div>
               </li>
               <li class="list-group-item">
-                <svg-icon icon-class="tree" /> {{ I18N.$fanyi('所属部门') }}
+                <svg-icon icon-class="tree" />
+                所属部门
                 <div class="pull-right" v-if="state.user.dept">
                   {{ state.user.dept.deptName }} / {{ state.postGroup }}
                 </div>
               </li>
               <li class="list-group-item">
-                <svg-icon icon-class="peoples" /> {{ I18N.$fanyi('所属角色') }}
-                <div class="pull-right">
-                  {{ state.roleGroup }}
-                </div>
+                <svg-icon icon-class="peoples" />
+                所属角色
+                <div class="pull-right">{{ state.roleGroup }}</div>
               </li>
               <li class="list-group-item">
-                <svg-icon icon-class="date" /> {{ I18N.$fanyi('创建日期') }}
-                <div class="pull-right">
-                  {{ state.user.createTime }}
-                </div>
+                <svg-icon icon-class="date" />
+                创建日期
+                <div class="pull-right">{{ state.user.createTime }}</div>
               </li>
             </ul>
           </div>
@@ -59,16 +53,14 @@
         <el-card shadow="never">
           <template v-slot:header>
             <div class="clearfix">
-              <span>
-                {{ I18N.$fanyi('基本资料') }}
-              </span>
+              <span>基本资料</span>
             </div>
           </template>
           <el-tabs v-model="activeTab">
-            <el-tab-pane :label="I18N.$fanyi('基本资料')" name="userinfo">
+            <el-tab-pane label="基本资料" name="userinfo">
               <userInfo :user="state.user" />
             </el-tab-pane>
-            <el-tab-pane :label="I18N.$fanyi('修改密码')" name="resetPwd">
+            <el-tab-pane label="修改密码" name="resetPwd">
               <resetPwd :user="state.user" />
             </el-tab-pane>
           </el-tabs>
@@ -83,11 +75,12 @@ import userAvatar from './userAvatar'
 import userInfo from './userInfo'
 import resetPwd from './resetPwd'
 import { getUserProfile } from '@/api/system/user'
+
 const activeTab = ref('userinfo')
 const state = reactive({
   user: {},
   roleGroup: {},
-  postGroup: {}
+  postGroup: {},
 })
 
 function getUser() {
