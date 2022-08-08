@@ -193,11 +193,16 @@ function generateTraverseNodeElements(
       }
     } else if (isInterpolation(child)) {
       // TODO child.content ExpressionNode
-      children[index] = generateTraverseNodeInterpolation(
-        (child.content as any).content,
-        options,
-        translateTexts
-      ) as TemplateChildNode
+      try {
+        children[index] = generateTraverseNodeInterpolation(
+          (child.content as any).content,
+          options,
+          translateTexts
+        ) as TemplateChildNode
+      } catch (error) {
+        // console.log(child)
+        console.log('error', child)
+      }
     }
   })
 }

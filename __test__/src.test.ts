@@ -12,23 +12,24 @@ const traverseOptions: TraverseOptions = {
 
 describe('ext src, file', async () => {
   const dir = './src/**/*.vue'
-  const files: string[] = await new Promise(resolve => {
+  let files: string[] = await new Promise(resolve => {
     glob(path.join(__dirname, dir), (err, files) => {
-      resolve(files.filter(x => !x.includes('result')))
-      // resolve(files.filter(x => x.includes('multiField.vue')))
+      // resolve(files.filter(x => !x.includes('result')))
+      resolve(files.filter(x => x.includes('Settings/index.vue')))
     })
   })
 
+  files = [files[0], files[1]]
   for (let i = 0; i < files.length; i++) {
     const file = files[i]
-
     it(file, async () => {
       const words = new Set<string>()
-      const code = await readFile(file)
-      const result = di18n(code, traverseOptions, words)
-      writeFile(filePathWithResult(file), result)
+      let code = await readFile(file)
+      // code = code.replace('<template', `<template a="${i}" `)
+      const result = await di18n(code, traverseOptions, words)
+      await writeFile(filePathWithResult(file), result)
       if ([...words].length > 0)
-        writeFile(
+        await writeFile(
           filePathWithResult(file, 'result.words'),
           [...words].join('|')
         )
