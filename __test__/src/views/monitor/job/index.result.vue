@@ -251,13 +251,11 @@
                   <el-tooltip placement="top">
                     <template #content>
                       <div>
-                        {{
-                          I18N.$fanyi("Bean调用示例：ryTask.ryParams('ry')")
-                        }}
+                        {{ I18N.$fanyi('Bean调用示例：ryTask.ryParams(ry)') }}
                         <br />
                         {{
                           I18N.$fanyi(
-                            "Class类调用示例：com.ruoyi.quartz.task.RyTask.ryParams('ry')"
+                            'Class类调用示例：com.ruoyi.quartz.task.RyTask.ryParams(ry)'
                           )
                         }}
                         <br />
