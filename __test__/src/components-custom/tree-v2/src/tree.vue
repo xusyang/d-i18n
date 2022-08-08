@@ -2,7 +2,7 @@
   <div
     class="el-tree"
     :class="{
-      'el-tree--highlight-current': highlightCurrent,
+      'el-tree--highlight-current': highlightCurrent
     }"
     role="tree"
   >
@@ -34,9 +34,9 @@
       </template>
     </fixed-size-list>
     <div v-else class="el-tree__empty-block">
-      <span class="el-tree__empty-text">{{
-        emptyText ?? t('el.tree.emptyText')
-      }}</span>
+      <span class="el-tree__empty-text">
+        {{ emptyText ?? t('el.tree.emptyText') }}
+      </span>
     </div>
   </div>
 </template>
@@ -49,20 +49,20 @@ import { useTree } from './composables/useTree'
 import ElTreeNode from './tree-node.vue'
 import { ROOT_TREE_INJECTION_KEY, treeEmits, treeProps } from './virtual-tree'
 import type { TreeProps } from './types'
-
 export default defineComponent({
   name: 'ElTreeV2',
   components: {
     ElTreeNode,
-    FixedSizeList,
+    FixedSizeList
   },
   props: treeProps,
   emits: treeEmits,
+
   setup(props: TreeProps, ctx) {
     provide(ROOT_TREE_INJECTION_KEY, {
       ctx,
       props,
-      instance: getCurrentInstance(),
+      instance: getCurrentInstance()
     })
     const { t } = useLocale()
     const {
@@ -78,6 +78,7 @@ export default defineComponent({
       toggleCheckbox,
       handleNodeClick,
       handleNodeCheck,
+
       // expose
       getCurrentNode,
       getCurrentKey,
@@ -91,9 +92,8 @@ export default defineComponent({
       filter,
       setData,
       expandByKeys,
-      collapseByKeys,
+      collapseByKeys
     } = useTree(props, ctx.emit)
-
     ctx.expose({
       getCurrentNode,
       getCurrentKey,
@@ -107,9 +107,8 @@ export default defineComponent({
       filter,
       setData,
       expandByKeys,
-      collapseByKeys,
+      collapseByKeys
     })
-
     return {
       t,
       flattenTree,
@@ -124,8 +123,8 @@ export default defineComponent({
       isCurrent,
       isForceHiddenExpandIcon,
       handleNodeClick,
-      handleNodeCheck,
+      handleNodeCheck
     }
-  },
+  }
 })
 </script>

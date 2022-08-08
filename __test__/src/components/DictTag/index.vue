@@ -30,12 +30,12 @@ const props = defineProps({
   // 数据
   options: {
     type: Array,
-    default: null,
+    default: null
   },
-  // 当前的值
-  value: [Number, String, Array],
-})
 
+  // 当前的值
+  value: [Number, String, Array]
+})
 const values = computed(() => {
   if (props.value !== null && typeof props.value !== 'undefined') {
     return Array.isArray(props.value) ? props.value : [String(props.value)]

@@ -5,9 +5,11 @@
 </template>
 
 <script setup>
-const url = ref('https://gitee.com/y_project/RuoYi-Cloud')
+         const url = ref('https:
+
+// gitee.com/y_project/RuoYi-Cloud');
 
 function goto() {
-  window.open(url.value)
+  window.open(url.value);
 }
 </script>

@@ -1,31 +1,63 @@
 <template>
-  <el-form ref="formRef" :model="formParams" :rules="formRules.rules" label-width="80px">
-    <el-form-item label="审核" prop="agree">
+  <el-form
+    ref="formRef"
+    :model="formParams"
+    :rules="formRules.rules"
+    label-width="80px"
+  >
+    <el-form-item :label="I18N.$fanyi('审核')" prop="agree">
       <el-radio-group v-model="formParams.agree">
-        <el-radio label="1">通过</el-radio>
-        <el-radio label="3">不通过</el-radio>
+        <el-radio label="1">
+          {{ I18N.$fanyi('通过') }}
+        </el-radio>
+        <el-radio label="3">
+          {{ I18N.$fanyi('不通过') }}
+        </el-radio>
       </el-radio-group>
     </el-form-item>
     <el-form-item
-      label="备注"
+      :label="I18N.$fanyi('备注')"
       prop="description"
-      :rules="[{ required: formParams.agree === '3', message: '请输入备注' }]"
+      :rules=";[
+  {
+    required: formParams.agree === '3',
+    message: I18N.$fanyi('请输入备注')
+  }
+]
+"
     >
       <el-input
         v-model="formParams.description"
         type="textarea"
         maxlength="200"
-        placeholder="请输入内容，不超过200个字符"
+        :placeholder="I18N.$fanyi('请输入内容，不超过200个字符')"
       />
     </el-form-item>
-    <el-form-item label="审批人" prop="next_assignee" v-if="nodeType === 'common'">
-      <el-select v-model="formParams.next_assignee" :multiple="multiInstance" style="width: 100%">
-        <el-option v-for="item in auditors" :key="item.id" :value="item.id" :label="item.userName"></el-option>
+    <el-form-item
+      :label="I18N.$fanyi('审批人')"
+      prop="next_assignee"
+      v-if="nodeType === 'common'"
+    >
+      <el-select
+        v-model="formParams.next_assignee"
+        :multiple="multiInstance"
+        style="width: 100%"
+      >
+        <el-option
+          v-for="item in auditors"
+          :key="item.id"
+          :value="item.id"
+          :label="item.userName"
+        ></el-option>
       </el-select>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="handleSubmit()">确定</el-button>
-      <el-button @click="handleCancel()">取消</el-button>
+      <el-button type="primary" @click="handleSubmit()">
+        {{ I18N.$fanyi('确定') }}
+      </el-button>
+      <el-button @click="handleCancel()">
+        {{ I18N.$fanyi('取消') }}
+      </el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -35,42 +67,51 @@ import { getCurrentInstance, reactive, ref, watch } from 'vue'
 import { targetProcessNode, taskComplete } from '@/api/task'
 import { listUser } from '@/api/system/user'
 import Cookies from 'js-cookie'
-
 const props = defineProps({
   processDefinitionKey: {
     type: String,
-    default: '',
+    default: ''
   },
   menuCode: {
     type: String,
-    default: '',
+    default: ''
   },
   sourceId: {
     type: String,
-    default: '',
+    default: ''
   },
   taskId: {
     type: String,
-    default: '',
-  },
+    default: ''
+  }
 })
 watch(
   () => props.taskId,
   (val) => {
     fetchTargetProcessNode()
-  },
+  }
 )
 const sys_user = JSON.parse(Cookies.get('sys_user'))
 const formParams = reactive({
   agree: '',
   description: '',
-  next_assignee: [],
+  next_assignee: []
 })
 const formRules = reactive({
   rules: {
-    agree: [{ required: true, message: '请选择' }],
-    next_assignee: [{ required: true, message: '请选择审核人' }],
-  },
+    agree: [
+      {
+        required: true,
+        message: I18N.$fanyi('请选择')
+      }
+    ],
+    next_assignee: [
+      {
+        required: true,
+        message: I18N.$fanyi('请选择审核人')
+      }
+    ]
+  }
 })
 const nodeType = ref('')
 const multiInstance = ref(false)
@@ -88,11 +129,13 @@ const fetchTargetProcessNode = () => {
     sourceSysCode: 'cps',
     status: '',
     subMenuCode: '',
-    targetType: 'next',
+    targetType: 'next'
   }).then((res) => {
     const dataJson = res.data && res.data.data ? JSON.parse(res.data.data) : {}
     nodeType.value = res.data.type
+
     // 还有下个审批节点，需要选择对应审批人
+
     if (nodeType.value === 'common') {
       multiInstance.value = res.data.multiInstance === 'multi'
       const roleIds = dataJson.approvers.map((item) => item.approverValue)
@@ -103,12 +146,9 @@ const fetchTargetProcessNode = () => {
 
 const fethListUsr = (ids) => {
   listUser({
-    roleIds: ids + '',
+    roleIds: ids + ''
   }).then((res) => {
-    auditors.value = res.rows.map((item) => ({
-      ...item,
-      id: item.id + '',
-    }))
+    auditors.value = res.rows.map((item) => ({ ...item, id: item.id + '' }))
   })
 }
 
@@ -121,11 +161,11 @@ const handleSubmit = () => {
         variables: {
           next_assignee: formParams.next_assignee,
           agree: formParams.agree,
-          description: formParams.description,
-        },
+          description: formParams.description
+        }
       }
       taskComplete(params).then((res) => {
-        proxy.$modal.msgSuccess('操作成功')
+        proxy.$modal.msgSuccess(I18N.$fanyi('操作成功'))
         emit('success')
       })
     }

@@ -4,7 +4,9 @@
       :class="{ 'is-active': isActive }"
       class="hamburger"
       viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
+      xmlns="http:
+
+// www.w3.org/2000/svg"
       width="64"
       height="64"
     >
@@ -19,11 +21,11 @@
 defineProps({
   isActive: {
     type: Boolean,
-    default: false,
-  },
+    default: false
+  }
 })
-
 const emit = defineEmits()
+
 const toggleClick = () => {
   emit('toggleClick')
 }

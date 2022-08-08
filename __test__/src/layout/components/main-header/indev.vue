@@ -1,8 +1,7 @@
 <template>
   <div class="main-header">
-    <!-- 法人筛选 -->
     <DSelectLegal />
-    <!-- 右边菜单 -->
+
     <RightMenu />
   </div>
 </template>

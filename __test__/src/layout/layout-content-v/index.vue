@@ -23,14 +23,13 @@
 <script lang="ts" setup>
 import { getCurrentInstance, onMounted, onUnmounted, ref } from 'vue'
 import { throttle } from 'lodash'
-
 const instance = getCurrentInstance()
 const slots = instance.slots
-
 const refContainerContent = ref(null)
 const contentHeight = ref(0)
 
 // BUG: 这里采用节流的形式来包装方法后，导致 d-table 高度塌陷
+
 const resize = throttle(() => {
   if (refContainerContent && refContainerContent.value) {
     const res = refContainerContent.value.getBoundingClientRect()
@@ -39,17 +38,25 @@ const resize = throttle(() => {
 }, 30)
 
 // const resize = () => {
-//   // if (refContainerContent && refContainerContent.value) {
-//   const res = refContainerContent.value.getBoundingClientRect()
-//   contentHeight.value = res.height
-//   // }
+
+//
+
+// if (refContainerContent && refContainerContent.value) {
+
+// const res = refContainerContent.value.getBoundingClientRect()
+
+// contentHeight.value = res.height
+
+//
+
+// }
+
 // }
 
 onMounted(() => {
   resize()
   window.addEventListener('resize', resize)
 })
-
 onUnmounted(() => {
   window.removeEventListener('resize', resize)
 })

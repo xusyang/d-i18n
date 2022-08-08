@@ -1,26 +1,61 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="岗位编码" prop="postCode">
-        <el-input v-model="queryParams.postCode" placeholder="请输入岗位编码" clearable @keyup.enter="handleQuery" />
+    <el-form
+      :model="queryParams"
+      ref="queryRef"
+      :inline="true"
+      v-show="showSearch"
+      label-width="68px"
+    >
+      <el-form-item :label="I18N.$fanyi('岗位编码')" prop="postCode">
+        <el-input
+          v-model="queryParams.postCode"
+          :placeholder="I18N.$fanyi('请输入岗位编码')"
+          clearable
+          @keyup.enter="handleQuery"
+        />
       </el-form-item>
-      <el-form-item label="岗位名称" prop="postName">
-        <el-input v-model="queryParams.postName" placeholder="请输入岗位名称" clearable @keyup.enter="handleQuery" />
+      <el-form-item :label="I18N.$fanyi('岗位名称')" prop="postName">
+        <el-input
+          v-model="queryParams.postName"
+          :placeholder="I18N.$fanyi('请输入岗位名称')"
+          clearable
+          @keyup.enter="handleQuery"
+        />
       </el-form-item>
-      <el-form-item label="状态" prop="status">
-        <el-select v-model="queryParams.status" placeholder="岗位状态" clearable>
-          <el-option v-for="dict in sys_normal_disable" :key="dict.value" :label="dict.label" :value="dict.value" />
+      <el-form-item :label="I18N.$fanyi('状态')" prop="status">
+        <el-select
+          v-model="queryParams.status"
+          :placeholder="I18N.$fanyi('岗位状态')"
+          clearable
+        >
+          <el-option
+            v-for="dict in sys_normal_disable"
+            :key="dict.value"
+            :label="dict.label"
+            :value="dict.value"
+          />
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button @click="resetQuery">重置</el-button>
-        <el-button type="primary" @click="handleQuery">查询</el-button>
+        <el-button @click="resetQuery">
+          {{ I18N.$fanyi('重置') }}
+        </el-button>
+        <el-button type="primary" @click="handleQuery">
+          {{ I18N.$fanyi('查询') }}
+        </el-button>
       </el-form-item>
     </el-form>
 
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
-        <el-button type="primary" @click="handleAdd" v-hasPermi="['system:post:add']">新增</el-button>
+        <el-button
+          type="primary"
+          @click="handleAdd"
+          v-hasPermi="['system:post:add']"
+        >
+          {{ I18N.$fanyi('新增') }}
+        </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -29,7 +64,7 @@
           @click="handleUpdate"
           v-hasPermi="['system:post:edit']"
         >
-          修改
+          {{ I18N.$fanyi('修改') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
@@ -39,46 +74,94 @@
           @click="handleDelete"
           v-hasPermi="['system:post:remove']"
         >
-          删除
+          {{ I18N.$fanyi('删除') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button @click="handleExport" v-hasPermi="['system:post:export']">
-          导出
+          {{ I18N.$fanyi('导出') }}
         </el-button>
       </el-col>
-      <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
+      <right-toolbar
+        v-model:showSearch="showSearch"
+        @queryTable="getList"
+      ></right-toolbar>
     </el-row>
     <LayoutTableH #content="{ height }">
-      <el-table v-loading="loading" :data="postList" @selection-change="handleSelectionChange" :max-height="height">
+      <el-table
+        v-loading="loading"
+        :data="postList"
+        @selection-change="handleSelectionChange"
+        :max-height="height"
+      >
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column label="岗位编号" align="center" prop="id" />
-        <el-table-column label="岗位编码" align="center" prop="postCode" />
-        <el-table-column label="岗位名称" align="center" prop="postName" />
-        <el-table-column label="岗位排序" align="center" prop="postSort" />
-        <el-table-column label="状态" align="center" prop="status">
+        <el-table-column
+          :label="I18N.$fanyi('岗位编号')"
+          align="center"
+          prop="id"
+        />
+        <el-table-column
+          :label="I18N.$fanyi('岗位编码')"
+          align="center"
+          prop="postCode"
+        />
+        <el-table-column
+          :label="I18N.$fanyi('岗位名称')"
+          align="center"
+          prop="postName"
+        />
+        <el-table-column
+          :label="I18N.$fanyi('岗位排序')"
+          align="center"
+          prop="postSort"
+        />
+        <el-table-column
+          :label="I18N.$fanyi('状态')"
+          align="center"
+          prop="status"
+        >
           <template #default="scope">
             <dict-tag :options="sys_normal_disable" :value="scope.row.status" />
           </template>
         </el-table-column>
-        <el-table-column label="创建时间" align="center" prop="createTime" width="180">
+        <el-table-column
+          :label="I18N.$fanyi('创建时间')"
+          align="center"
+          prop="createTime"
+          width="180"
+        >
           <template #default="scope">
-            <span>{{ parseTime(scope.row.createTime) }}</span>
+            <span>
+              {{ parseTime(scope.row.createTime) }}
+            </span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+        <el-table-column
+          :label="I18N.$fanyi('操作')"
+          align="center"
+          class-name="small-padding fixed-width"
+        >
           <template #default="scope">
-            <el-button type="text" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['system:post:edit']">
-              修改
+            <el-button
+              type="text"
+              icon="Edit"
+              @click="handleUpdate(scope.row)"
+              v-hasPermi="['system:post:edit']"
+            >
+              {{ I18N.$fanyi('修改') }}
             </el-button>
-            <el-button type="text" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['system:post:remove']">
-              删除
+            <el-button
+              type="text"
+              icon="Delete"
+              @click="handleDelete(scope.row)"
+              v-hasPermi="['system:post:remove']"
+            >
+              {{ I18N.$fanyi('删除') }}
             </el-button>
           </template>
         </el-table-column>
       </el-table>
     </LayoutTableH>
-    
 
     <pagination
       v-show="total > 0"
@@ -88,33 +171,54 @@
       @pagination="getList"
     />
 
-    <!-- 添加或修改岗位对话框 -->
     <el-dialog :title="title" v-model="open" width="600px" append-to-body>
       <el-form ref="postRef" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="岗位名称" prop="postName">
-          <el-input v-model="form.postName" placeholder="请输入岗位名称" />
+        <el-form-item :label="I18N.$fanyi('岗位名称')" prop="postName">
+          <el-input
+            v-model="form.postName"
+            :placeholder="I18N.$fanyi('请输入岗位名称')"
+          />
         </el-form-item>
-        <el-form-item label="岗位编码" prop="postCode">
-          <el-input v-model="form.postCode" placeholder="请输入编码名称" />
+        <el-form-item :label="I18N.$fanyi('岗位编码')" prop="postCode">
+          <el-input
+            v-model="form.postCode"
+            :placeholder="I18N.$fanyi('请输入编码名称')"
+          />
         </el-form-item>
-        <el-form-item label="岗位顺序" prop="postSort">
-          <el-input-number v-model="form.postSort" controls-position="right" :min="0" />
+        <el-form-item :label="I18N.$fanyi('岗位顺序')" prop="postSort">
+          <el-input-number
+            v-model="form.postSort"
+            controls-position="right"
+            :min="0"
+          />
         </el-form-item>
-        <el-form-item label="岗位状态" prop="status">
+        <el-form-item :label="I18N.$fanyi('岗位状态')" prop="status">
           <el-radio-group v-model="form.status">
-            <el-radio v-for="dict in sys_normal_disable" :key="dict.value" :label="dict.value">
+            <el-radio
+              v-for="dict in sys_normal_disable"
+              :key="dict.value"
+              :label="dict.value"
+            >
               {{ dict.label }}
             </el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="备注" prop="remark">
-          <el-input v-model="form.remark" type="textarea" placeholder="请输入内容" />
+        <el-form-item :label="I18N.$fanyi('备注')" prop="remark">
+          <el-input
+            v-model="form.remark"
+            type="textarea"
+            :placeholder="I18N.$fanyi('请输入内容')"
+          />
         </el-form-item>
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button type="primary" @click="submitForm">确 定</el-button>
-          <el-button @click="cancel">取 消</el-button>
+          <el-button type="primary" @click="submitForm">
+            {{ I18N.$fanyi('确 定') }}
+          </el-button>
+          <el-button @click="cancel">
+            {{ I18N.$fanyi('取 消') }}
+          </el-button>
         </div>
       </template>
     </el-dialog>
@@ -123,11 +227,15 @@
 
 <script setup name="Post">
 import LayoutTableH from '@/layout/layout-table-h/index.vue'
-import { listPost, addPost, delPost, getPost, updatePost } from '@/api/system/post'
-
+import {
+  listPost,
+  addPost,
+  delPost,
+  getPost,
+  updatePost
+} from '@/api/system/post'
 const { proxy } = getCurrentInstance()
 const { sys_normal_disable } = proxy.useDict('sys_normal_disable')
-
 const postList = ref([])
 const open = ref(false)
 const loading = ref(true)
@@ -137,7 +245,6 @@ const single = ref(true)
 const multiple = ref(true)
 const total = ref(0)
 const title = ref('')
-
 const data = reactive({
   form: {},
   queryParams: {
@@ -145,18 +252,35 @@ const data = reactive({
     pageSize: 10,
     postCode: undefined,
     postName: undefined,
-    status: undefined,
+    status: undefined
   },
   rules: {
-    postName: [{ required: true, message: '岗位名称不能为空', trigger: 'blur' }],
-    postCode: [{ required: true, message: '岗位编码不能为空', trigger: 'blur' }],
-    postSort: [{ required: true, message: '岗位顺序不能为空', trigger: 'blur' }],
-  },
+    postName: [
+      {
+        required: true,
+        message: I18N.$fanyi('岗位名称不能为空'),
+        trigger: 'blur'
+      }
+    ],
+    postCode: [
+      {
+        required: true,
+        message: I18N.$fanyi('岗位编码不能为空'),
+        trigger: 'blur'
+      }
+    ],
+    postSort: [
+      {
+        required: true,
+        message: I18N.$fanyi('岗位顺序不能为空'),
+        trigger: 'blur'
+      }
+    ]
+  }
 })
-
 const { queryParams, form, rules } = toRefs(data)
-
 /** 查询岗位列表 */
+
 function getList() {
   loading.value = true
   listPost(queryParams.value).then((response) => {
@@ -166,11 +290,13 @@ function getList() {
   })
 }
 /** 取消按钮 */
+
 function cancel() {
   open.value = false
   reset()
 }
 /** 表单重置 */
+
 function reset() {
   form.value = {
     id: undefined,
@@ -178,55 +304,61 @@ function reset() {
     postName: undefined,
     postSort: 0,
     status: '0',
-    remark: undefined,
+    remark: undefined
   }
   proxy.resetForm('postRef')
 }
 /** 搜索按钮操作 */
+
 function handleQuery() {
   queryParams.value.pageNum = 1
   getList()
 }
 /** 重置按钮操作 */
+
 function resetQuery() {
   proxy.resetForm('queryRef')
   // handleQuery()
 }
 /** 多选框选中数据 */
+
 function handleSelectionChange(selection) {
   ids.value = selection.map((item) => item.id)
   single.value = selection.length != 1
   multiple.value = !selection.length
 }
 /** 新增按钮操作 */
+
 function handleAdd() {
   reset()
   open.value = true
-  title.value = '添加岗位'
+  title.value = I18N.$fanyi('添加岗位')
 }
 /** 修改按钮操作 */
+
 function handleUpdate(row) {
   reset()
   const id = row.id || ids.value
   getPost(id).then((response) => {
     form.value = response.data
     open.value = true
-    title.value = '修改岗位'
+    title.value = I18N.$fanyi('修改岗位')
   })
 }
 /** 提交按钮 */
+
 function submitForm() {
   proxy.$refs['postRef'].validate((valid) => {
     if (valid) {
       if (form.value.id != undefined) {
         updatePost(form.value).then((response) => {
-          proxy.$modal.msgSuccess('修改成功')
+          proxy.$modal.msgSuccess(I18N.$fanyi('修改成功'))
           open.value = false
           getList()
         })
       } else {
         addPost(form.value).then((response) => {
-          proxy.$modal.msgSuccess('新增成功')
+          proxy.$modal.msgSuccess(I18N.$fanyi('新增成功'))
           open.value = false
           getList()
         })
@@ -235,6 +367,7 @@ function submitForm() {
   })
 }
 /** 删除按钮操作 */
+
 function handleDelete(row) {
   const postIds = row.id || ids.value
   proxy.$modal
@@ -249,13 +382,12 @@ function handleDelete(row) {
     .catch(() => {})
 }
 /** 导出按钮操作 */
+
 function handleExport() {
   proxy.download(
     'system/post/export',
-    {
-      ...queryParams.value,
-    },
-    `post_${new Date().getTime()}.xlsx`,
+    { ...queryParams.value },
+    'post_' + new Date().getTime() + '.xlsx'
   )
 }
 

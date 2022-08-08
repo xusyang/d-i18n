@@ -6,8 +6,8 @@
         inline-prompt
         active-value="darkTheme"
         inactive-value="lightTheme"
-        active-text="深"
-        inactive-text="浅"
+        :active-text="I18N.$fanyi('深')"
+        :inactive-text="I18N.$fanyi('浅')"
         @change="switchTheme"
       />
     </div>
@@ -15,18 +15,28 @@
       <svg-icon icon-class="xiaoxi" />
     </div>
     <div class="avatar-container">
-      <span class="user-name">{{ getters.name }}</span>
-      <el-dropdown @command="handleCommand" class="right-menu-item hover-effect" trigger="click">
+      <span class="user-name">
+        {{ getters.name }}
+      </span>
+      <el-dropdown
+        @command="handleCommand"
+        class="right-menu-item hover-effect"
+        trigger="click"
+      >
         <div class="avatar-wrapper">
           <img :src="getters.avatar" class="user-avatar" />
         </div>
         <template #dropdown>
           <el-dropdown-menu style="position: relative; padding: 0; margin: 0">
             <router-link to="/user/profile">
-              <el-dropdown-item>个人中心</el-dropdown-item>
+              <el-dropdown-item>
+                {{ I18N.$fanyi('个人中心') }}
+              </el-dropdown-item>
             </router-link>
             <el-dropdown-item divided command="logout">
-              <span>退出登录</span>
+              <span>
+                {{ I18N.$fanyi('退出登录') }}
+              </span>
             </el-dropdown-item>
           </el-dropdown-menu>
         </template>
@@ -37,16 +47,13 @@
 
 <script setup lang="ts">
 import { ElMessageBox } from 'element-plus'
-
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import themes from '@/utils/theme'
-
 const store = useStore()
 const getters = computed(() => store.getters)
 const router = useRouter()
-
 const lightOrDark = ref('darkTheme')
 
 const handleTask = () => {
@@ -58,15 +65,18 @@ function handleCommand(command) {
     case 'setLayout':
       setLayout()
       break
+
     case 'logout':
       logout()
       break
+
     default:
       break
   }
 }
 
 const emits = defineEmits(['setLayout'])
+
 function setLayout() {
   emits('setLayout')
 }
@@ -75,7 +85,7 @@ function logout() {
   ElMessageBox.confirm('确定注销并退出系统吗？', '提示', {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
-    type: 'warning',
+    type: 'warning'
   })
     .then(() => {
       store.dispatch('LogOut').then(() => {
@@ -92,6 +102,7 @@ const switchTheme = () => {
     document.documentElement.style.setProperty(item, currentTheme[item])
   })
 }
+
 switchTheme()
 </script>
 

@@ -2,14 +2,28 @@
   <div
     class="sidebar-logo-container"
     :class="{ collapse: collapse }"
-    :style="{ backgroundColor: sideTheme === 'theme-dark' ? variables.menuBackground : variables.menuLightBackground }"
+    :style="{
+      backgroundColor:
+        sideTheme === 'theme-dark'
+          ? variables.menuBackground
+          : variables.menuLightBackground
+    }"
   >
     <transition name="sidebarLogoFade">
-      <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/">
-        <!-- <img v-if="logo" :src="logo" class="sidebar-logo" /> -->
+      <router-link
+        v-if="collapse"
+        key="collapse"
+        class="sidebar-logo-link"
+        to="/"
+      >
         <h1
           class="sidebar-title"
-          :style="{ color: sideTheme === 'theme-dark' ? variables.logoTitleColor : variables.logoLightTitleColor }"
+          :style="{
+            color:
+              sideTheme === 'theme-dark'
+                ? variables.logoTitleColor
+                : variables.logoLightTitleColor
+          }"
         >
           {{ title }}
         </h1>
@@ -18,9 +32,14 @@
         <img v-if="logo" :src="logo" class="sidebar-logo" />
         <h1
           class="sidebar-title"
-          :style="{ color: sideTheme === 'theme-dark' ? variables.logoTitleColor : variables.logoLightTitleColor }"
+          :style="{
+            color:
+              sideTheme === 'theme-dark'
+                ? variables.logoTitleColor
+                : variables.logoLightTitleColor
+          }"
         >
-          <span>C</span>ost <span>P</span>er<span>S</span>pective
+          <span> C </span> ost <span> P </span> er <span> S </span> pective
         </h1>
       </router-link>
     </transition>
@@ -29,14 +48,12 @@
 
 <script setup>
 import variables from '@/assets/styles/variables.module.scss'
-
 defineProps({
   collapse: {
     type: Boolean,
-    required: true,
-  },
+    required: true
+  }
 })
-
 const title = ref('CPS')
 const store = useStore()
 const sideTheme = computed(() => store.state.settings.sideTheme)
@@ -83,7 +100,7 @@ const sideTheme = computed(() => store.state.settings.sideTheme)
       font-size: 20px;
       font-weight: 800;
       span {
-        color:#86bc25;
+        color: #86bc25;
       }
     }
   }

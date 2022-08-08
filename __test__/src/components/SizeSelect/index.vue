@@ -22,30 +22,37 @@
 
 <script setup>
 import { ElMessage } from 'element-plus'
-
 const store = useStore()
 const size = computed(() => store.getters.size)
 const route = useRoute()
 const router = useRouter()
 const { proxy } = getCurrentInstance()
 const sizeOptions = ref([
-  { label: '�ϴ�', value: 'large' },
-  { label: 'Ĭ��', value: 'default' },
-  { label: '��С', value: 'small' },
+  {
+    label: '�ϴ�',
+    value: 'large'
+  },
+  {
+    label: 'Ĭ��',
+    value: 'default'
+  },
+  {
+    label: '��С',
+    value: 'small'
+  }
 ])
 
 function refreshView() {
   // In order to make the cached page re-rendered
   store.dispatch('tagsView/delAllCachedViews', route)
-
   const { fullPath } = route
-
   nextTick(() => {
     router.replace({
-      path: '/redirect' + fullPath,
+      path: '/redirect' + fullPath
     })
   })
 }
+
 function handleSetSize(size) {
   proxy.$modal.loading('�������ò��ִ�С�����Ժ�...')
   store.dispatch('app/setSize', size)

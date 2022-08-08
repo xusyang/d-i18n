@@ -12,7 +12,6 @@
 
 <script lang="ts" setup>
 import { getCurrentInstance, onMounted, ref } from 'vue'
-
 const instance = getCurrentInstance()
 const slots = instance.slots
 </script>

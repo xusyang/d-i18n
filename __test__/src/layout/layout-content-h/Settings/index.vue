@@ -1,13 +1,30 @@
 <template>
-  <el-drawer v-model="showSettings" :withHeader="false" direction="rtl" size="300px">
+  <el-drawer
+    v-model="showSettings"
+    :withHeader="false"
+    direction="rtl"
+    size="300px"
+  >
     <div class="setting-drawer-title">
-      <h3 class="drawer-title">主题风格设置</h3>
+      <h3 class="drawer-title">
+        {{ I18N.$fanyi('主题风格设置') }}
+      </h3>
     </div>
     <div class="setting-drawer-block-checbox">
-      <div class="setting-drawer-block-checbox-item" @click="handleTheme('theme-dark')">
+      <div
+        class="setting-drawer-block-checbox-item"
+        @click="handleTheme('theme-dark')"
+      >
         <img src="@/assets/images/dark.svg" alt="dark" />
-        <div v-if="sideTheme === 'theme-dark'" class="setting-drawer-block-checbox-selectIcon" style="display: block">
-          <i aria-label="图标: check" class="anticon anticon-check">
+        <div
+          v-if="sideTheme === 'theme-dark'"
+          class="setting-drawer-block-checbox-selectIcon"
+          style="display: block"
+        >
+          <i
+            :aria-label="I18N.$fanyi('图标: check')"
+            class="anticon anticon-check"
+          >
             <svg
               viewBox="64 64 896 896"
               data-icon="check"
@@ -25,10 +42,20 @@
           </i>
         </div>
       </div>
-      <div class="setting-drawer-block-checbox-item" @click="handleTheme('theme-light')">
+      <div
+        class="setting-drawer-block-checbox-item"
+        @click="handleTheme('theme-light')"
+      >
         <img src="@/assets/images/light.svg" alt="light" />
-        <div v-if="sideTheme === 'theme-light'" class="setting-drawer-block-checbox-selectIcon" style="display: block">
-          <i aria-label="图标: check" class="anticon anticon-check">
+        <div
+          v-if="sideTheme === 'theme-light'"
+          class="setting-drawer-block-checbox-selectIcon"
+          style="display: block"
+        >
+          <i
+            :aria-label="I18N.$fanyi('图标: check')"
+            class="anticon anticon-check"
+          >
             <svg
               viewBox="64 64 896 896"
               data-icon="check"
@@ -48,45 +75,63 @@
       </div>
     </div>
     <div class="drawer-item">
-      <span>主题颜色</span>
+      <span>
+        {{ I18N.$fanyi('主题颜色') }}
+      </span>
       <span class="comp-style">
-        <el-color-picker v-model="theme" :predefine="predefineColors" @change="themeChange" />
+        <el-color-picker
+          v-model="theme"
+          :predefine="predefineColors"
+          @change="themeChange"
+        />
       </span>
     </div>
     <el-divider />
 
-    <h3 class="drawer-title">系统布局配置</h3>
+    <h3 class="drawer-title">
+      {{ I18N.$fanyi('系统布局配置') }}
+    </h3>
 
     <div class="drawer-item">
-      <span>开启 TopNav</span>
+      <span>
+        {{ I18N.$fanyi('开启 TopNav') }}
+      </span>
       <span class="comp-style">
         <el-switch v-model="topNav" class="drawer-switch" />
       </span>
     </div>
 
     <div class="drawer-item">
-      <span>开启 Tags-Views</span>
+      <span>
+        {{ I18N.$fanyi('开启 Tags-Views') }}
+      </span>
       <span class="comp-style">
         <el-switch v-model="tagsView" class="drawer-switch" />
       </span>
     </div>
 
     <div class="drawer-item">
-      <span>固定 Header</span>
+      <span>
+        {{ I18N.$fanyi('固定 Header') }}
+      </span>
       <span class="comp-style">
         <el-switch v-model="fixedHeader" class="drawer-switch" />
       </span>
     </div>
 
     <div class="drawer-item">
-      <span>显示 Logo</span>
+      <span>
+        {{ I18N.$fanyi('显示 Logo') }}
+      </span>
       <span class="comp-style">
         <el-switch v-model="sidebarLogo" class="drawer-switch" />
       </span>
     </div>
 
     <div class="drawer-item">
-      <span>动态标题</span>
+      <span>
+        {{ I18N.$fanyi('动态标题') }}
+      </span>
       <span class="comp-style">
         <el-switch v-model="dynamicTitle" class="drawer-switch" />
       </span>
@@ -94,8 +139,12 @@
 
     <el-divider />
 
-    <el-button type="primary" plain @click="saveSetting">保存配置</el-button>
-    <el-button plain  @click="resetSetting">重置配置</el-button>
+    <el-button type="primary" plain @click="saveSetting">
+      {{ I18N.$fanyi('保存配置') }}
+    </el-button>
+    <el-button plain @click="resetSetting">
+      {{ I18N.$fanyi('重置配置') }}
+    </el-button>
   </el-drawer>
 </template>
 
@@ -105,88 +154,105 @@ import originElementPlus from 'element-plus/theme-chalk/index.css'
 import axios from 'axios'
 import { ElLoading, ElMessage } from 'element-plus'
 import { useDynamicTitle } from '@/utils/dynamicTitle'
-
 const { proxy } = getCurrentInstance()
 const store = useStore()
 const showSettings = ref(false)
 const theme = ref(store.state.settings.theme)
 const sideTheme = ref(store.state.settings.sideTheme)
 const storeSettings = computed(() => store.state.settings)
-const predefineColors = ref(['#409EFF', '#ff4500', '#ff8c00', '#ffd700', '#90ee90', '#00ced1', '#1e90ff', '#c71585'])
-
+const predefineColors = ref([
+  '#409EFF',
+  '#ff4500',
+  '#ff8c00',
+  '#ffd700',
+  '#90ee90',
+  '#00ced1',
+  '#1e90ff',
+  '#c71585'
+])
 /** 是否需要topnav */
+
 const topNav = computed({
   get: () => storeSettings.value.topNav,
   set: (val) => {
     store.dispatch('settings/changeSetting', {
       key: 'topNav',
-      value: val,
+      value: val
     })
+
     if (!val) {
       store.dispatch('app/toggleSideBarHide', false)
       store.commit('SET_SIDEBAR_ROUTERS', store.state.permission.defaultRoutes)
     }
-  },
+  }
 })
 /** 是否需要tagview */
+
 const tagsView = computed({
   get: () => storeSettings.value.tagsView,
   set: (val) => {
     store.dispatch('settings/changeSetting', {
       key: 'tagsView',
-      value: val,
+      value: val
     })
-  },
+  }
 })
 /**是否需要固定头部 */
+
 const fixedHeader = computed({
   get: () => storeSettings.value.fixedHeader,
   set: (val) => {
     store.dispatch('settings/changeSetting', {
       key: 'fixedHeader',
-      value: val,
+      value: val
     })
-  },
+  }
 })
 /**是否需要侧边栏的logo */
+
 const sidebarLogo = computed({
   get: () => storeSettings.value.sidebarLogo,
   set: (val) => {
     store.dispatch('settings/changeSetting', {
       key: 'sidebarLogo',
-      value: val,
+      value: val
     })
-  },
+  }
 })
 /**是否需要侧边栏的动态网页的title */
+
 const dynamicTitle = computed({
   get: () => storeSettings.value.dynamicTitle,
   set: (val) => {
     store.dispatch('settings/changeSetting', {
       key: 'dynamicTitle',
-      value: val,
+      value: val
     })
+
     // 动态设置网页标题
+
     useDynamicTitle()
-  },
+  }
 })
 
 function themeChange(val) {
   store.dispatch('settings/changeSetting', {
     key: 'theme',
-    value: val,
+    value: val
   })
   theme.value = val
 }
+
 function handleTheme(val) {
   store.dispatch('settings/changeSetting', {
     key: 'sideTheme',
-    value: val,
+    value: val
   })
   sideTheme.value = val
 }
+
 function saveSetting() {
-  proxy.$modal.loading('正在保存到本地，请稍候...')
+  proxy.$modal.loading(I18N.$fanyi('正在保存到本地，请稍候...'))
   let layoutSetting = {
     topNav: storeSettings.value.topNav,
     tagsView: storeSettings.value.tagsView,
@@ -194,22 +260,24 @@ function saveSetting() {
     sidebarLogo: storeSettings.value.sidebarLogo,
     dynamicTitle: storeSettings.value.dynamicTitle,
     sideTheme: storeSettings.value.sideTheme,
-    theme: storeSettings.value.theme,
+    theme: storeSettings.value.theme
   }
   localStorage.setItem('layout-setting', JSON.stringify(layoutSetting))
   setTimeout(proxy.$modal.closeLoading(), 1000)
 }
+
 function resetSetting() {
-  proxy.$modal.loading('正在清除设置缓存并刷新，请稍候...')
+  proxy.$modal.loading(I18N.$fanyi('正在清除设置缓存并刷新，请稍候...'))
   localStorage.removeItem('layout-setting')
   setTimeout('window.location.reload()', 1000)
 }
+
 function openSetting() {
   showSettings.value = true
 }
 
 defineExpose({
-  openSetting,
+  openSetting
 })
 </script>
 

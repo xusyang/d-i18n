@@ -1,6 +1,11 @@
 <template>
   <div class="container-legal-tree">
-    <el-input class="search-box" v-model="filterText" placeholder="搜索法人" :suffix-icon="Search" />
+    <el-input
+      class="search-box"
+      v-model="filterText"
+      :placeholder="I18N.$fanyi('搜索法人')"
+      :suffix-icon="Search"
+    />
     <el-scrollbar style="height: calc(100% - 50px)">
       <el-tree
         ref="treeRef"
@@ -17,15 +22,28 @@
           <div class="custom-tree-node">
             <div>
               <i class="iconfont icon-select" v-if="data.select"></i>
-              <el-tooltip :disabled="!node.label || node.label.length < 15" placement="top" effect="light">
+              <el-tooltip
+                :disabled="!node.label || node.label.length < 15"
+                placement="top"
+                effect="light"
+              >
                 <template #content>
                   {{ node.label }}
                 </template>
-                <span>{{ $emphasisText(node.label) }}</span>
+                <span>
+                  {{ $emphasisText(node.label) }}
+                </span>
               </el-tooltip>
             </div>
             <div class="tools" v-if="canEdit && data.select">
-              <el-popconfirm :title="`确认要删除【${data.label}】吗？`" @confirm="handleDel(data)">
+              <el-popconfirm
+                :title="
+                  I18N.$fanyi('确认要删除【') +
+                  data.label +
+                  I18N.$fanyi('】吗？')
+                "
+                @confirm="handleDel(data)"
+              >
                 <template #reference>
                   <i class="iconfont icon-del"></i>
                 </template>
@@ -44,13 +62,12 @@
 <script lang="ts" setup>
 import { ref, watch, computed, inject, nextTick } from 'vue'
 import type { ElTree } from 'element-plus'
-
 import * as ApiLegal from '@/api/system/legal'
 import { Search } from '@element-plus/icons-vue'
 import { INotice, SYSTEM_LEGAL } from '@/constants/inject-keys'
 import Edit from './edit.vue'
-
 const refresh = inject<INotice>(SYSTEM_LEGAL.REFRESH_LEGAL)
+
 if (refresh && refresh.tag) {
   watch(refresh.tag, () => {
     getData()
@@ -62,27 +79,26 @@ interface Tree {
   label: string
   children?: Tree[]
 }
-
-const { modelValue, canEdit = true } = defineProps<{ modelValue: Number; canEdit: Boolean }>()
-
+const { modelValue, canEdit = true } = defineProps<{
+  modelValue: Number
+  canEdit: Boolean
+}>()
 const emit = defineEmits(['update:modelValue', 'level'])
 const editRef = ref(null)
-
 const value = computed({
   get() {
     return modelValue
   },
+
   set(value) {
     emit('update:modelValue', value)
-  },
+  }
 })
-
 const treeRef = ref<InstanceType<typeof ElTree>>()
 const treeProps = {
   children: 'children',
-  label: 'label',
+  label: 'label'
 }
-
 const filterText = ref('')
 watch(filterText, (val) => {
   treeRef.value!.filter(val)
@@ -94,29 +110,34 @@ const filterNode = (value: string, data: Tree) => {
 }
 
 const data = ref<Tree[]>([])
+
 const getData = async () => {
   const res = await ApiLegal.tree()
+
   const normalize = (data) => {
     const res = data.map((x) => {
       const { children } = x
+
       if (children && children.length > 0) {
         return {
           id: x.id,
           label: x.legalName,
-          children: normalize(children),
+          children: normalize(children)
         }
       } else {
         return {
           id: x.id,
-          label: x.legalName,
+          label: x.legalName
         }
       }
     })
     return res
   }
+
   data.value = normalize(res.data)
 
   // 默认选中第一个集团
+
   if (data.value && data.value.length) {
     const firstId = data.value[0].id
     value.value = firstId
@@ -124,18 +145,19 @@ const getData = async () => {
       treeRef.value.setCurrentKey(firstId)
     })
   }
-  
 }
-getData()
 
+getData()
 let preNode = null
+
 const selectNode = (node, treeNode) => {
   if (preNode === node) return
-
   node.select = true
+
   if (preNode) {
     preNode.select = false
   }
+
   preNode = node
   value.value = node.id
   emit('level', treeNode.level)

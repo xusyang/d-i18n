@@ -4,16 +4,24 @@
       v-model="iconName"
       style="position: relative"
       clearable
-      placeholder="请输入图标名称"
+      :placeholder="I18N.$fanyi('请输入图标名称')"
       @clear="filterIcons"
       @input="filterIcons"
     >
-      <template #suffix><i class="el-icon-search el-input__icon" /></template>
+      <template #suffix>
+        <i class="el-icon-search el-input__icon" />
+      </template>
     </el-input>
     <div class="icon-list">
-      <div v-for="(item, index) in iconList" :key="index" @click="selectedIcon(item)">
+      <div
+        v-for="(item, index) in iconList"
+        :key="index"
+        @click="selectedIcon(item)"
+      >
         <svg-icon :icon-class="item" style="height: 30px; width: 16px" />
-        <span>{{ item }}</span>
+        <span>
+          {{ item }}
+        </span>
       </div>
     </div>
   </div>
@@ -21,13 +29,13 @@
 
 <script setup>
 import icons from './requireIcons'
-
 const iconName = ref('')
 const iconList = ref(icons)
 const emit = defineEmits(['selected'])
 
 function filterIcons() {
   iconList.value = icons
+
   if (iconName.value) {
     iconList.value = icons.filter((item) => item.indexOf(iconName.value) !== -1)
   }
@@ -44,7 +52,7 @@ function reset() {
 }
 
 defineExpose({
-  reset,
+  reset
 })
 </script>
 

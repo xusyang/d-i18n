@@ -8,7 +8,9 @@
   >
     <template #error>
       <div class="image-slot">
-        <el-icon><picture-filled /></el-icon>
+        <el-icon>
+          <picture-filled />
+        </el-icon>
       </div>
     </template>
   </el-image>
@@ -18,23 +20,21 @@
 const props = defineProps({
   src: {
     type: String,
-    required: true,
+    required: true
   },
   width: {
     type: [Number, String],
-    default: '',
+    default: ''
   },
   height: {
     type: [Number, String],
-    default: '',
-  },
+    default: ''
+  }
 })
-
 const realSrc = computed(() => {
   let real_src = props.src.split(',')[0]
   return real_src
 })
-
 const realSrcList = computed(() => {
   let real_src_list = props.src.split(',')
   let srcList = []
@@ -43,10 +43,12 @@ const realSrcList = computed(() => {
   })
   return srcList
 })
-
-const realWidth = computed(() => (typeof props.width == 'string' ? props.width : `${props.width}px`))
-
-const realHeight = computed(() => (typeof props.height == 'string' ? props.height : `${props.height}px`))
+const realWidth = computed(() =>
+  typeof props.width == 'string' ? props.width : props.width + 'px'
+)
+const realHeight = computed(() =>
+  typeof props.height == 'string' ? props.height : props.height + 'px'
+)
 </script>
 
 <style lang="scss" scoped>
